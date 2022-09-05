@@ -17,10 +17,10 @@
   - https://github.com/ntnu-pesc/TET4120_LAB (restricted access)
 
 ::DESCRIPTION::
- - System functions (s-functions) provide a powerful mechanism for extending capabilities of 
+ - System functions (S-Functions) provide a powerful mechanism for extending capabilities of 
    the MATLAB and Simulink environment. M-file, Fortran and C/C++ supported.
  - This file is responsible for communicating with the Simulink engine API during simulation.
- - Actual s-function block functionality is defined through external objects.
+ - Actual S-Function block functionality is defined through external objects.
  - Class definition/declaration are provided as separate .cpp/.hpp files.
 
 ::DEPENDENCIES::
@@ -32,8 +32,10 @@
    1) C++ source files implementing actual object behaviour
    2) Interface file (this) connecting to S-Function API
    3) Simulink model with S-Function block.
- - MATLAB/Simulink R2022a. Plain installation, no Toolboxes/Add-Ons required.
- - MATLAB-supported compiler (MinGW64 Compiler reccomended).
+ - MATLAB/Simulink R2022a. Plain installation, no additional Toolboxes required.
+ - MATLAB-supported C++ compiler
+    - Windows OS: MinGW64 Compiler
+    - Mac iOS: Xcode Clang++
  - Dependencies in same location as this file (project folder).
  - IDE to edit source code (Xilinx SDK or Visual Studio Code).
 
@@ -61,7 +63,7 @@
 
 ::HOW TO BUILD::
  1) In MATLAB command window write:
-    "mex sfun_load_emu.cpp SwLoadEmulator.cpp".
+    "mex sfun_load_emu.cpp SwLoadEmulator.cpp -DSIMULINK".
  2) Press Enter to let MATLAB/Mex utility compile the source files.
  3) ** Compilation successfull **
       Building with <compiler-name> MEX completed successfully.

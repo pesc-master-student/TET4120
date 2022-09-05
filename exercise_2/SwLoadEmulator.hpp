@@ -1,8 +1,10 @@
 #ifndef LOAD_EMULATOR_HPP_INCLUDED
 #define LOAD_EMULATOR_HPP_INCLUDED
+
 #include <math.h>
 #include <cstdint>
 #include <stdint.h>
+#include <cmath>
 
 #define _PARAMS(paramlist)		paramlist
 
@@ -42,15 +44,15 @@ public:
 	void Initialize(void);
 	fp32_t& Run(const fp32_t& ActualSpeed_pu);
 
-	// Used in MATLAB/Simulink only (To be commented out in Emulator)
-	LoadType getLoadType(void);
-	void setLoadType(const LoadType arg);
-	void setParamFromMask(int index, const fp32_t newParam);
-	const fp32_t getParam(int index);
-	void setSig0(const fp32_t signal);
-	void setSig1(const fp32_t signal);
-	fp32_t getSinus(void);
-	// End MATLAB/Simulink only
+	#ifdef SIMULINK // **** Only required for MATLAB/Simulink ****
+	  LoadType getLoadType(void);
+	  void setLoadType(const LoadType arg);
+	  void setParamFromMask(int index, const fp32_t newParam);
+	  const fp32_t getParam(int index);
+	  void setSig0(const fp32_t signal);
+	  void setSig1(const fp32_t signal);
+	  fp32_t getSineWaves(void);
+	#endif // **** EOF required for MATLAB/Simulink ****
 private:
 	const fp32_t RunPump(const fp32_t ActSpeed_pu);
 
@@ -64,11 +66,11 @@ private:
 	bool   b_in_limit;
 	bool   b_input_reached;
 
-    // Used in MATLAB/Simulink only (To be commented out in Emulator)
-	fp32_t param_var[3];
-	fp32_t input_sig0;
-	fp32_t input_sig1;
-    // End MATLAB/Simulink only
+    #ifdef SIMULINK // **** Only required for MATLAB/Simulink ****
+	  fp32_t param_var[3];
+	  fp32_t input_sig0;
+	  fp32_t input_sig1;
+    #endif // **** EOF required for MATLAB/Simulink ****
 
 };
 
