@@ -1,7 +1,6 @@
 #ifndef LOAD_EMULATOR_HPP_INCLUDED
 #define LOAD_EMULATOR_HPP_INCLUDED
 
-#include <math.h>
 #include <cstdint>
 #include <stdint.h>
 #include <cmath>

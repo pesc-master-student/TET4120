@@ -63,7 +63,7 @@
 
 ::HOW TO BUILD::
  1) In MATLAB command window write:
-    "mex sfun_load_emu.cpp SwLoadEmulator.cpp -DSIMULINK".
+    "mex sfun_load_emu.cpp SwLoadEmulator.cpp -DSIMULINK -D_USE_MATH_DEFINES".
  2) Press Enter to let MATLAB/Mex utility compile the source files.
  3) ** Compilation successfull **
       Building with <compiler-name> MEX completed successfully.
@@ -87,7 +87,8 @@ Ver  Author  			  		 Date       Changes
 1.03 ***                         16.08.2022 Cleaned up code. Added documentation.
 1.05 ***                         18.08.2022 Added: graphics + support 4 parameters
                                             supplied from mask + 2 input signals.   
-1.06 thomas.haugan@ntnu.no       02.09.2022 Corrected ENUM translation error.                                           
+1.06 ***                         02.09.2022 Corrected ENUM translation error. 
+1.06 thomas.haugan@ntnu.no       05.09.2022 Updated build instructions with -D flags.
 *************************************************************************************
 TODO:
 ************************************************************************************/
