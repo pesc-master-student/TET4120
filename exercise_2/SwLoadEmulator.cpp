@@ -11,8 +11,8 @@ void LoadEmulator::Initialize(void){
 	m_LoadType 	= static_cast<LoadType>(0);
 	m_T_load_Nm = 0.0;
 
-	// Pump Model Parameters:
-	m_PumpData.k_L			= 1.0e-4; 	//Parameters.Load1.Pump.k_L;
+	// Pump Model Parameters: (Initialize your parameters in your own model)
+	m_PumpData.k_L			= 1.0e-4; // param_var[0]	//Parameters.Load1.Pump.k_L;
 	m_PumpData.t_constant	= 0.0; 		//Parameters.Load1.Pump.t_constant;
 
 }
@@ -24,7 +24,7 @@ fp32_t& LoadEmulator::Run(const fp32_t& Actual_Speed_rpm){
 				m_T_load_Nm = RunPump(Actual_Speed_rpm);
 				break;
 			case LoadType::ElectricVehicle:
-				m_T_load_Nm = 0.2;
+				m_T_load_Nm = RunPump(Actual_Speed_rpm); // Your own load
 				break;
 			case LoadType::ShipPropulsion:
 				m_T_load_Nm = 0.3;
@@ -42,7 +42,7 @@ fp32_t& LoadEmulator::Run(const fp32_t& Actual_Speed_rpm){
 	return m_T_load_Nm;
 }
 
-const fp32_t LoadEmulator::RunPump(const fp32_t ActSpeed_rpm){
+const fp32_t LoadEmulator::RunPump(const fp32_t ActSpeed_rpm){ // Your own load
 	fp32_t t_pump_Nm;
 	if(ActSpeed_rpm >= 0.0){
 		t_pump_Nm = m_PumpData.k_L*ActSpeed_rpm*ActSpeed_rpm + m_PumpData.t_constant;

@@ -7,19 +7,22 @@
 
 #define _PARAMS(paramlist)		paramlist
 
-typedef unsigned short		uint16_t;
-typedef float				fp32_t;
-typedef double				fp64_t;
-typedef fp64_t				fp_t;
+#ifdef SIMULINK // **** Only required for MATLAB/Simulink ****
+  // Included in types.hpp
+  typedef unsigned short		uint16_t;
+  typedef float				fp32_t;
+  typedef double				fp64_t;
+  typedef fp64_t				fp_t;
 
-const fp32_t M_2PI              = 2.0 * M_PI;
-const fp32_t M_2PI_DIV_3 		= M_2PI/3;
-const fp32_t M_4PI_DIV_3		= 4.0/3.0 * M_PI;
-const fp32_t M_PI_DIV_2		    = M_PI/2.0;
-const fp32_t M_SQRT_1_DIV_3 	= 1/sqrt(3.0);
-const fp32_t M_1_DIV_6  		= 1.0/6.0;
-const fp32_t M_1_DIV_3  		= 1.0/3.0;
-
+  // Included in Constants.hpp
+  const fp32_t M_2PI              = 2.0 * M_PI;
+  const fp32_t M_2PI_DIV_3 		= M_2PI/3;
+  const fp32_t M_4PI_DIV_3		= 4.0/3.0 * M_PI;
+  const fp32_t M_PI_DIV_2		    = M_PI/2.0;
+  const fp32_t M_SQRT_1_DIV_3 	= 1/sqrt(3.0);
+  const fp32_t M_1_DIV_6  		= 1.0/6.0;
+  const fp32_t M_1_DIV_3  		= 1.0/3.0;
+#endif // **** EOF required for MATLAB/Simulink ****
 
 enum class LoadType
 {
