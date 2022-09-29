@@ -1,0 +1,651 @@
+/***********************************************************************************
+
+File Name: 		Application.cpp
+Description:	Implementation code.
+                Further details explained in Application.hpp
+
+ *************************************************************************************/
+
+#include "Application.hpp"
+
+
+extern Drive Drive1;
+extern Converter Converter1;
+extern Converter Converter2;
+extern FirmWare FirmWare1;
+
+extern fp32_t Tsamp;
+extern fp32_t Time_used_PWMIsr_us;
+
+void Application::initialize(){
+// Initialize according to parameter database
+
+		// Start-up mode. Test-run, etc.
+	    // Control Mode, Flystart method, etc.
+		// Select Warning and Fault detection, and limits....
+	    //m_CAN.CAN_port_config(100000, 0, 2, 1, TRUE, hmi.can.selector);
+
+	m_uFaultWord.all=0;
+	m_uStatusWord.all=0;
+	m_uWarningWord.all=0;
+	m_uLimitWord.all=0;
+	m_uControlWord.all=0;
+
+
+        if(Parameters.Drive1.MotorData.MACHINE_ID != Parameters.FW1.Emulator.MACHINE_ID){
+		m_uFaultWord.bit.SW_FW_mismatch = true;
+		Drive1.m_MACHINE_ID = FIRMWARE_SOFTWARE_MISMATCH;
+	}
+	else{
+		Drive1.m_MACHINE_ID = Parameters.FW1.Emulator.MACHINE_ID;
+	}
+
+	m_Time_used_interrupt_Fault   = 10000.0*Parameters.System1.percent_Time_interrupt_Fault*Tsamp; //us
+	m_Time_used_interrupt_Warning = 10000.0*Parameters.System1.percent_Time_interrupt_Warning*Tsamp; //us
+
+	b_IDRun_request		= Parameters.App1.b_IDRun_request;
+	b_PulseTest_request = Parameters.App1.b_PulseTest_request;
+	b_remote_allowed    = Parameters.App1.b_Remote_Allowed;
+
+
+
+	// Choice of source for PLC-command source and Control Mode:
+	m_ReferenceSource 	= static_cast<ApplicationReferenceSource>(Parameters.App1.SourceReference);
+	m_ControlMode 		= static_cast<ApplicationControlMode>(Parameters.App1.ControlMode);
+
+
+	// Initialize Limits and reference values from PLC:
+
+	m_references.te_max	= Parameters.App1.Torque_max;
+	m_references.te_min	= Parameters.App1.Torque_min;
+
+	m_PLC.power_max		= Parameters.App1.Power_max;
+	m_PLC.power_min		= Parameters.App1.Power_min;
+	m_PLC.torque_ref	= 0.0;
+	m_PLC.speed_ref		= 0.0;
+	m_PLC.power_ref     = 0.0;
+	m_PLC.Udc_V_ref     = Parameters.App1.Udc_ref_V_local; // Initialized to actual DC-link voltage later.
+	m_references.p_max 	= m_PLC.power_max;
+	m_references.p_min 	= m_PLC.power_min;
+
+
+	m_TorqueRefFilter.SetParameters(Parameters.App1.TorqueRefFilterTimeConstant,Tsamp);
+	m_TorqueRefFilter.InitValue(0.0);
+	m_TorqueRefRampFilter.SetParameters(2.0,0.1,m_references.te_max,m_references.te_min,0.05,0.1,Tsamp);
+	m_TorqueRefRampFilter.SetValues(0.0);
+	b_speedramp_allowed			= Parameters.App1.b_Speedramp_Allowed;
+	b_speedramp_fixed_selected 	= Parameters.App1.b_Speedramp_Fixed_Selected;
+
+	m_SpeedRefFilter.SetParameters(Parameters.App1.SpeedRefFilterTimeConstant,Tsamp);
+	m_SpeedRefFilter.InitValue(0.0);
+	m_SpeedRefRampFilter.SetParameters(Parameters.App1.SpeedRamp.time_increase,Parameters.App1.SpeedRamp.time_decrease,
+			                           Parameters.Drive1.DriveData.Speed_max,Parameters.Drive1.DriveData.Speed_min,
+				                       Parameters.App1.SpeedRamp.error_max,Parameters.App1.SpeedRamp.deviation_max,Tsamp);
+	m_SpeedRefRampFilter.SetValues(0.0);
+	m_SpeedQuickStopRampFilter.SetParameters(Parameters.App1.SpeedQuickStopRamp.time_increase,Parameters.App1.SpeedQuickStopRamp.time_decrease,
+				                           Parameters.Drive1.DriveData.Speed_max,Parameters.Drive1.DriveData.Speed_min,
+					                       Parameters.App1.SpeedQuickStopRamp.error_max,Parameters.App1.SpeedQuickStopRamp.deviation_max,Tsamp);
+	m_SpeedQuickStopRampFilter.SetValues(0.0);
+	m_Speed_Quick_Stop_limit_pu=Parameters.App1.Speed_Quick_Stop_limit_pu;
+
+
+	m_SpeedController.SetParameters(Parameters.App1.SpeedController.Kp,Parameters.App1.SpeedController.Ti,Parameters.App1.SpeedController.Ta,Parameters.App1.SpeedController.Kv,Tsamp);
+	m_SpeedController.SetValues(0.0,0.0,m_references.te_min,m_references.te_max);
+
+}
+
+void Application::run(){
+
+	// Need some time for the Background-routine as well:
+	if (Time_used_PWMIsr_us > m_Time_used_interrupt_Fault){
+		m_uFaultWord.bit.Time_used_Interrupt=true;
+	}
+	if (Time_used_PWMIsr_us < m_Time_used_interrupt_Warning){
+		m_uWarningWord.bit.Time_used_Interrupt=false;
+	}
+	else{
+		m_uWarningWord.bit.Time_used_Interrupt=true;
+	}
+
+	// ****************    Controller Area Network (CAN)  ****************** and PLC......or Bacground routine.....
+	//can_status = m_CAN.CAN_port_get_status();
+	//can_status_Rx = m_CAN.CAN_port_rx_read(can_rx_data);
+	//if(hmi.can.runSelfTest) can_selfTestOutput = m_CAN.CAN_self_test();
+
+	//***********************************************************************
+
+	getFaultAndWarningsAndLimits();
+
+	if ((m_uFaultWord.all !=0)&(m_state !=ApplicationState::Malfunction )){
+		m_state = ApplicationState::Malfunction_Reaction_Active;
+	}
+
+    // Read ControlWord and references : Sources remote or local
+	switch (m_ReferenceSource){
+		case ApplicationReferenceSource::ModBus:
+			m_PLC=ModBus;
+			m_uControlWord.all=m_PLC.ControlWord;
+			break;
+		case ApplicationReferenceSource::HighSpeedLink:
+			m_PLC=HSL;
+			m_uControlWord.all=m_PLC.ControlWord;
+			break;
+		case ApplicationReferenceSource::Display:
+			m_PLC=Display;
+			m_uControlWord.all=m_PLC.ControlWord;
+			break;
+		default: // This is the WatchView case . No updating of m_PLC except directly in  WatchView
+			break;
+		}
+
+    // Get actual values from the Drive Layer. This includes torque limits.
+	m_actual_values = Drive1.GetValues();
+
+	switch (m_state){
+		case ApplicationState::Not_Ready_To_Switch_On:
+			runState_Not_Ready_To_Switch_On();
+			break;
+		case ApplicationState::Switch_On_Disabled:
+			runState_Switch_On_Disabled();
+			break;
+		case ApplicationState::Switched_On:
+			runState_Switched_On();
+			break;
+		case ApplicationState::Ready_To_Switch_On:
+			runState_Ready_To_Switch_On();
+			break;
+		case ApplicationState::Operation_Enabled:
+			runState_Operation_Enabled();
+			break;
+		case ApplicationState::Quick_Stop_Active:
+			runState_Quick_Stop_Active();
+			break;
+		case ApplicationState::Malfunction_Reaction_Active:
+			runState_Malfunction_Reaction_Active();
+			break;
+		case ApplicationState::Malfunction:
+			runState_Malfunction();
+			break;
+		case ApplicationState::TestRun:
+			RunState_TestRun();
+		default:
+			runState_Malfunction_Reaction_Active();
+			break;
+	 }
+
+}
+
+
+// Name-RunState_definitions
+void Application::runState_Not_Ready_To_Switch_On(){
+	// Initializing the system and then goes directly to State: switch_on_disabled
+
+	m_uStatusWord.all = 0;
+	m_uStatusWord.bit.voltage_disabled = true;
+	m_uStatusWord.bit.switch_on_disabled = false;
+	m_uStatusWord.bit.not_quick_stop = true;
+
+	if (b_IDRun_request|b_PulseTest_request){
+		b_test_run 			= true;
+		b_test_run_completed = false;
+	}
+	else {
+		b_test_run 			= false;
+		b_test_run_completed = true;
+	}
+
+	Drive1.RequestState(Drive::DriveState::Disabled);
+	m_state = ApplicationState::Switch_On_Disabled;
+
+}
+
+void Application::runState_Switch_On_Disabled(){
+
+	if( (!m_uControlWord.bit.switch_on) & m_uControlWord.bit.not_quick_stop)
+	{
+
+		if(m_uControlWord.bit.voltage_enable& !Drive1.ReadyToStart()){
+			   // Request to turn on pre-charge relays
+			   Drive1.PreCharge(true); // To be modified if required
+		}
+
+		if(m_uControlWord.bit.voltage_enable& Drive1.ReadyToStart()){
+			   // Request
+			   m_uStatusWord.bit.ready_to_switch_on = true;
+			   m_state = ApplicationState::Ready_To_Switch_On;
+			   	return;
+		}
+
+	}
+
+	m_uStatusWord.bit.ready_to_switch_on = false;
+	m_uStatusWord.bit.switched_on = false;
+	m_uStatusWord.bit.operation_enabled = false;
+	m_uStatusWord.bit.malfunction = false;
+	m_uStatusWord.bit.voltage_disabled = true;
+	m_uStatusWord.bit.not_quick_stop = true;
+	m_uStatusWord.bit.switch_on_disabled = true;
+
+	m_uStatusWord.bit.ready_for_operation_enable = false;
+
+}
+
+
+void Application::runState_Ready_To_Switch_On(){
+
+	// Go to Switch_On state
+	if( m_uControlWord.bit.switch_on&m_uControlWord.bit.voltage_enable&m_uControlWord.bit.not_quick_stop&m_uStatusWord.bit.ready_to_switch_on&b_test_run_completed)
+	{
+		m_state = ApplicationState::Switched_On; // Initialize filters and controllers ?
+		Drive1.RequestState(Drive::DriveState::Starting);
+		return;
+	}
+	// Go to TestRun state
+	if( m_uControlWord.bit.switch_on&m_uControlWord.bit.voltage_enable&m_uControlWord.bit.not_quick_stop&m_uStatusWord.bit.ready_to_switch_on&(!b_test_run_completed)&b_test_run){
+		m_state = ApplicationState::TestRun;
+		Drive1.RequestState(Drive::DriveState::TestRun);
+		return;
+	}
+	// Go to Switch_On_Disable state
+	if( (!m_uControlWord.bit.voltage_enable) | (!m_uControlWord.bit.not_quick_stop) ){
+		m_state = ApplicationState::Switch_On_Disabled;
+		Drive1.RequestState(Drive::DriveState::Disabled);
+		return;
+	}
+
+
+	m_uStatusWord.bit.ready_to_switch_on = true;
+	m_uStatusWord.bit.switched_on = false;
+	m_uStatusWord.bit.operation_enabled = false;
+	m_uStatusWord.bit.malfunction = false;
+	m_uStatusWord.bit.voltage_disabled = true;
+	m_uStatusWord.bit.not_quick_stop = true;
+	m_uStatusWord.bit.switch_on_disabled = false;
+
+	m_uStatusWord.bit.ready_for_operation_enable = false;
+
+
+    // Reset reference values, reference filters and controller: (Not needed, but OK do do this here)
+
+	m_references.te_ref=0.0;
+	m_TorqueRefFilter.InitValue(m_references.te_ref);
+	m_SpeedRef_pu=0.0;
+	m_SpeedRefFilter.InitValue(m_SpeedRef_pu);
+	m_SpeedController.SetValues(m_references.te_ref,0.0,m_actual_values.te_min_used,m_actual_values.te_max_used);
+
+
+}
+
+
+void Application::runState_Switched_On(){
+	// Typical synchronization of voltages (Flystart) and magnetizing the machine if needed. No torque production allowed; only to avoid over-speed...
+
+	// Go to Switch_On_Disable state
+	if((!m_uControlWord.bit.voltage_enable)|(!m_uControlWord.bit.not_quick_stop)){
+		m_state = ApplicationState::Switch_On_Disabled;
+		Drive1.RequestState(Drive::DriveState::Disabled);
+		m_uStatusWord.bit.torque_controlled = false;
+		m_uStatusWord.bit.speed_controlled = false;
+		m_uStatusWord.bit.power_controlled = false;
+		m_uStatusWord.bit.DC_link_voltage_controlled = false;
+		return;
+	}
+
+
+	// Go to Ready_To_Switch_On state
+	if((!m_uControlWord.bit.switch_on)&m_uControlWord.bit.voltage_enable&m_uControlWord.bit.not_quick_stop)
+	{
+		m_state = ApplicationState::Ready_To_Switch_On;
+		Drive1.RequestState(Drive::DriveState::Disabled);
+		m_uStatusWord.bit.torque_controlled = false;
+		m_uStatusWord.bit.speed_controlled = false;
+		m_uStatusWord.bit.power_controlled = false;
+		m_uStatusWord.bit.DC_link_voltage_controlled = false;
+		return;
+	}
+	// Go to Operation Enabled State
+	if( m_uControlWord.bit.switch_on&m_uControlWord.bit.voltage_enable&m_uControlWord.bit.not_quick_stop&m_uControlWord.bit.operation_enable&m_uStatusWord.bit.ready_for_operation_enable){
+		m_state = ApplicationState::Operation_Enabled;
+		// Initialize Controllers and filters, etc....
+
+		return;
+	}
+
+	m_uStatusWord.bit.ready_to_switch_on = true;
+	m_uStatusWord.bit.switched_on = true;
+	m_uStatusWord.bit.operation_enabled = false;
+	m_uStatusWord.bit.malfunction = false;
+	m_uStatusWord.bit.voltage_disabled = false;
+	m_uStatusWord.bit.not_quick_stop = true;
+	m_uStatusWord.bit.switch_on_disabled = false;
+
+	// Here is the Flystart and Magnetizing of the Machine requested from the Drive Layer. No torque production allowed.
+	// Torque reference is equal 0. The DRIVE is in Drive::Starting state during Flystart and goes to Drive::Operation Enabled when magnetizing is started.
+	// The only difference for the Drive software is at it get zero torque reference in the Application::Switched_on state and usually torque reference
+	// different from zero in Application::Operation Enabled State
+
+
+	m_references.te_ref=0.0;      // Torque reference in pu
+
+	Drive1.SetValues(m_references);
+	m_uStatusWord.bit.ready_for_operation_enable = Drive1.ReadyForOperationEnable(); // Will be set  when Starting in the Drive is completed, i.e. ready for generating torque
+
+	// Initialize controllers and filters:
+	m_TorqueRefFilter.InitValue(m_actual_values.te_ref_used);
+	m_SpeedRefFilter.InitValue(m_actual_values.speed);
+	m_SpeedRef_pu=m_actual_values.speed;
+	m_SpeedRef_input_used= m_actual_values.speed;
+	m_SpeedController.SetValues(m_actual_values.te_ref_used,0.0,m_actual_values.te_min_used,m_actual_values.te_max_used);
+
+}
+
+void Application::runState_Operation_Enabled()
+{ // Ordinary operation with Torque production
+
+	m_LoadEmualtor_Torque_test=FirmWare1.getLoadEmulatorTorque( m_actual_values.speed); // FOR TEST ONLY
+
+	// Go to Switch_On_Disabled state
+	if(!m_uControlWord.bit.voltage_enable){
+
+		m_uStatusWord.bit.torque_controlled = false;
+		m_uStatusWord.bit.speed_controlled = false;
+		m_uStatusWord.bit.power_controlled = false;
+		m_uStatusWord.bit.DC_link_voltage_controlled = false;
+		m_state = ApplicationState::Switch_On_Disabled;
+		Drive1.RequestState(Drive::DriveState::Disabled);
+		return;
+	}
+
+	// Go to Quick_Stop_Active state
+	if((m_uControlWord.bit.voltage_enable)&(!m_uControlWord.bit.not_quick_stop)){
+		m_uStatusWord.bit.torque_controlled = false;
+		m_uStatusWord.bit.speed_controlled = true;
+		m_uStatusWord.bit.power_controlled = false;
+		m_uStatusWord.bit.DC_link_voltage_controlled = false;
+
+		m_SpeedQuickStopRampFilter.SetValues(m_actual_values.speed);
+		m_SpeedRef_pu=m_actual_values.speed;
+		m_SpeedRef_input_used= 0.0;
+		m_SpeedController.SetValues(m_actual_values.te_ref_used,0.0,m_actual_values.te_min_used,m_actual_values.te_max_used);
+
+		m_uStatusWord.bit.not_quick_stop = false;
+		m_state = ApplicationState::Quick_Stop_Active;
+		return;
+	}
+
+	// Go to Ready_to_Switch_On state
+	if((!m_uControlWord.bit.switch_on)&m_uControlWord.bit.voltage_enable&m_uControlWord.bit.not_quick_stop){
+		m_uStatusWord.bit.torque_controlled = false;
+		m_uStatusWord.bit.speed_controlled = false;
+		m_uStatusWord.bit.power_controlled = false;
+		m_uStatusWord.bit.DC_link_voltage_controlled = false;
+		m_state = ApplicationState::Ready_To_Switch_On;
+		Drive1.RequestState(Drive::DriveState::Disabled);
+		return;
+	}
+
+	// Go to Switched On State
+	if( m_uControlWord.bit.switch_on&m_uControlWord.bit.voltage_enable&m_uControlWord.bit.not_quick_stop&(!m_uControlWord.bit.operation_enable))
+	{
+		m_uStatusWord.bit.torque_controlled = true;
+		m_uStatusWord.bit.speed_controlled = false;
+		m_uStatusWord.bit.power_controlled = false;
+		m_uStatusWord.bit.DC_link_voltage_controlled = false;
+		m_state = ApplicationState::Switched_On;
+		return;
+	}
+
+	m_uStatusWord.bit.ready_to_switch_on = true;
+	m_uStatusWord.bit.switched_on = true;
+	m_uStatusWord.bit.operation_enabled = true;
+	m_uStatusWord.bit.malfunction = false;
+	m_uStatusWord.bit.voltage_disabled = false;
+	m_uStatusWord.bit.not_quick_stop = true;
+	m_uStatusWord.bit.switch_on_disabled = false;
+
+	// Control Mode selected by help of PLC:  (Over-write the value read from data base)
+	if( m_uControlWord.bit.remote&b_remote_allowed){
+		/*if (m_uControlWord.bit.torque_control){
+			m_ControlMode=ApplicationControlMode::Torque;
+		}
+		else if (m_uControlWord.bit.speed_control){
+			m_ControlMode=ApplicationControlMode::Speed;
+		}
+		else if (m_uControlWord.bit.power_control){
+			m_ControlMode=ApplicationControlMode::Power;
+		}
+		else if (m_uControlWord.bit.DC_link_voltage_control){
+			m_ControlMode=ApplicationControlMode::DC_link_Voltage;
+		}
+		else if (m_uControlWord.bit.load_emulator){
+					m_ControlMode=ApplicationControlMode::LoadEmulator;
+				}
+		else{
+			m_ControlMode=ApplicationControlMode::Torque;  // Default
+		} */
+
+		m_ControlMode 		= static_cast<ApplicationControlMode>(m_PLC.ControlMode);
+		m_uStatusWord.bit.remote = true;
+	}
+	else {
+		m_uStatusWord.bit.remote = false;
+	}
+
+	// Control Mode:  (Gives Torque-reference as output)
+	switch (m_ControlMode){
+		case ApplicationControlMode::Torque:
+			m_uStatusWord.bit.torque_controlled = true;
+			m_uStatusWord.bit.speed_controlled = false;
+			m_uStatusWord.bit.power_controlled = false;
+			m_uStatusWord.bit.DC_link_voltage_controlled = false;
+
+		    // Reference filter:
+			m_references.te_ref=m_TorqueRefFilter.RunLim(m_PLC.torque_ref,m_actual_values.te_min_used,m_actual_values.te_max_used);
+			m_uLimitWord.bit.torque_ref_filter=m_TorqueRefFilter.b_in_limit;
+			m_uLimitWord.bit.torque_control   =m_TorqueRefFilter.b_in_limit;
+
+			// Initialize the other controllers and filters:
+			m_SpeedRefFilter.InitValue(m_actual_values.speed);
+			m_SpeedRefRampFilter.SetValues(m_actual_values.speed);
+			m_SpeedRef_pu=m_actual_values.speed;
+			m_SpeedRef_input_used= m_actual_values.speed;
+			m_SpeedController.SetValues(m_actual_values.te_ref_used,0.0,m_actual_values.te_min_used,m_actual_values.te_max_used);
+			m_uLimitWord.bit.speed_ref_filter	=false;
+			m_uLimitWord.bit.speed_control		=false;
+			break;
+		case ApplicationControlMode::Speed:
+			m_uStatusWord.bit.torque_controlled = false;
+			m_uStatusWord.bit.speed_controlled = true;
+			m_uStatusWord.bit.power_controlled = false;
+			m_uStatusWord.bit.DC_link_voltage_controlled = false;
+
+			// Enable Set-point :
+			if (m_uControlWord.bit.enable_set_point){
+				m_SpeedRef_input_used=m_PLC.speed_ref;
+			}
+			// Reference filter:
+			if ((m_uControlWord.bit.ramp_enable&b_speedramp_allowed)|b_speedramp_fixed_selected){
+				m_SpeedRef_pu=m_SpeedRefRampFilter.Run(m_SpeedRef_input_used,m_actual_values.speed,m_uControlWord.bit.ramp_accel);
+				m_uLimitWord.bit.speed_ref_filter=m_SpeedRefRampFilter.b_in_limit;
+				}
+			else {
+				m_SpeedRef_pu=m_SpeedRefFilter.RunLim(m_SpeedRef_input_used,Parameters.Drive1.DriveData.Speed_min,Parameters.Drive1.DriveData.Speed_max);
+				m_uLimitWord.bit.speed_ref_filter=m_SpeedRefFilter.b_in_limit;
+			}
+			// Speed controller:
+			m_references.te_ref=m_SpeedController.Run(m_SpeedRef_pu,m_actual_values.speed,0.0,m_actual_values.te_min_used,m_actual_values.te_max_used);
+			m_uLimitWord.bit.speed_control=m_SpeedController.b_InLim;
+
+			// Initialize the other controllers,filters and reference values:
+			m_TorqueRefFilter.InitValue(m_actual_values.te_ref_used);
+			m_uLimitWord.bit.torque_ref_filter=false;
+			m_uLimitWord.bit.torque_control   =false;
+
+			break;
+		case ApplicationControlMode::DC_link_Voltage:
+			m_uStatusWord.bit.torque_controlled = false;
+			m_uStatusWord.bit.speed_controlled = false;
+			m_uStatusWord.bit.power_controlled = false;
+			m_uStatusWord.bit.DC_link_voltage_controlled = true;
+			m_references.te_ref=0.0;
+			break;
+		case ApplicationControlMode::Power:
+			m_uStatusWord.bit.torque_controlled = false;
+			m_uStatusWord.bit.speed_controlled = false;
+			m_uStatusWord.bit.power_controlled = true;
+			m_uStatusWord.bit.DC_link_voltage_controlled = false;
+			m_references.te_ref=0.0;
+			break;
+		case ApplicationControlMode::LoadEmulator:
+			m_uStatusWord.bit.torque_controlled = false;
+			m_uStatusWord.bit.speed_controlled = false;
+			m_uStatusWord.bit.power_controlled = false;
+			m_uStatusWord.bit.DC_link_voltage_controlled = false;
+			m_references.te_ref=fmin(fmax(-FirmWare1.getLoadEmulatorTorque( m_actual_values.speed),m_actual_values.te_min_used),m_actual_values.te_max_used);
+			break;
+		default: // Including PulsTest and IDRun at time being....
+			// Should we trip the drive ?? or Torque Control
+			m_references.te_ref=0.0;
+			break;
+	}
+
+
+	Drive1.SetValues(m_references);
+}
+
+
+void Application::runState_Quick_Stop_Active(){
+	// Switch over to speed controlled stop with ramp-function for the speed reference.
+
+	if( fabs(m_actual_values.speed) < m_Speed_Quick_Stop_limit_pu ){
+		// When speed is sufficiently close to zero speed the status bit not_quick_stop is set
+		m_uStatusWord.bit.not_quick_stop=true;
+	}
+
+	if((!m_uControlWord.bit.voltage_enable)|(m_uStatusWord.bit.not_quick_stop)){
+		// Quick stop completed, i.e. speed close to zero or timeout
+		m_uStatusWord.bit.torque_controlled = false;
+		m_uStatusWord.bit.speed_controlled = false;
+		m_uStatusWord.bit.power_controlled = false;
+		m_uStatusWord.bit.DC_link_voltage_controlled = false;
+
+		m_state = ApplicationState::Switch_On_Disabled;
+		Drive1.RequestState(Drive::DriveState::Disabled);
+		return;
+	}
+
+	m_uStatusWord.bit.ready_to_switch_on = true;
+	m_uStatusWord.bit.switched_on = true;
+	m_uStatusWord.bit.operation_enabled = true;
+	m_uStatusWord.bit.malfunction = false;
+	m_uStatusWord.bit.voltage_disabled = false;
+	m_uStatusWord.bit.switch_on_disabled = false;
+
+	// Using ramp-function of speed reference ramp. Input 0 speed and start value actual speed. Control Mode: Speed Control
+	// When speed is close to zero speed the status bit not_quick_stop is set
+	// 	m_uStatusWord.bit.not_quick_stop = true;
+
+	// Control Mode: Speed Control
+
+	m_SpeedRef_input_used = 0.0;
+	m_SpeedRef_pu=m_SpeedQuickStopRampFilter.Run(m_SpeedRef_input_used,m_actual_values.speed,true);
+	m_uLimitWord.bit.speed_ref_filter=m_SpeedQuickStopRampFilter.b_in_limit;
+	m_references.te_ref=m_SpeedController.Run(m_SpeedRef_pu,m_actual_values.speed,0.0,m_actual_values.te_min_used,m_actual_values.te_max_used);
+	m_uLimitWord.bit.speed_control=m_SpeedController.b_InLim;
+
+	Drive1.SetValues(m_references);
+
+}
+
+void Application::runState_Malfunction_Reaction_Active(){
+	// stop actions
+	// Set state in Drive-state machine to DriveState::Disabled
+	// Open the contactor or Breakers toward the supply for the DC-link; AC-grid breaker or breaker towards common DC-link.
+
+	Drive1.RequestState(Drive::DriveState::Disabled);
+
+	m_uStatusWord.all=0;
+	m_uStatusWord.bit.ready_to_switch_on = true;
+	m_uStatusWord.bit.switched_on = true;
+	m_uStatusWord.bit.operation_enabled = true;
+	m_uStatusWord.bit.malfunction = true;
+	m_uStatusWord.bit.voltage_disabled = true;
+
+	b_reset_malfunction_old=false;
+	b_reset_malfunction_execute=false;
+	m_state = ApplicationState::Malfunction;
+
+}
+
+void Application::runState_Malfunction(){
+
+	Drive1.RequestState(Drive::DriveState::Disabled);
+
+	m_uStatusWord.all=0;
+	m_uStatusWord.bit.malfunction = true;
+	m_uStatusWord.bit.voltage_disabled = true;
+
+
+
+	if(m_uControlWord.bit.reset_malfunction&!b_reset_malfunction_old){ // Edge detection 0 -> 1
+		b_reset_malfunction_execute=true;
+	}
+
+	if(b_reset_malfunction_execute){
+		b_reset_malfunction_completed=Drive1.resetFaultWord(); // Reset drive and the Drive should reset Faultword in converter(s)
+	}
+
+	if(b_reset_malfunction_completed){
+		m_uFaultWord.all   = 0;
+		m_uStatusWord.all  = 0;
+		m_uWarningWord.all = 0;
+		m_uLimitWord.all   = 0;
+		m_uControlWord.all = 0;
+		m_state = ApplicationState::Switch_On_Disabled;
+		// Shall Pre-charge be executed ? Dependent on voltage level and main-breaker position ?
+	}
+
+}
+
+void Application::RunState_TestRun(){
+	// At time being we only return to Ready_To_Switch_On state.....
+
+	b_test_run_completed = true; // Will only be set when IDRun is completed successfully. Not after Pulse testing.
+	m_state = ApplicationState::Ready_To_Switch_On;
+	Drive1.RequestState(Drive::DriveState::Disabled);
+}
+
+void Application::getFaultAndWarningsAndLimits(){
+
+	m_DriveFaults			= Drive1.GetFaults();
+	m_DriveWarnings 		= Drive1.GetWarnings();
+	m_DriveLimits			= Drive1.GetLimits();
+
+	if (m_DriveFaults.all != 0){
+		m_uFaultWord.bit.drive=true;
+	}
+
+	if (m_DriveWarnings.all == 0){
+		m_uWarningWord.bit.drive=false;
+	}
+	else{
+		m_uWarningWord.bit.drive=true;
+	}
+
+	if (m_DriveLimits.all == 0){
+		m_uLimitWord.bit.drive=false;
+	}
+	else{
+		m_uLimitWord.bit.drive=true;
+	}
+
+
+	m_uFaultWord.bit.converter_1	=m_DriveFaults.bit.converter_1;
+	m_uFaultWord.bit.converter_2	=m_DriveFaults.bit.converter_2;
+	m_uWarningWord.bit.converter_1	=m_DriveWarnings.bit.converter_1;
+	m_uWarningWord.bit.converter_2	=m_DriveWarnings.bit.converter_2;
+	m_uLimitWord.bit.converter_1	=m_DriveLimits.bit.converter_1;
+	m_uLimitWord.bit.converter_2	=m_DriveLimits.bit.converter_2;
+
+}
+

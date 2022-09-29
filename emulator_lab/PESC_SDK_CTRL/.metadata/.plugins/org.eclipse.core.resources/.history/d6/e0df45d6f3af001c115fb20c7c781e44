@@ -1,0 +1,319 @@
+/*
+ /*
+ * Motor.cpp
+ *
+ *  Created on: 6. jan. 2021
+ *      Author: rn
+ *      Modified: Aravinda Perera
+ *      Description: This class contains
+ *
+ *
+ */
+
+
+#include "Motor.hpp"
+
+extern fp32_t Tsamp;
+extern FirmWare FirmWare1;
+extern int frekvens1;
+
+// ---- Motor model is called by the drive layer initialization method---------
+void Motor::initialize()
+{
+// initialize filters, PI controllers and other related to this model
+
+	par.rs 		= Parameters.Drive1.MotorData.rs;
+	par.rs0		= par.rs ;
+	par.rR 		= Parameters.Drive1.MotorData.rR;
+	par.rR0		= par.rR ;
+
+	par.xM 		= Parameters.Drive1.MotorData.xM;
+	par.xsigma 	= Parameters.Drive1.MotorData.xsigma;
+	par.xssigma = Parameters.Drive1.MotorData.xssigma;
+
+	par.ismax0 		= Parameters.Drive1.MotorData.ismax_pu;
+	par.polepairs 	= Parameters.Drive1.MotorData.polepairs;
+	par.wn 			= 2.0* M_PI* Parameters.Drive1.MotorData.fN_Hz;
+
+	// Initialize the State- and parameter-estimator:
+	m_State = StateEstimState::Encoder; // default method
+	//m_estimator.initialize(); // initialize the Parameter Estimator routine
+
+	m_PI_alpha.SetParameters(0.1, 1.0, 0.0, 1.0, Tsamp); // Kp, Ti, Ta, Kv, Tsamp
+	m_PI_beta.SetParameters(0.1, 1.0, 0.0, 1.0, Tsamp);
+
+	m_PI_PLL_speed.SetParameters(100.0, 10000.0, 0.0, 1.0, Tsamp);
+	m_PI_PLL_theta.SetParameters(1.0, 1.0, 0.0, 1.0, Tsamp);
+
+	m_theta_enc 	= 0.0;
+	m_theta_est		= 0.0;
+	m_theta_model 	= 0.0;
+	m_theta_error 	= 0.0;
+
+	m_n_enc_pu      = 0.0;
+	m_speed_model	= 0.0;
+	m_n_est			= 0.0;
+	m_n_est_filt	= 0.0;
+
+	m_psi_sa_old = 0.0;
+	m_psi_sb_old = 0.0;
+
+	m_psi_s_sau = 0.0;
+	m_psi_s_sbu = 0.0;
+
+	m_psi_Ra_old = 0.0;
+	m_psi_Rb_old = 0.0;
+
+	m_iq_old = 0.0;
+
+	m_LPF_n.InitValue(0.0);
+	m_LPF_n.SetParameters(0.0035, Tsamp);
+	m_LPF_ud.InitValue(0.0);
+	m_LPF_ud.SetParameters(0.0035, Tsamp);
+	m_LPF_uq.InitValue(0.0);
+	m_LPF_uq.SetParameters(0.0035, Tsamp);
+
+
+	m_phaseshift = 90;
+	m_factor_thetaadj = 1.0;
+}
+
+
+
+const fp32_t Motor::CurrentLimitation1(const fp32_t Iamplitude){ // Can be more inputs; Temperature, Frequency, etc....Dynamic model
+	fp32_t I_lim_return_pu;
+
+	I_lim_return_pu=Iamplitude; // Dynamic model in the future ??
+
+	return I_lim_return_pu;
+}
+
+const fp32_t Motor::CurrentLimitation2(const fp32_t Iamplitude){ // Can be more inputs; Temperature, Frequency, etc....Dynamic model
+	fp32_t I_lim_return_pu;
+
+	I_lim_return_pu=Iamplitude; // Dynamic model in the future ??
+
+	return I_lim_return_pu;
+}
+
+void Motor::getMeasurements()
+{
+/*
+ * Get the current and voltage measurements
+ *
+ */
+}
+
+void Motor::SetValues()
+{ // This function will be modified later. Used to initialize state variables.
+  // Can be used after FlyStart...
+	/*set voltage alpha, beta values
+	 * set statorflux_alpha, beta values
+	 * set the id,iq values
+	 *
+	 */
+	// At time being we assume no flux in the machine at start-up....
+	m_psi_Ri       = 0.0;
+	m_psi_Ri_old   = 0.0;
+	m_eps_r_Ri     = 0.0;
+	m_eps_r_Ri_old = 0.0;
+	m_psi_s_sau    = 0.0;
+	m_psi_s_sbu    = 0.0;
+	m_psi_sa_old = m_psi_s_sau;
+	m_psi_sb_old = m_psi_s_sbu;
+
+}
+
+void Motor::run(const fp32_t u_s_sa1 ,const fp32_t u_s_sb1, const fp32_t i_s_sa1_avg ,const fp32_t i_s_sb1_avg,const fp32_t i_s_sa1 ,const fp32_t i_s_sb1,
+		 const fp32_t u_s_sa2 ,const fp32_t u_s_sb2, const fp32_t i_s_sa2_avg ,const fp32_t i_s_sb2_avg,const fp32_t i_s_sa2 ,const fp32_t i_s_sb2,
+		 const fp32_t theta_el_enc, const fp32_t speed_pu_enc)
+{
+
+	m_u_s_sa     = 0.5*(u_s_sa1+u_s_sa2*cos(M_PI_DIV_6)-u_s_sb2*sin(M_PI_DIV_6));
+	m_u_s_sb     = 0.5*(u_s_sb1+u_s_sa2*sin(M_PI_DIV_6)+u_s_sb2*cos(M_PI_DIV_6));
+
+	m_i_s_sa 	 = 0.5*(i_s_sa1+i_s_sa2*cos(M_PI_DIV_6)-i_s_sb2*sin(M_PI_DIV_6));
+	m_i_s_sb 	 = 0.5*(i_s_sb1+i_s_sa2*sin(M_PI_DIV_6)+i_s_sb2*cos(M_PI_DIV_6));
+	m_i_s_sa_avg = 0.5*(i_s_sa1_avg+i_s_sa2_avg*cos(M_PI_DIV_6)-i_s_sb2_avg*sin(M_PI_DIV_6));
+	m_i_s_sb_avg = 0.5*(i_s_sb1_avg+i_s_sa2_avg*sin(M_PI_DIV_6)+i_s_sb2_avg*cos(M_PI_DIV_6));
+
+	m_theta_enc 	= theta_el_enc;
+	m_n_enc_pu      = speed_pu_enc;
+
+	//m_DAC.setInput(DAC::CH_B, m_theta_enc*hmi.dac.DAC_B_sw_pregain);
+
+	switch (m_State){
+				case StateEstimState::Encoder:
+					theta_used          	= m_theta_enc;  // Used in Drive Layer, check with Roy
+					speed_used          	= m_n_enc_pu;   // Used in Drive Layer
+
+					m_theta_model 			= remainder(m_theta_enc+m_eps_r_Ri, M_2PI); // Current model oriented
+					m_speed_model			= m_n_enc_pu;   // Used in model
+					m_theta_model_adjusted	= m_theta_model + m_factor_thetaadj * par.wn * m_n_enc_pu * Tsamp; // this value used for avg voltage decomposition
+					break;
+
+
+				case StateEstimState::Estimator_Decoupled:
+					theta_used 	        	= m_theta_enc;   // Used in Drive Layer
+					speed_used         		= m_n_enc_pu;    // Used in Drive Layer
+
+					m_theta_model 			= m_theta_est;  // Used in model Adjusted ?
+					m_speed_model			= m_n_est_filt; // Used in model
+					m_theta_model_adjusted	= m_theta_model + m_factor_thetaadj * par.wn * m_n_enc_pu * Tsamp; // this value used for avg voltage decomposition
+					break;
+
+				case StateEstimState::Estimator_Coupled:
+					theta_used 	        	= m_theta_est; // Used in Drive Layer
+					speed_used         		= m_n_est_filt;  // Used in Drive Layer
+
+					m_theta_model 			= m_theta_est;  // Used for sync samp current decomposition
+					m_speed_model			= m_n_est_filt; // Used in model
+					m_theta_model_adjusted	= m_theta_est + m_factor_thetaadj * par.wn* m_n_est_filt * Tsamp; // this value used for avg voltage decomposition
+					break;
+		}
+
+	//m_theta_error 		= m_theta_enc - m_theta_model;
+	m_n_error			= m_n_enc_pu  - m_speed_model;
+
+	//psi_s_sa = m_psi_s_sau;
+	//psi_s_sb = m_psi_s_sbu;
+
+	// ud, uq transformations to be transferred to the ParamEstimator class
+
+	//m_theta_adjusted =  m_theta_enc + m_factor_thetaadj * par.wn*speed_used*Tsamp;
+
+
+	m_ud =  m_u_s_sa*cos(m_theta_model_adjusted) + m_u_s_sb*sin(m_theta_model_adjusted); // angle adjusted for voltage processing delays
+	m_uq = -m_u_s_sa*sin(m_theta_model_adjusted) + m_u_s_sb*cos(m_theta_model_adjusted); // angle adjusted for voltage processing delays
+
+	// id,iq calculation based on the used_theta
+	m_id =  m_i_s_sa*cos(m_theta_model_adjusted) + m_i_s_sb*sin(m_theta_model_adjusted); // Sync samp current Assumed. either enc angle or est. angle used without adjustment
+	m_iq = -m_i_s_sa*sin(m_theta_model_adjusted) + m_i_s_sb*cos(m_theta_model_adjusted); // Sync samp current Assumed. either enc angle or est. angle used without adjustment
+
+	// Calculate inductances:
+	//CalculateXd(m_id,m_iq);
+	//CalculateXq(m_id,m_iq);
+
+
+	//----------------------CAlling the ONline Parameter EStimator---------------
+	//m_estimator.run(m_ud, m_uq, m_id, m_iq, m_speed_model, par.wn);
+
+	//par.rs 		= m_estimator.par.rs_est;
+	//par.psi_m 	= m_estimator.par.psim_est;
+
+	m_ud_filt = m_LPF_ud.Run(m_ud);
+	m_uq_filt = m_LPF_uq.Run(m_uq);
+	//m_DAC.setInput(DAC::CH_A, m_ud*hmi.dac.DAC_A_sw_pregain);
+	//m_DAC.setInput(DAC::CH_B, m_ud_filt*hmi.dac.DAC_B_sw_pregain);
+
+	//----------------------CAlling the Position and Speed Estimator Method-----------
+	ObserverSelector(); // state_machine
+
+	//psi_s_sa = m_psi_s_sau;
+	//psi_s_sb = m_psi_s_sbu;  TO BE SELECTED LATER !!!!
+	psi_s_sa = m_psi_s_sai;
+	psi_s_sb = m_psi_s_sbi;
+
+	if (PhysicalMode){ // Temporary solution Roy....
+		psi_R   = 0.1 ;
+		eps_s_R = 0.1;
+	}
+	else { // Emulator gives rotor flux angle and amplitude
+		psi_R   = m_psi_Ri_old; // FirmWare1.getFluxAmplitude();
+		eps_s_R = m_theta_model; //FirmWare1.getFluxAngle();
+	   // psi_R   = FirmWare1.getFluxAmplitude();
+	    //eps_s_R = FirmWare1.getFluxAngle()+ m_factor_thetaadj * par.wn * m_n_enc_pu * Tsamp;
+	}
+
+	m_theta_error 		= remainder(FirmWare1.getFluxAngle() - m_theta_model , M_2PI);
+}
+
+void Motor::ObserverSelector()
+{
+		m_Method = StateEstimMethod::ActiveFlux_Observer;
+
+		CurrentModel(); // reference psis generated
+		VoltageModel(); // adaptive psis generated with correction
+		Motor::ActFluxObserver();
+
+}
+
+
+void Motor::CurrentModel()
+{
+	// Time shift:
+	m_psi_Ri_old =m_psi_Ri;
+	m_eps_r_Ri_old = m_eps_r_Ri;
+
+	// Calculation of the one-step ahead predicted value (Eulers method):
+	m_psi_Ri   = m_psi_Ri_old+par.wn*Tsamp*par.rR/par.xM*(-m_psi_Ri_old+par.xM*m_id);
+	m_fr_i     = par.rR*m_iq/fmax(fabs(m_psi_Ri_old),0.1);
+	m_eps_r_Ri = m_eps_r_Ri_old+par.wn*Tsamp*m_fr_i;
+	if (m_eps_r_Ri > M_PI){
+		m_eps_r_Ri=m_eps_r_Ri-M_2PI;
+	}
+	else if (m_eps_r_Ri <= M_PI){
+		m_eps_r_Ri=m_eps_r_Ri+M_2PI;
+	}
+
+	// calculation of stator flux in rotating frame
+	m_psi_s_di = m_id*par.xsigma + m_psi_Ri_old; 	// sync samp id with enc/est angle
+	m_psi_s_qi = m_iq*par.xsigma; 				// sync samp iq with enc/est angle
+
+	// stator flux transformation to stator frame for comparison with them of voltage mode
+	m_psi_s_sai = m_psi_s_di*cos(m_theta_model) - m_psi_s_qi*sin(m_theta_model);   // non-adjusted theta used
+	m_psi_s_sbi = m_psi_s_di*sin(m_theta_model) + m_psi_s_qi*cos(m_theta_model);
+
+
+
+}
+
+void Motor::VoltageModel()
+{
+
+	// correction voltages are computed using the PI controllers
+	m_u_comp_a = m_PI_alpha.Run(m_psi_s_sai, m_psi_s_sau, 0, -1.0, 1.0 );
+	m_u_comp_b  = m_PI_beta.Run(m_psi_s_sbi, m_psi_s_sbu, 0, -1.0, 1.0 );
+
+	// stator flux from voltage model calculated, including the correction term
+	m_psi_s_sau = m_psi_sa_old + Tsamp*par.wn* (m_u_s_sa - par.rs*m_i_s_sa_avg + m_u_comp_a);
+	m_psi_s_sbu = m_psi_sb_old + Tsamp*par.wn* (m_u_s_sb - par.rs*m_i_s_sb_avg + m_u_comp_b);
+
+	// updating the old value, Exact discretization
+	m_psi_sa_old = m_psi_s_sau;
+	m_psi_sb_old = m_psi_s_sbu;
+}
+
+void Motor::ActFluxObserver()
+{
+	// active flux calculation
+	fp32_t help1;
+	fp32_t help2;
+
+	m_psi_Ra  =  m_psi_s_sau - par.xsigma*m_i_s_sa;
+	m_psi_Rb  =  m_psi_s_sbu - par.xsigma*m_i_s_sb;
+	m_psi_R   =  sqrt(m_psi_Ra*m_psi_Ra+m_psi_Rb*m_psi_Rb);
+	m_eps_s_R = atan2(m_psi_Rb, m_psi_Ra);
+
+	help1 = m_psi_Rb * m_psi_Ra_old - m_psi_Ra * m_psi_Rb_old;
+	help2 = 1/(fmax((m_psi_Ra*m_psi_Ra + m_psi_Rb*m_psi_Rb),0.0001)*Tsamp*par.wn);
+	m_n_est = help1*help2;
+	m_n_est_filt = m_LPF_n.Run(m_n_est);
+
+	m_psi_Ra_old = m_psi_Ra;
+	m_psi_Rb_old = m_psi_Rb;
+
+}
+
+
+void Motor::CalculateXM(const fp32_t id_pu,const fp32_t iq_pu ){ // Should be function of flux linkages
+	fp32_t help1;                                                // alternative define x_dq and x_qd in addition
+
+}
+
+void Motor::CalculateXsigma(const fp32_t psi_pu){
+	fp32_t help1;
+
+
+}
+

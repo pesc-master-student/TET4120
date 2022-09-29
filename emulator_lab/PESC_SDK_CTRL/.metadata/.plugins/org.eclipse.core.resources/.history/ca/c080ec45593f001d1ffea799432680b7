@@ -1,0 +1,157 @@
+
+/************************************************************************************
+
+File Name: 		FirmWare_2L_3ph.cpp
+Description:	Implementation code. Further details explained in FirmWare_2L_3ph.hpp
+
+*************************************************************************************/
+
+
+
+#include "FirmWare_2L_3ph.hpp"
+
+extern HMI hmi;
+
+FirmWare::FirmWare(void){
+	// EMPTY CONSTRUCTOR
+}
+
+void FirmWare::getFWaddress(void){
+
+	m_ADC.getFWAddress();
+	m_DAC.getFWAddress();
+	m_Relay.getFWAddress();
+	m_Encoder.getFWadress();
+}
+
+void FirmWare::initialize(void){
+
+	m_ADC.getConfig();
+	m_DAC.initialize();
+	m_Relay.initialize();
+	m_Emulator.initialize();
+	m_LoadEmulator.Initialize();
+	m_MUX.setSelector(PhysicalMode);
+	m_Encoder.initialize();
+	//m_eNDAT22.initialize();
+}
+
+const fp32_t FirmWare::getSpeed(const bool Hardware_Mode){
+	if(Hardware_Mode)
+		return m_eNDAT22.m_speed_RPM_filtered;
+	else
+		return m_Emulator.PU.speed_pu * m_Emulator.N_basis_rpm; // converting to rpm values. In drive layer, converted back to pu
+}
+
+const fp32_t FirmWare::getPosition(const bool Hardware_Mode){
+	if (Hardware_Mode){
+		return m_Encoder.theta_rad;
+	}
+	else{
+		return M_PI*m_Emulator.PU.theta_mech;
+	}
+}
+
+const fp32_t FirmWare::getAbsPosition(const bool Hardware_Mode){
+	if(Hardware_Mode)
+		return m_eNDAT22.position_rad_new;
+	else
+		return M_PI*m_Emulator.PU.theta_mech;
+}
+
+const bool FirmWare::getEncoderIndexPulse(const bool Hardware_Mode){
+	if (Hardware_Mode){
+		return m_Encoder.b_first_zero_pulse_detected;
+	}
+	else{
+		return true;
+	}
+}
+
+const fp32_t FirmWare::getTorque(const bool Hardware_Mode){
+	if(Hardware_Mode)
+		return m_Emulator.PU.T_e_pu;
+	else
+		return m_Emulator.PU.T_e_pu;
+}
+
+const fp32_t FirmWare::getLoadEmulatorTorque(const fp32_t& Speed_rpm){
+	fp32_t help;
+	help = m_LoadEmulator.Run(Speed_rpm);
+	return help;
+}
+
+
+void FirmWare::run(void){
+
+	// ---------------  CONTACTOR/RELAY  ---------------------
+	m_Relay.setState(hmi.relay.relayOpenClose);
+	m_Relay.getState();
+
+
+	// ---------------  ADC  ---------------------
+	if(hmi.adc.run_autocalibrate){
+		m_ADC.calibrateOffsets();
+		hmi.adc.run_autocalibrate = false;
+	}
+
+	if (hmi.adc.run_bias){
+		m_ADC.setOffset(hmi.adc.channel, hmi.adc.bias);	// During testing only. To be executed in another routine ? Or an IF-statement ?
+		hmi.adc.run_bias = false;
+	}
+
+	m_ADC.getOutSamples();
+	m_ADC.getOffsets();
+
+	//---------------- ENCODER ---------------------
+	/*
+	m_eNDAT22.getRegValues();
+	m_eNDAT22.resetStatusReg();
+	m_eNDAT22.NOP();
+	m_eNDAT22.getPositionE21();
+	m_eNDAT22.swStrobe();
+	*/
+	m_Encoder.getValues();
+	m_Speed_rpm= getSpeed(PhysicalMode);
+
+	//---------------- PHY/EMU MUX --------------------
+	m_MUX.readSlvRegsMUX();
+
+	//---------------- EMULATOR --------------------
+	if(!PhysicalMode){
+		m_TorqueLoad_Nm=m_LoadEmulator.Run(m_Speed_rpm);
+		m_Emulator.setLoadTorque(m_TorqueLoad_Nm);
+		m_Emulator.setValues();
+		m_Emulator.getValues();
+	}
+
+	// ---------------  DAC  ---------------------
+	m_DAC.setScaling(DAC::CH_A, hmi.dac.DAC_A_out_scale);
+	m_DAC.setScaling(DAC::CH_B, hmi.dac.DAC_B_out_scale);
+	m_DAC.setScaling(DAC::CH_C, hmi.dac.DAC_C_out_scale);
+	m_DAC.setScaling(DAC::CH_D, hmi.dac.DAC_D_out_scale);
+
+	m_DAC.selectInput(DAC::CH_A, hmi.dac.Mux_A);
+	m_DAC.selectInput(DAC::CH_B, hmi.dac.Mux_B);
+	m_DAC.selectInput(DAC::CH_C, hmi.dac.Mux_C);
+	m_DAC.selectInput(DAC::CH_D, hmi.dac.Mux_D);
+
+
+	/*
+	m_DAC.setInput(DAC::CH_A, U_sin_ref_A);
+	m_DAC.setInput(DAC::CH_B, U_sin_ref_B);
+	m_DAC.setInput(DAC::CH_C, U_sin_ref_C);
+	m_DAC.setInput(DAC::CH_D, U_sin_ref_A);
+
+
+	m_DAC.getAllOutput();
+	m_DAC.getAllOffset();
+	m_DAC.getAllScaling();
+
+	m_DAC.getMuxL2();
+	m_DAC.getMuxL1();
+    */
+
+}
+
+

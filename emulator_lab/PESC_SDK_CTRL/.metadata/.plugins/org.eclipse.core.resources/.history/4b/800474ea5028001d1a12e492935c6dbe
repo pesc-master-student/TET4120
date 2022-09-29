@@ -1,0 +1,63 @@
+#include "ConfigParameters.hpp"
+extern ConfigParameters Parameters;
+
+#include "SwLoadEmulator.hpp"
+
+
+void LoadEmulator::Initialize(void){
+
+	m_LoadType 	= static_cast<LoadType>(Parameters.Load1.LoadType);
+	m_t_load_pu =0.0;
+
+	m_PumpData.k_L			= Parameters.Load1.Pump.k_L;
+	m_PumpData.t_constant	= Parameters.Load1.Pump.t_constant;
+
+}
+
+fp32_t& LoadEmulator::Run(const fp32_t& Actual_Speed_pu){
+
+	m_t_load_pu=0.05;
+	switch (m_LoadType){
+			case LoadType::Pump:
+				m_t_load_pu=RunPump(Actual_Speed_pu);
+				return m_t_load_pu;
+				break;
+			case LoadType::ElectricVehicle:
+				m_t_load_pu=0.2;
+				return m_t_load_pu;
+				break;
+			case LoadType::ShipPropulsion:
+				m_t_load_pu=0.3;
+				return m_t_load_pu;
+				break;
+			case LoadType::WindPower:
+				m_t_load_pu=0.4;
+				return m_t_load_pu;
+				break;
+			case LoadType::HydroPower:
+				m_t_load_pu=0.5;
+				return m_t_load_pu;
+				break;
+			default:
+				// Should we trip the drive ??
+				m_t_load_pu=0.0;
+				return m_t_load_pu;
+				break;
+		}
+
+
+
+}
+
+const fp32_t LoadEmulator::RunPump(const fp32_t ActSpeed_pu){
+	fp32_t t_pump_pu;
+
+	if (ActSpeed_pu >=0.0){
+		t_pump_pu=m_PumpData.k_L*ActSpeed_pu*ActSpeed_pu+m_PumpData.t_constant;
+	}
+	else {
+		t_pump_pu=-m_PumpData.k_L*ActSpeed_pu*ActSpeed_pu+m_PumpData.t_constant;
+	}
+
+	return t_pump_pu;
+}

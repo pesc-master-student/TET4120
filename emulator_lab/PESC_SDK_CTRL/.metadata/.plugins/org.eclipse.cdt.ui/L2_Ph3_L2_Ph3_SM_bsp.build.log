@@ -1,0 +1,906 @@
+08:29:28 **** Build of project L2_Ph3_L2_Ph3_SM_bsp ****
+make -k all 
+"Running Make include in ps7_cortexa9_1/libsrc/ad_converter_serial_receiver_v1_00_a/src"
+make -C ps7_cortexa9_1/libsrc/ad_converter_serial_receiver_v1_00_a/src -s include  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"AD converter serial receiver include files"
+"Running Make include in ps7_cortexa9_1/libsrc/blankingtimecorr_v1_0/src"
+make -C ps7_cortexa9_1/libsrc/blankingtimecorr_v1_0/src -s include  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make include in ps7_cortexa9_1/libsrc/canps_v3_2/src"
+make -C ps7_cortexa9_1/libsrc/canps_v3_2/src -s include  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make include in ps7_cortexa9_1/libsrc/common_v1_00_a/src"
+make -C ps7_cortexa9_1/libsrc/common_v1_00_a/src -s include  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make include in ps7_cortexa9_1/libsrc/comparator_limiter_block_v1_00_a/src"
+make -C ps7_cortexa9_1/libsrc/comparator_limiter_block_v1_00_a/src -s include  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make include in ps7_cortexa9_1/libsrc/coresightps_dcc_v1_5/src"
+make -C ps7_cortexa9_1/libsrc/coresightps_dcc_v1_5/src -s include  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make include in ps7_cortexa9_1/libsrc/cpu_cortexa9_v2_7/src"
+make -C ps7_cortexa9_1/libsrc/cpu_cortexa9_v2_7/src -s include  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make include in ps7_cortexa9_1/libsrc/da_converter_interface_v1_00_a/src"
+make -C ps7_cortexa9_1/libsrc/da_converter_interface_v1_00_a/src -s include  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make include in ps7_cortexa9_1/libsrc/ddrps_v1_0/src"
+make -C ps7_cortexa9_1/libsrc/ddrps_v1_0/src -s include  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make include in ps7_cortexa9_1/libsrc/devcfg_v3_5/src"
+make -C ps7_cortexa9_1/libsrc/devcfg_v3_5/src -s include  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make include in ps7_cortexa9_1/libsrc/dmaps_v2_4/src"
+make -C ps7_cortexa9_1/libsrc/dmaps_v2_4/src -s include  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make include in ps7_cortexa9_1/libsrc/driver_interface_v1_00_a/src"
+make -C ps7_cortexa9_1/libsrc/driver_interface_v1_00_a/src -s include  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make include in ps7_cortexa9_1/libsrc/emacps_v3_9/src"
+make -C ps7_cortexa9_1/libsrc/emacps_v3_9/src -s include  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make include in ps7_cortexa9_1/libsrc/emu_sm_v7_01/src"
+make -C ps7_cortexa9_1/libsrc/emu_sm_v7_01/src -s include  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make include in ps7_cortexa9_1/libsrc/filter_block_v1_00_a/src"
+make -C ps7_cortexa9_1/libsrc/filter_block_v1_00_a/src -s include  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make include in ps7_cortexa9_1/libsrc/gpiops_v3_5/src"
+make -C ps7_cortexa9_1/libsrc/gpiops_v3_5/src -s include  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make include in ps7_cortexa9_1/libsrc/gpio_v4_4/src"
+make -C ps7_cortexa9_1/libsrc/gpio_v4_4/src -s include  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make include in ps7_cortexa9_1/libsrc/incremental_encoder_interface_v1_00_a/src"
+make -C ps7_cortexa9_1/libsrc/incremental_encoder_interface_v1_00_a/src -s include  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make include in ps7_cortexa9_1/libsrc/multiplexer_v1_0/src"
+make -C ps7_cortexa9_1/libsrc/multiplexer_v1_0/src -s include  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make include in ps7_cortexa9_1/libsrc/pulse_width_modulator_v1_00_a/src"
+make -C ps7_cortexa9_1/libsrc/pulse_width_modulator_v1_00_a/src -s include  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make include in ps7_cortexa9_1/libsrc/qspips_v3_6/src"
+make -C ps7_cortexa9_1/libsrc/qspips_v3_6/src -s include  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make include in ps7_cortexa9_1/libsrc/register_array_v1_00_a/src"
+make -C ps7_cortexa9_1/libsrc/register_array_v1_00_a/src -s include  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make include in ps7_cortexa9_1/libsrc/scugic_v4_0/src"
+make -C ps7_cortexa9_1/libsrc/scugic_v4_0/src -s include  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make include in ps7_cortexa9_1/libsrc/scutimer_v2_1/src"
+make -C ps7_cortexa9_1/libsrc/scutimer_v2_1/src -s include  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make include in ps7_cortexa9_1/libsrc/scuwdt_v2_1/src"
+make -C ps7_cortexa9_1/libsrc/scuwdt_v2_1/src -s include  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make include in ps7_cortexa9_1/libsrc/sdps_v3_7/src"
+make -C ps7_cortexa9_1/libsrc/sdps_v3_7/src -s include  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make include in ps7_cortexa9_1/libsrc/spips_v3_2/src"
+make -C ps7_cortexa9_1/libsrc/spips_v3_2/src -s include  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make include in ps7_cortexa9_1/libsrc/standalone_v7_0/src"
+make -C ps7_cortexa9_1/libsrc/standalone_v7_0/src -s include  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make include in ps7_cortexa9_1/libsrc/switching_event_counter_v1_00_a/src"
+make -C ps7_cortexa9_1/libsrc/switching_event_counter_v1_00_a/src -s include  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make include in ps7_cortexa9_1/libsrc/sysmon_v7_5/src"
+make -C ps7_cortexa9_1/libsrc/sysmon_v7_5/src -s include  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make include in ps7_cortexa9_1/libsrc/ttcps_v3_9/src"
+make -C ps7_cortexa9_1/libsrc/ttcps_v3_9/src -s include  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make include in ps7_cortexa9_1/libsrc/uartps_v3_7/src"
+make -C ps7_cortexa9_1/libsrc/uartps_v3_7/src -s include  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make include in ps7_cortexa9_1/libsrc/usbps_v2_4/src"
+make -C ps7_cortexa9_1/libsrc/usbps_v2_4/src -s include  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make include in ps7_cortexa9_1/libsrc/xadcps_v2_3/src"
+make -C ps7_cortexa9_1/libsrc/xadcps_v2_3/src -s include  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make libs in ps7_cortexa9_1/libsrc/ad_converter_serial_receiver_v1_00_a/src"
+make -C ps7_cortexa9_1/libsrc/ad_converter_serial_receiver_v1_00_a/src -s libs  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make libs in ps7_cortexa9_1/libsrc/blankingtimecorr_v1_0/src"
+make -C ps7_cortexa9_1/libsrc/blankingtimecorr_v1_0/src -s libs  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Compiling foo_top_top"
+In file included from blankingtimecorr.h:9,
+                 from blankingtimecorr.c:1:
+blankingtimecorr.c: In function 'blankingtimecorr_ic_in_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+blankingtimecorr.c:22:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+blankingtimecorr.c:19:5: note: declared here
+ int blankingtimecorr_ic_in_read(blankingtimecorr *InstancePtr) {
+     ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from blankingtimecorr.h:9,
+                 from blankingtimecorr.c:1:
+blankingtimecorr.c: In function 'blankingtimecorr_ib_in_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+blankingtimecorr.c:36:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+blankingtimecorr.c:33:5: note: declared here
+ int blankingtimecorr_ib_in_read(blankingtimecorr *InstancePtr) {
+     ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from blankingtimecorr.h:9,
+                 from blankingtimecorr.c:1:
+blankingtimecorr.c: In function 'blankingtimecorr_ia_in_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+blankingtimecorr.c:50:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+blankingtimecorr.c:47:5: note: declared here
+ int blankingtimecorr_ia_in_read(blankingtimecorr *InstancePtr) {
+     ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from blankingtimecorr.h:9,
+                 from blankingtimecorr.c:1:
+blankingtimecorr.c: In function 'blankingtimecorr_blankingtime_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+blankingtimecorr.c:64:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+blankingtimecorr.c:61:5: note: declared here
+ int blankingtimecorr_blankingtime_read(blankingtimecorr *InstancePtr) {
+     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from blankingtimecorr.h:9,
+                 from blankingtimecorr.c:1:
+blankingtimecorr.c: In function 'blankingtimecorr_t_samp_on_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+blankingtimecorr.c:72:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+blankingtimecorr.c:69:5: note: declared here
+ u32 blankingtimecorr_t_samp_on_read(blankingtimecorr *InstancePtr) {
+     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from blankingtimecorr.h:9,
+                 from blankingtimecorr.c:1:
+blankingtimecorr.c: In function 'blankingtimecorr_ta_on_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+blankingtimecorr.c:80:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+blankingtimecorr.c:77:5: note: declared here
+ u32 blankingtimecorr_ta_on_read(blankingtimecorr *InstancePtr) {
+     ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from blankingtimecorr.h:9,
+                 from blankingtimecorr.c:1:
+blankingtimecorr.c: In function 'blankingtimecorr_tb_on_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+blankingtimecorr.c:88:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+blankingtimecorr.c:85:5: note: declared here
+ u32 blankingtimecorr_tb_on_read(blankingtimecorr *InstancePtr) {
+     ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from blankingtimecorr.h:9,
+                 from blankingtimecorr.c:1:
+blankingtimecorr.c: In function 'blankingtimecorr_tc_on_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+blankingtimecorr.c:96:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+blankingtimecorr.c:93:5: note: declared here
+ u32 blankingtimecorr_tc_on_read(blankingtimecorr *InstancePtr) {
+     ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+"Running Make libs in ps7_cortexa9_1/libsrc/canps_v3_2/src"
+make -C ps7_cortexa9_1/libsrc/canps_v3_2/src -s libs  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Compiling canps"
+"Running Make libs in ps7_cortexa9_1/libsrc/common_v1_00_a/src"
+make -C ps7_cortexa9_1/libsrc/common_v1_00_a/src -s libs  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Compiling common"
+xutil_memtest.c: In function 'XUtil_MemoryTest32':
+xutil_memtest.c:157:7: warning: this statement may fall through [-Wimplicit-fallthrough=]
+    if (Subtest != XUT_ALLMEMTESTS) {
+       ^
+xutil_memtest.c:166:2: note: here
+  case XUT_WALKONES:
+  ^~~~
+xutil_memtest.c:218:7: warning: this statement may fall through [-Wimplicit-fallthrough=]
+    if (Subtest != XUT_ALLMEMTESTS) {
+       ^
+xutil_memtest.c:227:2: note: here
+  case XUT_WALKZEROS:
+  ^~~~
+xutil_memtest.c:282:7: warning: this statement may fall through [-Wimplicit-fallthrough=]
+    if (Subtest != XUT_ALLMEMTESTS) {
+       ^
+xutil_memtest.c:290:2: note: here
+  case XUT_INVERSEADDR:
+  ^~~~
+xutil_memtest.c:323:7: warning: this statement may fall through [-Wimplicit-fallthrough=]
+    if (Subtest != XUT_ALLMEMTESTS) {
+       ^
+xutil_memtest.c:333:2: note: here
+  case XUT_FIXEDPATTERN:
+  ^~~~
+xutil_memtest.c: In function 'XUtil_MemoryTest16':
+xutil_memtest.c:492:7: warning: this statement may fall through [-Wimplicit-fallthrough=]
+    if (Subtest != XUT_ALLMEMTESTS) {
+       ^
+xutil_memtest.c:500:2: note: here
+  case XUT_WALKONES:
+  ^~~~
+xutil_memtest.c:555:7: warning: this statement may fall through [-Wimplicit-fallthrough=]
+    if (Subtest != XUT_ALLMEMTESTS) {
+       ^
+xutil_memtest.c:564:2: note: here
+  case XUT_WALKZEROS:
+  ^~~~
+xutil_memtest.c:621:7: warning: this statement may fall through [-Wimplicit-fallthrough=]
+    if (Subtest != XUT_ALLMEMTESTS) {
+       ^
+xutil_memtest.c:629:2: note: here
+  case XUT_INVERSEADDR:
+  ^~~~
+xutil_memtest.c:660:7: warning: this statement may fall through [-Wimplicit-fallthrough=]
+    if (Subtest != XUT_ALLMEMTESTS) {
+       ^
+xutil_memtest.c:670:2: note: here
+  case XUT_FIXEDPATTERN:
+  ^~~~
+xutil_memtest.c: In function 'XUtil_MemoryTest8':
+xutil_memtest.c:832:7: warning: this statement may fall through [-Wimplicit-fallthrough=]
+    if (Subtest != XUT_ALLMEMTESTS) {
+       ^
+xutil_memtest.c:841:2: note: here
+  case XUT_WALKONES:
+  ^~~~
+xutil_memtest.c:893:7: warning: this statement may fall through [-Wimplicit-fallthrough=]
+    if (Subtest != XUT_ALLMEMTESTS) {
+       ^
+xutil_memtest.c:902:2: note: here
+  case XUT_WALKZEROS:
+  ^~~~
+xutil_memtest.c:958:7: warning: this statement may fall through [-Wimplicit-fallthrough=]
+    if (Subtest != XUT_ALLMEMTESTS) {
+       ^
+xutil_memtest.c:966:2: note: here
+  case XUT_INVERSEADDR:
+  ^~~~
+xutil_memtest.c:998:7: warning: this statement may fall through [-Wimplicit-fallthrough=]
+    if (Subtest != XUT_ALLMEMTESTS) {
+       ^
+xutil_memtest.c:1008:2: note: here
+  case XUT_FIXEDPATTERN:
+  ^~~~
+"Running Make libs in ps7_cortexa9_1/libsrc/comparator_limiter_block_v1_00_a/src"
+make -C ps7_cortexa9_1/libsrc/comparator_limiter_block_v1_00_a/src -s libs  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make libs in ps7_cortexa9_1/libsrc/coresightps_dcc_v1_5/src"
+make -C ps7_cortexa9_1/libsrc/coresightps_dcc_v1_5/src -s libs  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Compiling coresightps_dcc"
+"Running Make libs in ps7_cortexa9_1/libsrc/cpu_cortexa9_v2_7/src"
+make -C ps7_cortexa9_1/libsrc/cpu_cortexa9_v2_7/src -s libs  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Compiling cpu_cortexa9"
+"Running Make libs in ps7_cortexa9_1/libsrc/da_converter_interface_v1_00_a/src"
+make -C ps7_cortexa9_1/libsrc/da_converter_interface_v1_00_a/src -s libs  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make libs in ps7_cortexa9_1/libsrc/ddrps_v1_0/src"
+make -C ps7_cortexa9_1/libsrc/ddrps_v1_0/src -s libs  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Compiling ddrps"
+"Running Make libs in ps7_cortexa9_1/libsrc/devcfg_v3_5/src"
+make -C ps7_cortexa9_1/libsrc/devcfg_v3_5/src -s libs  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Compiling devcfg"
+"Running Make libs in ps7_cortexa9_1/libsrc/dmaps_v2_4/src"
+make -C ps7_cortexa9_1/libsrc/dmaps_v2_4/src -s libs  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Compiling dmaps"
+"Running Make libs in ps7_cortexa9_1/libsrc/driver_interface_v1_00_a/src"
+make -C ps7_cortexa9_1/libsrc/driver_interface_v1_00_a/src -s libs  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make libs in ps7_cortexa9_1/libsrc/emacps_v3_9/src"
+make -C ps7_cortexa9_1/libsrc/emacps_v3_9/src -s libs  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Compiling emacps"
+"Running Make libs in ps7_cortexa9_1/libsrc/emu_sm_v7_01/src"
+make -C ps7_cortexa9_1/libsrc/emu_sm_v7_01/src -s libs  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Compiling foo_top_top"
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_xmq_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:22:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:19:5: note: declared here
+ int emu_sm_xmq_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_xmd_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:36:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:33:5: note: declared here
+ int emu_sm_xmd_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_x1_wntq_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:50:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:47:5: note: declared here
+ int emu_sm_x1_wntq_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_x1_wntd_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:64:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:61:5: note: declared here
+ int emu_sm_x1_wntd_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_wntstep_xqpsigqq_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:78:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:75:5: note: declared here
+ int emu_sm_wntstep_xqpsigqq_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_wntstep_sigiifxf_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:92:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:89:5: note: declared here
+ int emu_sm_wntstep_sigiifxf_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_wntstep_xdsigdd_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:106:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:103:5: note: declared here
+ int emu_sm_wntstep_xdsigdd_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_wntstep_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:120:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:117:5: note: declared here
+ int emu_sm_wntstep_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_voltage_pu_bit_conv2_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:134:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:131:5: note: declared here
+ int emu_sm_voltage_pu_bit_conv2_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_voltage_pu_bit_conv1_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:148:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:145:5: note: declared here
+ int emu_sm_voltage_pu_bit_conv1_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_sigdxmd_sig_iifxf_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:162:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:159:5: note: declared here
+ int emu_sm_sigdxmd_sig_iifxf_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_polepairs_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:176:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:173:5: note: declared here
+ int emu_sm_polepairs_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_kn_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:190:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:187:5: note: declared here
+ int emu_sm_kn_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_kdd_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:204:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:201:5: note: declared here
+ int emu_sm_kdd_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_k_fnmechtstep_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:218:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:215:5: note: declared here
+ int emu_sm_k_fnmechtstep_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_current_pu_bit_conv2_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:232:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:229:5: note: declared here
+ int emu_sm_current_pu_bit_conv2_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_current_pu_bit_conv1_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:246:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:243:5: note: declared here
+ int emu_sm_current_pu_bit_conv1_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_xii_q_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:260:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:257:5: note: declared here
+ int emu_sm_xii_q_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_xdsigdd_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:274:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:271:5: note: declared here
+ int emu_sm_xdsigdd_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_xmdsigd_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:288:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:285:5: note: declared here
+ int emu_sm_xmdsigd_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_vdc2_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:302:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:299:5: note: declared here
+ int emu_sm_vdc2_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_vdc1_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:316:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:313:5: note: declared here
+ int emu_sm_vdc1_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_tstep_tq_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:330:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:327:5: note: declared here
+ int emu_sm_tstep_tq_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_ts_tm_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:344:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:341:5: note: declared here
+ int emu_sm_ts_tm_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_tl_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:358:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:355:5: note: declared here
+ int emu_sm_tl_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_rs_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:372:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:369:5: note: declared here
+ int emu_sm_rs_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_rf_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:386:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:383:5: note: declared here
+ int emu_sm_rf_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_ia_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:394:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:391:5: note: declared here
+ int emu_sm_ia_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_ib_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:402:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:399:5: note: declared here
+ int emu_sm_ib_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_ic_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:410:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:407:5: note: declared here
+ int emu_sm_ic_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_id_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:418:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:415:5: note: declared here
+ int emu_sm_id_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_if_x0_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:426:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:423:5: note: declared here
+ int emu_sm_if_x0_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_iq_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:434:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:431:5: note: declared here
+ int emu_sm_iq_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_tlsum_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:442:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:439:5: note: declared here
+ int emu_sm_tlsum_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_te_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:450:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:447:5: note: declared here
+ int emu_sm_te_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_motor_id_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:458:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:455:5: note: declared here
+ u32 emu_sm_motor_id_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_psi_rd_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:466:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:463:5: note: declared here
+ int emu_sm_psi_rd_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_psi_rq_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:474:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:471:5: note: declared here
+ int emu_sm_psi_rq_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_psi_d_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:482:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:479:5: note: declared here
+ int emu_sm_psi_d_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_psi_q_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:490:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:487:5: note: declared here
+ int emu_sm_psi_q_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_speed_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:498:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:495:5: note: declared here
+ int emu_sm_speed_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_theta_el_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:506:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:503:5: note: declared here
+ int emu_sm_theta_el_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~~~~~~~
+In file included from emu_sm.h:9,
+                 from emu_sm.c:1:
+emu_sm.c: In function 'emu_sm_theta_mech_read':
+../../../include/xil_assert.h:108:9: warning: 'return' with no value, in function returning non-void
+         return;                                    \
+         ^~~~~~
+emu_sm.c:514:5: note: in expansion of macro 'Xil_AssertVoid'
+     Xil_AssertVoid(InstancePtr != NULL);
+     ^~~~~~~~~~~~~~
+emu_sm.c:511:5: note: declared here
+ int emu_sm_theta_mech_read(emu_sm *InstancePtr) {
+     ^~~~~~~~~~~~~~~~~~~~~~
+"Running Make libs in ps7_cortexa9_1/libsrc/filter_block_v1_00_a/src"
+make -C ps7_cortexa9_1/libsrc/filter_block_v1_00_a/src -s libs  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make libs in ps7_cortexa9_1/libsrc/gpiops_v3_5/src"
+make -C ps7_cortexa9_1/libsrc/gpiops_v3_5/src -s libs  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Compiling gpiops"
+"Running Make libs in ps7_cortexa9_1/libsrc/gpio_v4_4/src"
+make -C ps7_cortexa9_1/libsrc/gpio_v4_4/src -s libs  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Compiling gpio"
+"Running Make libs in ps7_cortexa9_1/libsrc/incremental_encoder_interface_v1_00_a/src"
+make -C ps7_cortexa9_1/libsrc/incremental_encoder_interface_v1_00_a/src -s libs  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make libs in ps7_cortexa9_1/libsrc/multiplexer_v1_0/src"
+make -C ps7_cortexa9_1/libsrc/multiplexer_v1_0/src -s libs  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Compiling multiplexer..."
+multiplexer_selftest.c: In function 'MULTIPLEXER_Reg_SelfTest':
+multiplexer_selftest.c:52:60: warning: comparison of integer expressions of different signedness: 'u32' {aka 'long unsigned int'} and 'int' [-Wsign-compare]
+    if ( MULTIPLEXER_mReadReg (baseaddr, read_loop_index*4) != (read_loop_index+1)*READ_WRITE_MUL_FACTOR){
+                                                            ^~
+multiplexer_selftest.c:36:6: warning: unused variable 'Index' [-Wunused-variable]
+  int Index;
+      ^~~~~
+"Running Make libs in ps7_cortexa9_1/libsrc/pulse_width_modulator_v1_00_a/src"
+make -C ps7_cortexa9_1/libsrc/pulse_width_modulator_v1_00_a/src -s libs  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make libs in ps7_cortexa9_1/libsrc/qspips_v3_6/src"
+make -C ps7_cortexa9_1/libsrc/qspips_v3_6/src -s libs  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Compiling qspips"
+"Running Make libs in ps7_cortexa9_1/libsrc/register_array_v1_00_a/src"
+make -C ps7_cortexa9_1/libsrc/register_array_v1_00_a/src -s libs  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make libs in ps7_cortexa9_1/libsrc/scugic_v4_0/src"
+make -C ps7_cortexa9_1/libsrc/scugic_v4_0/src -s libs  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Compiling scugic"
+xscugic_hw.c: In function 'DistInit':
+xscugic_hw.c:132:3: warning: #warning "Building GIC for AMP" [-Wcpp]
+  #warning "Building GIC for AMP"
+   ^~~~~~~
+xscugic.c: In function 'DistributorInit':
+xscugic.c:310:2: warning: #warning "Building GIC for AMP" [-Wcpp]
+ #warning "Building GIC for AMP"
+  ^~~~~~~
+"Running Make libs in ps7_cortexa9_1/libsrc/scutimer_v2_1/src"
+make -C ps7_cortexa9_1/libsrc/scutimer_v2_1/src -s libs  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Compiling scutimer"
+"Running Make libs in ps7_cortexa9_1/libsrc/scuwdt_v2_1/src"
+make -C ps7_cortexa9_1/libsrc/scuwdt_v2_1/src -s libs  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Compiling scuwdt"
+"Running Make libs in ps7_cortexa9_1/libsrc/sdps_v3_7/src"
+make -C ps7_cortexa9_1/libsrc/sdps_v3_7/src -s libs  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Compiling sdps"
+"Running Make libs in ps7_cortexa9_1/libsrc/spips_v3_2/src"
+make -C ps7_cortexa9_1/libsrc/spips_v3_2/src -s libs  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Compiling spips"
+"Running Make libs in ps7_cortexa9_1/libsrc/standalone_v7_0/src"
+make -C ps7_cortexa9_1/libsrc/standalone_v7_0/src -s libs  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Compiling standalone"
+In file included from usleep.c:56:
+xtime_l.h:87:9: note: #pragma message: For the sleep routines, Global timer is being used
+ #pragma message ("For the sleep routines, Global timer is being used")
+         ^~~~~~~
+In file included from sleep.c:53:
+xtime_l.h:87:9: note: #pragma message: For the sleep routines, Global timer is being used
+ #pragma message ("For the sleep routines, Global timer is being used")
+         ^~~~~~~
+inbyte.c: In function 'inbyte':
+inbyte.c:11:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+In file included from xil_sleeptimer.c:51:
+xtime_l.h:87:9: note: #pragma message: For the sleep routines, Global timer is being used
+ #pragma message ("For the sleep routines, Global timer is being used")
+         ^~~~~~~
+xil_cache.c: In function 'Xil_DCacheInvalidateRange':
+xil_cache.c:336:16: warning: unused variable 'L2CCOffset' [-Wunused-variable]
+  volatile u32 *L2CCOffset = (volatile u32 *)(XPS_L2CC_BASEADDR +
+                ^~~~~~~~~~
+xil_cache.c: In function 'Xil_DCacheFlushRange':
+xil_cache.c:481:16: warning: unused variable 'L2CCOffset' [-Wunused-variable]
+  volatile u32 *L2CCOffset = (volatile u32 *)(XPS_L2CC_BASEADDR +
+                ^~~~~~~~~~
+xil_cache.c: In function 'Xil_ICacheInvalidateRange':
+xil_cache.c:654:16: warning: unused variable 'L2CCOffset' [-Wunused-variable]
+  volatile u32 *L2CCOffset = (volatile u32 *)(XPS_L2CC_BASEADDR +
+                ^~~~~~~~~~
+outbyte.c: In function 'outbyte':
+outbyte.c:11:19: warning: unused parameter 'c' [-Wunused-parameter]
+ void outbyte(char c) {
+              ~~~~~^
+In file included from xtime_l.c:49:
+xtime_l.h:87:9: note: #pragma message: For the sleep routines, Global timer is being used
+ #pragma message ("For the sleep routines, Global timer is being used")
+         ^~~~~~~
+"Running Make libs in ps7_cortexa9_1/libsrc/switching_event_counter_v1_00_a/src"
+make -C ps7_cortexa9_1/libsrc/switching_event_counter_v1_00_a/src -s libs  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Running Make libs in ps7_cortexa9_1/libsrc/sysmon_v7_5/src"
+make -C ps7_cortexa9_1/libsrc/sysmon_v7_5/src -s libs  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Compiling sysmon"
+"Running Make libs in ps7_cortexa9_1/libsrc/ttcps_v3_9/src"
+make -C ps7_cortexa9_1/libsrc/ttcps_v3_9/src -s libs  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Compiling ttcps"
+"Running Make libs in ps7_cortexa9_1/libsrc/uartps_v3_7/src"
+make -C ps7_cortexa9_1/libsrc/uartps_v3_7/src -s libs  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Compiling uartps"
+"Running Make libs in ps7_cortexa9_1/libsrc/usbps_v2_4/src"
+make -C ps7_cortexa9_1/libsrc/usbps_v2_4/src -s libs  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Compiling usbps"
+"Running Make libs in ps7_cortexa9_1/libsrc/xadcps_v2_3/src"
+make -C ps7_cortexa9_1/libsrc/xadcps_v2_3/src -s libs  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
+"Compiling xadcps"
+'Finished building libraries'
+
+08:30:26 Build Finished (took 58s.162ms)
+

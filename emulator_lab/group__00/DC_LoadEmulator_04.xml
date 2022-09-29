@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<root>
+  <WatchViews>
+    <Watch>
+      <Name>AppLayer</Name>
+      <Variables>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">PhysicalMode</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Parameters.FW1.Emulator.MACHINE_ID</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">pwm_int_cntr</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Time_used_PWMIsr_us</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Time_used_getstatus_us</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Time_used_measure_us</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Time_used_drive_us</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Time_used_app_us</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Time_used_converter_us</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Time_used_Firmware_us</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Tsamp</Variable>
+        <Variable Color="#FF0000FF" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_ControlMode</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_state</Variable>
+        <Variable Color="#FFFF0000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uFaultWord.all</Variable>
+        <Variable Color="#FF0000FF" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uControlWord.all</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uControlWord.bit.not_quick_stop</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uControlWord.bit.voltage_enable</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uControlWord.bit.switch_on</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uControlWord.bit.ramp_accel</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uControlWord.bit.enable_set_point</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uControlWord.bit.operation_enable</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uControlWord.bit.ramp_enable</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uStatusWord.bit.ready_to_switch_on</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uStatusWord.bit.ready_for_operation_enable</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uStatusWord.all</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_state</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_state</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_state</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_uFaultWord.all</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_uFaultWord.all</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="True">App1.m_SpeedRef_pu</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="True">App1.m_actual_values.speed</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_SpeedController.m_max</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_SpeedController.m_min</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_SpeedController.b_InLim</Variable>
+        <Variable Color="#FF0000FF" IntFormat="DECIMAL" FloatFormat="G5" Graph="True">App1.m_PLC.torque_ref</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="True">App1.m_actual_values.te_ref_used</Variable>
+        <Variable Color="#FF0000FF" IntFormat="DECIMAL" FloatFormat="G5" Graph="True">App1.m_PLC.speed_ref</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_SpeedRef_input_used</Variable>
+      </Variables>
+    </Watch>
+    <Watch>
+      <Name>AppStatus</Name>
+      <Variables>
+        <Variable Color="#FFFF0000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uFaultWord.all</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uFaultWord.bit.SW_FW_mismatch</Variable>
+        <Variable Color="#FFFF0000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uWarningWord.all</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uWarningWord.bit.drive</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uWarningWord.bit.converter_1</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uWarningWord.bit.converter_2</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uWarningWord.bit.external_1</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uWarningWord.bit.external_2</Variable>
+        <Variable Color="#FFFF0000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uStatusWord.all</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uStatusWord.bit.ready_to_switch_on</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uStatusWord.bit.switched_on</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uStatusWord.bit.operation_enabled</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uStatusWord.bit.malfunction</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uStatusWord.bit.voltage_disabled</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uStatusWord.bit.not_quick_stop</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uStatusWord.bit.switch_on_disabled</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uStatusWord.bit.warning</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uStatusWord.bit.ready_for_operation_enable</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uStatusWord.bit.remote</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uStatusWord.bit.ref_equal_actual</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uStatusWord.bit.min_max_reached</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uStatusWord.bit.torque_controlled</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uStatusWord.bit.speed_controlled</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uStatusWord.bit.power_controlled</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uStatusWord.bit.DC_link_voltage_controlled</Variable>
+        <Variable Color="#FFFF0000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uLimitWord.all</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uLimitWord.bit.drive</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uLimitWord.bit.converter_1</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">App1.m_uLimitWord.bit.converter_2</Variable>
+      </Variables>
+    </Watch>
+    <Watch>
+      <Name>DriveLayer</Name>
+      <Variables>
+        <Variable Color="#FFFF0000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_state</Variable>
+        <Variable Color="#FF008000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_state</Variable>
+        <Variable Color="#FF008000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_state</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_te.ref_input</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_te.ref_used</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="True">Drive1.m_te.estimated</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_te.actual</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_te.max_used</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_te.min_used</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_psi_sref_used</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_speed_pu</Variable>
+        <Variable Color="#FFFF0000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_conv1.U_peak_max_V</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_ref_conv1.Us_peak_V</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_ref_conv1.delta_s_s</Variable>
+        <Variable Color="#FFFF0000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_conv2.U_peak_max_V</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_ref_conv2.Us_peak_V</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_ref_conv2.delta_s_s</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_i.limit_converter1</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_i.limit_converter2</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="True">Drive1.m_if_ref_pu</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="True">Drive1.m_i.f</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.FieldCurrentController.m_Kp</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.FieldCurrentController.m_Ti</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.FieldCurrentController.m_tsamp_div_Ti</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.FieldCurrentController.b_InLim</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="True">Drive1.m_ia_ref_pu</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="True">Drive1.m_i.a</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.ArmatureCurrentController.m_Kp</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.ArmatureCurrentController.m_Ti</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.ArmatureCurrentController.m_tsamp_div_Ti</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.ArmatureCurrentController.b_InLim</Variable>
+      </Variables>
+    </Watch>
+    <Watch>
+      <Name>DriveStatus</Name>
+      <Variables>
+        <Variable Color="#FFFF0000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_uFaultWord.all</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_uFaultWord.bit.converter_1</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_uFaultWord.bit.converter_2</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_uFaultWord.bit.current_1</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_uFaultWord.bit.current_2</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_uFaultWord.bit.flux_modell</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_uFaultWord.bit.magnetizing</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_uFaultWord.bit.speed</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_uFaultWord.bit.encoder</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_uFaultWord.bit.identification</Variable>
+        <Variable Color="#FFFF0000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_uWarningWord.all</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_uWarningWord.bit.current_1</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_uWarningWord.bit.current_2</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_uWarningWord.bit.speed</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_uWarningWord.bit.encoder</Variable>
+        <Variable Color="#FFFF0000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_uStatusWord.all</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_uStatusWord.bit.ready_to_start</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_uStatusWord.bit.ready_for_operation_enable</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_uStatusWord.bit.operation_enabled</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_uStatusWord.bit.warning</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_uStatusWord.bit.in_test_state</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_uStatusWord.bit.in_fieldweakening</Variable>
+        <Variable Color="#FFFF0000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_uLimitWord.all</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_uLimitWord.bit.torque_ref_speed</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_uLimitWord.bit.torque_ref_udc1</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_uLimitWord.bit.torque_ref_udc2</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_uLimitWord.bit.torque_ref_current1</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_uLimitWord.bit.torque_ref_current2</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_mode</Variable>
+      </Variables>
+    </Watch>
+    <Watch>
+      <Name>ConverterLayers</Name>
+      <Variables>
+        <Variable Color="#FFFF00FF" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_state</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_IU.Udc_MA_V</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_Tripp.m_Udc_max_V</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_Tripp.m_Udc_min_V</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_Udc_min_Fault_V</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_PWM.m_U_peak_max_V</Variable>
+        <Variable Color="#FFFF8C00" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_PWM.m_M</Variable>
+        <Variable Color="#FFFF8C00" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_PWM.m_M_max</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_GD.m_global_enable</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_GD.m_hex_status_code</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_GD.internal_watchdog_status</Variable>
+        <Variable Color="#FFFF00FF" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_state</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_IU.Udc_MA_V</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_Tripp.m_Udc_max_V</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_Tripp.m_Udc_min_V</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_Udc_min_Fault_V</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_PWM.m_U_peak_max_V</Variable>
+        <Variable Color="#FFFF8C00" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_PWM.m_M</Variable>
+        <Variable Color="#FFFF8C00" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_PWM.m_M_max</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_GD.m_global_enable</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_GD.m_hex_status_code</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_GD.internal_watchdog_status</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_conv1.U_dc_avg_V</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Drive1.m_conv2.U_dc_avg_V</Variable>
+      </Variables>
+    </Watch>
+    <Watch>
+      <Name>Converter_1_Status</Name>
+      <Variables>
+        <Variable Color="#FFFF0000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_uFaultWord.all</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_uFaultWord.bit.Watchdog_is_expired</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_uFaultWord.bit.extern_Watchdog_expired</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_uFaultWord.bit.phase_A_upper</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_uFaultWord.bit.phase_A_lower</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_uFaultWord.bit.phase_B_upper</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_uFaultWord.bit.phase_B_lower</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_uFaultWord.bit.phase_C_upper</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_uFaultWord.bit.phase_C_lower</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_uFaultWord.bit.Brake_Chopper</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_uFaultWord.bit.overcurrent_GD</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_uFaultWord.bit.overcurrent_FW</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_uFaultWord.bit.DC_link_overvoltage_GD</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_uFaultWord.bit.DC_link_overvoltage_FW</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_uFaultWord.bit.overtemperature_GD</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_uFaultWord.bit.DC_link_undervoltage_SW</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_uFaultWord.bit.overcurrent_SW</Variable>
+        <Variable Color="#FFFF0000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_uWarningWord.all</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_uWarningWord.bit.DC_link_overvoltage</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_uWarningWord.bit.DC_link_undervoltage</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_uWarningWord.bit.overcurrent</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_uWarningWord.bit.overtemperature</Variable>
+        <Variable Color="#FFFF0000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_uStatusWord.all</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_uStatusWord.bit.Gate_Driver_ready</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_uStatusWord.bit.Gate_Driver_is_enabled</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_uStatusWord.bit.Hardware_Interlock</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_uStatusWord.bit.Main_contactor_open</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter1.m_uStatusWord.bit.OK_Ready</Variable>
+      </Variables>
+    </Watch>
+    <Watch>
+      <Name>Converter_2_Status</Name>
+      <Variables>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_uFaultWord.bit.Watchdog_is_expired</Variable>
+        <Variable Color="#FFFF0000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_uFaultWord.all</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_uFaultWord.bit.extern_Watchdog_expired</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_uFaultWord.bit.phase_A_upper</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_uFaultWord.bit.phase_A_lower</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_uFaultWord.bit.phase_B_upper</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_uFaultWord.bit.phase_B_lower</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_uFaultWord.bit.phase_C_upper</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_uFaultWord.bit.phase_C_lower</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_uFaultWord.bit.Brake_Chopper</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_uFaultWord.bit.overcurrent_GD</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_uFaultWord.bit.overcurrent_FW</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_uFaultWord.bit.DC_link_overvoltage_GD</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_uFaultWord.bit.DC_link_overvoltage_FW</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_uFaultWord.bit.overtemperature_GD</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_uFaultWord.bit.DC_link_undervoltage_SW</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_uFaultWord.bit.overcurrent_SW</Variable>
+        <Variable Color="#FFFF0000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_uWarningWord.all</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_uWarningWord.bit.DC_link_overvoltage</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_uWarningWord.bit.DC_link_undervoltage</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_uWarningWord.bit.overcurrent</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_uWarningWord.bit.overtemperature</Variable>
+        <Variable Color="#FFFF0000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_uStatusWord.all</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_uStatusWord.bit.Gate_Driver_ready</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_uStatusWord.bit.Gate_Driver_is_enabled</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_uStatusWord.bit.Hardware_Interlock</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_uStatusWord.bit.Main_contactor_open</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">Converter2.m_uStatusWord.bit.OK_Ready</Variable>
+      </Variables>
+    </Watch>
+    <Watch>
+      <Name>FirmWareLayer</Name>
+      <Variables>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">FirmWare1.m_Encoder.m_speed</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">FirmWare1.m_Encoder.m_theta</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">FirmWare1.m_Encoder.theta_rad</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">FirmWare1.m_Encoder.theta_abs_rad</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">FirmWare1.m_Encoder.m_PulsesPerRev</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">FirmWare1.m_Encoder.m_EdgesPerRev</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">FirmWare1.m_Encoder.m_zero</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">FirmWare1.m_Encoder.b_first_zero_pulse_detected</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">FirmWare1.m_Relay.m_state</Variable>
+      </Variables>
+    </Watch>
+    <Watch>
+      <Name>FwEmulator</Name>
+      <Variables>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">FirmWare1.m_Emulator.Tstep</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">FirmWare1.m_Emulator.polepairs</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">FirmWare1.m_Emulator.N_basis_rpm</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">FirmWare1.m_Emulator.M.wn</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="True">FirmWare1.m_Emulator.PU.T_e_pu</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="True">FirmWare1.m_Emulator.PU.T_L_pu</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="True">FirmWare1.m_Emulator.T_L_Nm</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">FirmWare1.m_Emulator.PU.kn_pu</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">FirmWare1.m_Emulator.PU.speed_pu</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">FirmWare1.m_Emulator.Uabasis</Variable>
+      </Variables>
+    </Watch>
+    <Watch>
+      <Name>SwLoadEmulator</Name>
+      <Variables>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">FirmWare1.m_LoadEmulator.m_LoadType</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">FirmWare1.m_LoadEmulator.m_PumpData.k_L</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">FirmWare1.m_LoadEmulator.m_PumpData.t_constant</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">FirmWare1.m_Speed_rpm</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="True">FirmWare1.m_LoadEmulator.m_T_load_Nm</Variable>
+        <Variable Color="#FF000000" IntFormat="DECIMAL" FloatFormat="G5" Graph="False">FirmWare1.m_TorqueLoad_Nm</Variable>
+      </Variables>
+    </Watch>
+  </WatchViews>
+  <GraphConfig>
+    <GraphWindows>6</GraphWindows>
+    <HistorySize>1000</HistorySize>
+    <ScrollMode>SCROLL_50_PERCENT</ScrollMode>
+    <Axes>
+      <Axis Index="0" YAxis="false" Min="0" Max="100" IsLocked="False" GridLines="5" />
+      <Axis Index="0" YAxis="true" Min="-0.901094397902489" Max="0.903627654910088" IsLocked="False" GridLines="5" />
+      <Axis Index="1" YAxis="true" Min="-1.06393851935864" Max="1.10974856317043" IsLocked="False" GridLines="5" />
+      <Axis Index="2" YAxis="true" Min="0.999954152107239" Max="1.00004227161407" IsLocked="False" GridLines="5" />
+      <Axis Index="3" YAxis="true" Min="-1.06437765657902" Max="1.10981493294239" IsLocked="False" GridLines="5" />
+      <Axis Index="4" YAxis="true" Min="-1.06405181288719" Max="1.10242277979851" IsLocked="False" GridLines="5" />
+      <Axis Index="5" YAxis="true" Min="-35.4830963134766" Max="35.6823684692383" IsLocked="False" GridLines="5" />
+    </Axes>
+    <SignalPositions>
+      <Signal SignalName="App1.m_SpeedRef_pu" Index="0" />
+      <Signal SignalName="App1.m_actual_values.speed" Index="0" />
+      <Signal SignalName="App1.m_PLC.torque_ref" Index="1" />
+      <Signal SignalName="App1.m_actual_values.te_ref_used" Index="1" />
+      <Signal SignalName="App1.m_PLC.speed_ref" Index="0" />
+      <Signal SignalName="Drive1.m_te.estimated" Index="4" />
+      <Signal SignalName="Drive1.m_if_ref_pu" Index="2" />
+      <Signal SignalName="Drive1.m_i.f" Index="2" />
+      <Signal SignalName="Drive1.m_ia_ref_pu" Index="3" />
+      <Signal SignalName="Drive1.m_i.a" Index="3" />
+      <Signal SignalName="FirmWare1.m_Emulator.PU.T_e_pu" Index="4" />
+      <Signal SignalName="FirmWare1.m_Emulator.PU.T_L_pu" Index="4" />
+      <Signal SignalName="FirmWare1.m_Emulator.T_L_Nm" Index="5" />
+      <Signal SignalName="FirmWare1.m_LoadEmulator.m_T_load_Nm" Index="5" />
+    </SignalPositions>
+    <GraphWindowsConfig>
+      <GraphWindow>
+        <Index>0</Index>
+        <ShowWatermark>False</ShowWatermark>
+      </GraphWindow>
+      <GraphWindow>
+        <Index>1</Index>
+        <ShowWatermark>False</ShowWatermark>
+      </GraphWindow>
+      <GraphWindow>
+        <Index>2</Index>
+        <ShowWatermark>False</ShowWatermark>
+      </GraphWindow>
+      <GraphWindow>
+        <Index>3</Index>
+        <ShowWatermark>False</ShowWatermark>
+      </GraphWindow>
+      <GraphWindow>
+        <Index>4</Index>
+        <ShowWatermark>False</ShowWatermark>
+      </GraphWindow>
+      <GraphWindow>
+        <Index>5</Index>
+        <ShowWatermark>False</ShowWatermark>
+      </GraphWindow>
+    </GraphWindowsConfig>
+  </GraphConfig>
+</root>

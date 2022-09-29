@@ -1,0 +1,28 @@
+20:14:57 **** Build of configuration Debug for project DEL ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+'Building file: ../src/CommInterface.cpp'
+'Invoking: ARM v7 g++ compiler'
+arm-none-eabi-g++ -DFULL -DARM_A9 -DHAS_BASIC_FAULT_LOG_IF_CAPABILITY -DHAS_RUN_INHIBIT_SUPPORT -DHAS_STRNLEN -DHAS_DIGSCOPE_CAPABILITY -Wall -O3 -g3 -gdwarf-2 -I../../L2_Ph3_L2_Ph3_DC_bsp/ps7_cortexa9_1/include -IC:\Programming\TSW_SW\include -IC:\Programming\TSW_SW\scr -c -fmessage-length=0 -MT"src/CommInterface.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -I../../L2_Ph3_L2_Ph3_DC_bsp/ps7_cortexa9_1/include -MMD -MP -MF"src/CommInterface.d" -MT"src/CommInterface.o" -o "src/CommInterface.o" "../src/CommInterface.cpp"
+'Finished building: ../src/CommInterface.cpp'
+' '
+'Building file: ../src/main.cc'
+'Invoking: ARM v7 g++ compiler'
+arm-none-eabi-g++ -DFULL -DARM_A9 -DHAS_BASIC_FAULT_LOG_IF_CAPABILITY -DHAS_RUN_INHIBIT_SUPPORT -DHAS_STRNLEN -DHAS_DIGSCOPE_CAPABILITY -Wall -O3 -g3 -gdwarf-2 -I../../L2_Ph3_L2_Ph3_DC_bsp/ps7_cortexa9_1/include -IC:\Programming\TSW_SW\include -IC:\Programming\TSW_SW\scr -c -fmessage-length=0 -MT"src/main.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -I../../L2_Ph3_L2_Ph3_DC_bsp/ps7_cortexa9_1/include -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.cc"
+'Finished building: ../src/main.cc'
+' '
+'Building target: DEL.elf'
+'Invoking: ARM v7 g++ linker'
+arm-none-eabi-g++ -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -Wl,-build-id=none -specs=Xilinx.spec -Wl,-T -Wl,../src/lscript.ld -L../../L2_Ph3_L2_Ph3_DC_bsp/ps7_cortexa9_1/lib -o "DEL.elf"  ./src/CommInterface.o ./src/main.o   -Wl,--start-group,-lxil,-lgcc,-lc,-lstdc++,--end-group
+'Finished building target: DEL.elf'
+' '
+'Invoking: ARM v7 Print Size'
+arm-none-eabi-size DEL.elf  |tee "DEL.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+  18596	   1144	  22576	  42316	   a54c	DEL.elf
+'Finished building: DEL.elf.size'
+' '
+
+20:14:59 Build Finished (took 2s.299ms)
+

@@ -1,0 +1,349 @@
+/*
+ * EnDat22.cpp
+ *
+ *  Created on: 19. des. 2021
+ *      Author: lokaladm_thohau
+ */
+
+#include "EnDat22.hpp"
+#include "HMI.hpp"
+
+extern HMI hmi;
+
+
+EnDat22::EnDat22(void) {
+	// TODO Auto-generated constructor stub
+	BASEADDR = XPAR_ENDAT22_S_1_BASEADDR;
+	// read in IP-core EnDat version to verify version and
+	// that communication SW <-> IP-CORE is OK
+}
+
+/*
+ * 1) Check that IP-Core firmware is alive and correct version
+ * 2) Health check encoder
+ * 3) Configure driver software according to connected encoder
+ */
+const uint32_t EnDat22::initialize(void){
+	CNFG_DEFAULT_VAL = 0x98001960;// (6 << FTCLK_BIT) | (DWORD_LEN_EQN1325 << DWORDLEN_BIT) | (0xE << FSYS_BIT) | (ENDAT_MODE << ENDATSSI_BIT);
+	ENDAT_22_WRITE(CNFG_REG1_OFFSET) = CNFG_DEFAULT_VAL;
+
+	ID_REG = ENDAT_22_READ(BASEADDR + ID_REG_OFFSET);
+	if(ID_REG != E22_FIRMWARE_VERSION){
+		return eIPCORE_VER_MISMATCH;
+	}
+
+	m_SpeedFilter.InitValue(0.0);
+	m_SpeedFilter.SetParameters(0.03, 1e-3); // 30 ms time constant
+
+	this->e21ReadMemory();
+	// Read in manufacturer EEPROM, compute/compare CHECKCODE
+
+	this->selectMRS(0xE, 0xA5, 0x0);
+	return eINIT_OK;
+}
+
+void EnDat22::send(const uint8_t command){
+	ENDAT_22_WRITE(SND_REG_OFFSET) 	 = SEND_VAL  = 0x00000000 | (command << 24);
+	ENDAT_22_WRITE(CNFG_REG2_OFFSET) = CFG_2_VAL = 0x0000400A;
+}
+
+void EnDat22::sendWord(const uint32_t command){
+	ENDAT_22_WRITE(SND_REG_OFFSET) 	 = command;
+	ENDAT_22_WRITE(CNFG_REG2_OFFSET) = CFG_2_VAL = 0x0000400A;
+}
+
+void EnDat22::NOP(void){
+	ENDAT_22_WRITE(CNFG_REG2_OFFSET) = CFG_2_VAL = 0x00004000;
+}
+
+void EnDat22::measureCablePropTime(void){
+	ENDAT_22_WRITE(CNFG_REG1_OFFSET) = (CNFG_DEFAULT_VAL | 0x1000000);
+}
+
+/*
+ * What happens if fclk is not matching the encoder in question
+ * What happens if Data word length is unmatched with encoder
+ *
+Setting Transmission Rate on Serial Bus (CLOCK)
+IP-core:clk connected to FCLK_CLK0 = 100 MHz
+Clock rates confirmed probing/measuring with oscilloscope
+and aligns with Table in Ch11.4 [endat master IP]
+EnDat2.2 ECQ425 encoder. Without prop delay compensation
+Values marked * are approved by Heidenhain
+RegVal f_TCLK
+0,1,2,3	16.67 MHz *
+4		12.2 MHz
+5		10.0 MHz
+6		8.33 MHz *
+7		7.14 MHz
+8		6.25 MHz
+9		5.56 MHz
+A		5.05 MHz
+B		4.16 MHz *
+C		2.00 MHz *
+D		1.00 MHz *
+E		200.00 kHz *
+F		100.00 kHz *
+
+ */
+void EnDat22::setfCLK(const uint32_t clkDivider){
+	uint32_t temp_cfg = ENDAT_22_READ(BASEADDR + CNFG_REG1_OFFSET);
+	temp_cfg = temp_cfg & 0xFFFFFF0F;
+	temp_cfg = temp_cfg | (clkDivider << FTCLK_BIT_OFFSET);
+	ENDAT_22_WRITE(CNFG_REG1_OFFSET) = temp_cfg;
+}
+
+/*
+ * 1) What is valid range of mode commands
+ * 2) List valid range of MRS codes
+ */
+void EnDat22::e22ReadMemory1(uint8_t mode_cmd, uint8_t MRS_code){
+	this->resetStatusReg();
+	acknowledged_MRS_code = MRS_code;
+	uint32_t new_msg = 0U;
+	new_msg = (mode_cmd << MODE_BITS_OFFSET);
+	//new_msg = new_msg | (MRS_code << MRS_CODE_OFFSET);
+
+	ENDAT_22_WRITE(SND_REG_OFFSET) = new_msg;
+	this->swStrobe();
+	while(!this->status.REC1_NS){
+		this->getRegValues();
+	}
+	acknowledged_MRS_code  = REC1_reg;
+	//acknowledged_MRS_code2 = ((REC1_reg & ACK_MRS_CODE_MASK) >> MRS_CODE_OFFSET);
+	if(acknowledged_MRS_code2 == MRS_code){
+		acknowledged_MRS_code = 0xABBA;
+		//this->resetStatusReg();
+		//ENDAT_22_WRITE(SND_REG_OFFSET) = 0x230F0000;
+		//this->swStrobe();
+		testValue = this->REC1_reg;
+		/*while(!this->status.REC1_NS){
+			this->getRegValues();
+		}
+		acknowledged_MRS_code2 = 0xBAAB;*/
+		// confirm acknowledged MRS
+		// confirm ackowledged Adress
+
+	}
+	else{
+		acknowledged_MRS_code = 0x0CAB;
+		return;
+	}
+	// Then reset the ack_codes for later usage
+}
+// MRS Tables (EnDat Spec PDF): p56,
+//1: cmd/mrs: 0xE/A5 2: 0x23/0x5 => Supported EnDat cmd set
+void EnDat22::e22ReadMemory2(uint8_t mode_cmd, uint8_t MRS_code){
+	this->resetStatusReg();
+	acknowledged_MRS_code = MRS_code;
+	uint32_t new_msg = 0U;
+	new_msg = (mode_cmd << MODE_BITS_OFFSET);
+	//new_msg = new_msg | (MRS_code << MRS_CODE_OFFSET);
+
+	ENDAT_22_WRITE(SND_REG_OFFSET) = new_msg;
+	this->swStrobe();
+	while(!this->status.REC1_NS){
+		this->getRegValues();
+	}
+}
+
+void EnDat22::e21ReadMemory(void){
+	this->resetStatusReg();
+	acknowledged_MRS_code = 0x7;
+	ENDAT_22_WRITE(SND_REG_OFFSET) = 0x0EA50000; // CMD 0xE Select mem area A5
+	this->swStrobe();
+	while(!this->status.REC1_NS){
+		this->getRegValues();
+	}
+
+	usleep(12000);
+
+	acknowledged_MRS_code  = REC1_reg;
+	acknowledged_MRS_code2 = ((REC1_reg & ACK_MRS_CODE_MASK) >> MRS_CMD_OFFSET);
+	this->status.REC1_NS = false;
+	if(acknowledged_MRS_code2 == 0xA5){
+		acknowledged_MRS_code = 0xABBA;
+		this->resetStatusReg();
+		ENDAT_22_WRITE(SND_REG_OFFSET) = 0x23000000;//0x23 Encoder transmit parameters(word 40)
+		this->swStrobe();
+		testValue = this->REC1_reg;
+		while(!this->status.REC1_NS){
+			this->getRegValues();
+		}
+		acknowledged_MRS_code2 = 0xBAAB;
+		// confirm acknowledged MRS
+		// confirm ackowledged Adress
+		CAPTURE = REC1_reg;
+	}
+	else{
+		return;
+	}
+	// Then reset the ack_codes for later usage
+}
+
+void EnDat22::selectMRS(const uint8_t cmd, const uint8_t mrs_code, const uint8_t mem_address){
+
+	this->resetStatusReg();
+	acknowledged_MRS_code = 0x7;
+	uint32_t Tx_message = (cmd << MRS_CMD_OFFSET) | (mrs_code << MRS_CODE_OFFSET);
+	ENDAT_22_WRITE(SND_REG_OFFSET) = Tx_message;
+	this->swStrobe();
+	EEPROM_time.Start();
+	while(!this->status.REC1_NS){
+		this->getRegValues();
+	}
+	EEPROM_time.Stop();
+	auto dt5 = EEPROM_time.Elapsed();
+	EEPROM_us = 3e-3*dt5;  // in us
+	usleep(120);
+
+	acknowledged_MRS_code  = REC1_reg;
+	acknowledged_MRS_code2 = ((REC1_reg & ACK_MRS_CODE_MASK) >> MRS_CMD_OFFSET);
+	this->status.REC1_NS = false;
+	if(acknowledged_MRS_code2 == 0xA5){
+		acknowledged_MRS_code = 0xABBA;
+		this->resetStatusReg();
+		ENDAT_22_WRITE(SND_REG_OFFSET) = 0x23000000;//0x23 Encoder transmit parameters(word 40)
+		this->swStrobe();
+		testValue = this->REC1_reg;
+		while(!this->status.REC1_NS){
+			this->getRegValues();
+		}
+		acknowledged_MRS_code2 = 0xBAAB;
+		// confirm acknowledged MRS
+		// confirm ackowledged Adress
+		CAPTURE2 = REC1_reg;
+	}
+	else{
+		return;
+	}
+	// Then reset the ack_codes for later usage
+}
+
+/*
+ * Todo: First check that HW-STR/TIMER_STR is not activated
+ * Software strobe SW-STR
+ */
+void EnDat22::swStrobe(void){
+	ENDAT_22_WRITE(SW_STR_REG_OFFSET) = ++SW_STR_COUNTER;
+}
+
+void EnDat22::resetStatusReg(void){ // works: resets back to default 0x4000400;
+	ENDAT_22_WRITE(STATUS_REG_OFFSET) = 0xFFFFFFFF;
+}
+
+void EnDat22::resetEncoder(void){
+	ENDAT_22_WRITE(CNFG_REG2_OFFSET) = CFG_2_VAL = 0x0000400A;
+	ENDAT_22_WRITE(SND_REG_OFFSET) 	 = SEND_VAL  = 0x2A045201;
+}
+
+void EnDat22::getPosition(void){
+	ENDAT_22_WRITE(SND_REG_OFFSET) 	 = SEND_VAL  = 0x38000000;
+	ENDAT_22_WRITE(CNFG_REG2_OFFSET) = CFG_2_VAL = 0x0000400A;
+}
+
+void EnDat22::getPositionE21(void){
+	ENDAT_22_WRITE(SND_REG_OFFSET) 	 = SEND_VAL  = 0x07000000;
+}
+
+void EnDat22::getRegValues(void){
+	for(int i=0; i < 16; i++){
+		registers[i] = ENDAT_22_READ(BASEADDR + i*4);
+	}
+
+
+	 SEND_reg = ENDAT_22_READ(BASEADDR + SND_REG_OFFSET);
+ 	 REC1_reg = ENDAT_22_READ(BASEADDR + RCVE_REG1_OFFSET);
+ 	 REC2_reg = ENDAT_22_READ(BASEADDR + RCVE_REG2_OFFSET);
+ 	 REC3_reg = ENDAT_22_READ(BASEADDR + RCVE_REG3_OFFSET);
+ 	 CONF1_reg = ENDAT_22_READ(BASEADDR + CNFG_REG1_OFFSET);
+ 	 CONF2_reg = ENDAT_22_READ(BASEADDR + CNFG_REG2_OFFSET);
+	 CONF3_reg = ENDAT_22_READ(BASEADDR + CNFG_REG3_OFFSET);
+	 STATUS_REG = ENDAT_22_READ(BASEADDR + STATUS_REG_OFFSET);
+	 INTR_REG = ENDAT_22_READ(BASEADDR + INRPT_REG_OFFSET);
+	 TST1_REG = ENDAT_22_READ(BASEADDR + TST_REG1_OFFSET);
+	 TST2_REG = ENDAT_22_READ(BASEADDR + TST_REG2_OFFSET);
+	 REC4_REG = ENDAT_22_READ(BASEADDR + RCVE_REG4_OFFSET);
+
+
+	 status.REC1_NS = (bool)(STATUS_REG & REC1_NS_MASK);
+	 status.Error1 	= (bool)(STATUS_REG & Error1_MASK);
+	 status.CRC_POS = (bool)(STATUS_REG & CRC_POS_MASK);
+	 status.FTYPE1 	= (bool)(STATUS_REG & FTYPE1_MASK);
+	 status.FTYPE2 	= (bool)(STATUS_REG & FTYPE2_MASK);
+	 status.MRSADR 	= (bool)(STATUS_REG & MRS_ADR_MASK);
+	 status.IR6 	= (bool)(STATUS_REG & IR6_MASK);
+	 status.IR7 	= (bool)(STATUS_REG & IR7_MASK);
+	 status.REC2_NS = (bool)(STATUS_REG & REC2_NS_MASK);
+	 status.REC3_NS = (bool)(STATUS_REG & REC3_NS_MASK);
+	 status.Error2 	= (bool)(STATUS_REG & Error2_MASK);
+	 status.CRC_ZI1 = (bool)(STATUS_REG & CRC_ZI1_MASK);
+	 status.CRC_ZI2 = (bool)(STATUS_REG & CRC_ZI2_MASK);
+	 status.Busy 	= (bool)(STATUS_REG & Busy_MASK);
+	 status.RM 		= (bool)(STATUS_REG & RM_MASK);
+	 status.WRN = (bool)(STATUS_REG & WRN_MASK);
+	 status.Spike = (bool)(STATUS_REG & Spike_MASK);
+	 status.WatchDOG = (bool)(STATUS_REG & WatchDOG_MASK);
+	 status.FTYPE3 = (bool)(STATUS_REG & FTYPE3_MASK);
+	 status.DELAY_COMP = (bool)(STATUS_REG & DELAY_COMP_MASK);
+	 status.PROP_TIME_MEAS = (bool)(STATUS_REG & PROP_TIME_MEAS_MASK);
+	 status.READY_STR = (bool)(STATUS_REG & READY_STR_MASK);
+	 status.READY = (bool)(STATUS_REG & READY_MASK);
+
+	 // ***  COMPUTE ANGLE AND SPEED ***
+	 // NB: Check first status of encoder
+	 //     - IF(fault OR 0x1FFFF) THEN pos_raw = must not be updated!
+	 position_raw_old = position_raw_new;
+	 position_raw_new = REC1_reg & POSITION_MSK_EQN1325;
+
+	 position_raw_diff = position_raw_new - position_raw_old;
+
+	 if(position_raw_diff <= -(MAX_POS_EQN1325/2)){
+		 flag_top = 1;
+		 position_raw_old = position_raw_old - MAX_POS_EQN1325;
+		 position_raw_diff = position_raw_new - position_raw_old;
+	 }else if(position_raw_diff > MAX_POS_EQN1325/2){
+		 flag_top = 2;
+		 position_raw_old = position_raw_old + MAX_POS_EQN1325;
+		 position_raw_diff = position_raw_new - position_raw_old;
+	 }else
+		 flag_top = 0;
+
+
+	 position_rad_old = static_cast<fp64_t>(position_raw_old * M_2PI) / MAX_POS_EQN1325;
+	 position_rad_new = static_cast<fp64_t>(position_raw_new * M_2PI) / MAX_POS_EQN1325;
+
+	 position_rad_diff_old = position_rad_diff_new;
+	 position_rad_diff_new = position_rad_new - position_rad_old;
+
+	 omega_mech = position_rad_diff_new * inv_Tsamp; 	// angular speed [rad/sec]
+	 speed_rpm = omega_mech * (60/M_2PI);		// rotations per minute [rpm]
+	 m_speed_RPM_filtered = m_SpeedFilter.Run(speed_rpm);
+
+	 // *** END OF ANGLE/SPEED SECTION ***
+
+	 CABLE_PROP_TIME_NO_CLKCYC = ((CONF1_reg & PROP_TIME_MEAS_MASK) >> CAB_PROP_TIME_OFFSET);
+
+	 if(hmi.gd.resetCounter){
+		 if(OFFSET < 15780){
+			 OFFSET++;
+		 }else{
+		    OFFSET = 0;
+		 }
+	 }
+	 else{
+		 OFFSET = 0;//hmi.gd.sel_endat22;
+	 }
+	 X_REGISTER = ENDAT_22_READ(BASEADDR + OFFSET*4);
+
+	 if(RESET_e22_if){
+		 ENDAT_22_WRITE(STATUS_REG_OFFSET) = 0xFFFFFFFF;
+		 RESET_e22_if = false;
+	 }
+
+}
+
+EnDat22::~EnDat22() {
+	// TODO Auto-generated destructor stub
+}
+

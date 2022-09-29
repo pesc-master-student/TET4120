@@ -1,0 +1,97 @@
+/*
+ * Encoder.cpp
+ *
+ *  Created on: Oct 9, 2019
+ *      Author: aravinda
+ */
+
+#include "Encoder.hpp"
+#include "Constants.hpp"
+#include <cmath>
+
+//ENCODER_BASEADR -->baseaddress
+void Encoder::getFWadress()
+{
+	m_enc_adress = ENCODER_BASEADR;
+}
+
+
+void Encoder::initialize()
+{
+
+	ENCODER_CONFIG_REG(m_enc_adress) = 0x0000; // Reset config reg
+	ENCODER_CONFIG_REG(m_enc_adress) = 0x0001; // Set bit 0
+	//ENCODER_CONFIG_REG(m_enc_adress) = 0x0200; // Set bit 9: LEDs show encoder pulses.
+	ENCODER_CONFIG_REG(m_enc_adress) = 0x0300; // Set bit 9: LEDs show encoder pulses. Set bit 8 to 1 to have +ve speed for anti-clockwise rotation (looking from NDE side)
+
+	ENCODER_FILTER_REG(m_enc_adress) = 10; 	 // = 0.1 us (100 = 1 us. at 100 MHz clock.)
+
+	ENCODER_FREEZE_CLEAR(m_enc_adress); //  Registers freeze is cleared, in case they are left frozen.
+
+
+	ENCODER_FREEZE_SET(m_enc_adress);   // 	to ensure all values are read at the same clock
+
+	SYNCH_IO; // what is this?--> synchronises the read/write in the bus, applicable for some processors
+
+	m_pos_old = ENCODER_POSITION_REG(m_enc_adress);
+	m_EdgeTime_old = 	ENCLODER_EDGE_CAPTURE_TIMER_REG(m_enc_adress);
+	m_zero = ENCODER_ZERO_POSITION_CAPTURE_REG(m_enc_adress);
+	ENCODER_FREEZE_CLEAR(m_enc_adress);			// remove freeze after reading the values
+	m_speed = 0.0;
+	m_EdgesPerRev = 4 * m_PulsesPerRev;			// A, B x (rising + fall), 2 pulses, and each pulse has 2 edges
+
+	m_inv_EdgesPerRev =1.0/m_EdgesPerRev;
+
+	m_bitCount = log2(m_EdgesPerRev);
+}
+
+void Encoder::getValues()
+{
+	//int diff_time; //RT
+	//int diff_pos;
+
+	ENCODER_FREEZE_CLEAR(m_enc_adress);  	//  ?? why again Register frys settes alltid til null rett før, i tilfelle den er frosset.
+	ENCODER_FREEZE_SET(m_enc_adress); 		//  ?? why again Fryser signaler, sikrer konsistens.
+
+	SYNCH_IO; // ?? Wait until registers are frozen.
+
+
+	m_status = ENCODER_STATUS_REG(m_enc_adress);	// which status do they read
+
+	m_pos = ENCODER_POSITION_REG(m_enc_adress);
+
+	m_EdgeTime = 	ENCLODER_EDGE_CAPTURE_TIMER_REG(m_enc_adress);
+	m_zero = ENCODER_ZERO_POSITION_CAPTURE_REG(m_enc_adress);
+
+	ENCODER_FREEZE_CLEAR(m_enc_adress);
+
+	diff_pos  = m_pos - m_pos_old;
+	diff_time  = m_EdgeTime - m_EdgeTime_old;
+
+	m_pos_old = m_pos;
+	m_EdgeTime_old = m_EdgeTime;
+
+	//if (m_status == 0x02) // check this value??
+	if ((m_status &(1<<ENCODER_ZERO_CAPTURED_FLAG_BITNR)) != 0) //correct
+		{
+		m_AbsPos = m_pos  - m_zero;
+		// set a flag here to make sure that the position is now detected. This can be used to rotate the vector in drive software.
+		}
+	if ( diff_time != 0) // no new pulses??
+		{
+		//m_speed 	= 1.0*(diff_pos * (((long long)FPGA_SYSTEM_CLOCK_FREQUENCY *  60)  / diff_time )) / m_EdgesPerRev ; //RT
+		m_speed 	= 1.0*(diff_pos * (((long long)FPGA_SYSTEM_CLOCK_FREQUENCY *  60)  / diff_time )) *m_inv_EdgesPerRev;
+		}
+	else	if (( m_status & 0x0010) == 0x0010) // ??Long  time since last edge. Clock has ran out, stopped.
+		{
+		m_speed = 0.0;
+		}
+
+	m_theta = (m_pos<<(32-m_bitCount))>>(32-m_bitCount);
+	theta_rad = M_2PI*m_theta*m_inv_EdgesPerRev;
+
+	m_theta_abs   = (m_AbsPos<<(32-m_bitCount))>>(32-m_bitCount); // check by rotating the machine
+	theta_abs_rad = M_2PI*m_theta_abs*m_inv_EdgesPerRev;
+
+}
+

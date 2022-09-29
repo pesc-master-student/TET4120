@@ -1,0 +1,42 @@
+#ifndef LOAD_EMULATOR_HPP_INCLUDED
+#define LOAD_EMULATOR_HPP_INCLUDED
+
+#include <types.hpp>
+
+
+enum class LoadType
+{
+	Pump							= 0,
+	ElectricVehicle			        = 1,
+	ShipPropulsion					= 2,
+	WindPower						= 3,
+	HydroPower						= 4
+};
+
+struct PumpDataStruct
+{
+	fp32_t k_L;
+	fp32_t t_constant;
+};
+
+
+class LoadEmulator
+{
+public:
+	void Initialize(void);
+	fp32_t& Run(const fp32_t& ActualSpeed_pu);
+private:
+	const fp32_t RunPump(const fp32_t ActSpeed_pu);
+
+	LoadType 		m_LoadType;
+	PumpDataStruct 	m_PumpData;
+
+	fp32_t m_T_load_Nm;
+
+	bool   b_error_max;
+	bool   b_deviation_max;
+	bool   b_in_limit;
+	bool   b_input_reached;
+};
+
+#endif //\#ifndef LOAD_EMULATOR_HPP_INCLUDED

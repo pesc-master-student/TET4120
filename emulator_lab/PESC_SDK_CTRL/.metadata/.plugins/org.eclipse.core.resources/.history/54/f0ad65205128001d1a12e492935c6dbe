@@ -1,0 +1,98 @@
+
+/************************************************************************************
+
+File Name: 		DriveRoutineFast.cpp
+Description:	Implementation code.
+                Further details explained in DriveRoutineFast.hpp
+
+*************************************************************************************/
+
+
+#include <DriveRoutineFast.hpp>
+#include "StopWatch.hpp"
+
+FirmWare FirmWare1;
+Converter Converter1;
+Converter Converter2;
+Drive Drive1;
+Application App1;
+
+GPIO SW_Duty_Cycle;
+
+extern HMI hmi;
+extern fp32_t Tsamp;
+
+
+StopWatch sw_measure;
+StopWatch sw_getstatus;
+StopWatch sw_app;
+StopWatch sw_drive;
+StopWatch sw_converter;
+StopWatch sw_Firmware;
+fp32_t Time_used_measure_us;
+fp32_t Time_used_getstatus_us;
+fp32_t Time_used_app_us;
+fp32_t Time_used_drive_us;
+fp32_t Time_used_converter_us;
+fp32_t Time_used_Firmware_us;
+
+
+
+void DriveRoutineFast(){
+
+	// Read from FiberLink:
+	
+
+	// GetMeasurements and GetStatus for Converters and Drive: Trip if any FaultBits are set
+	sw_measure.Start();
+	Drive1.getMeasurements(); //30 us
+	sw_measure.Stop();
+
+	sw_getstatus.Start();
+	Converter1.getStatus();
+	Converter2.getStatus(); // Can be commented out if not in use
+	sw_getstatus.Stop();
+
+
+	//----------  Application Layer  ------------
+	sw_app.Start();
+	App1.run(); 						// Typical speed control with the App state machine
+	sw_app.Stop();
+
+	// ----------  Drive Layer  ------------
+	sw_drive.Start();
+	Drive1.run();  			           // Flux models, torque and flux control (including field weakening)
+	sw_drive.Stop();
+
+	// ----------  Converter Layer  ------------
+	sw_converter.Start();
+	Converter1.run();
+	Converter2.run();  // Both together 6 us
+	sw_converter.Stop();
+
+	//----------  Firmware Layer  ------------
+	sw_Firmware.Start();
+	FirmWare1.run();   // 30 us
+	sw_Firmware.Stop();
+
+
+	// Write to FiberLink:
+
+
+
+	auto dt1=sw_measure.Elapsed();
+	Time_used_measure_us=3e-3*dt1;  // in us
+	auto dt2=sw_getstatus.Elapsed();
+	Time_used_getstatus_us=3e-3*dt2;  // in us
+	auto dt3=sw_app.Elapsed();
+	Time_used_app_us=3e-3*dt3;  // in us
+	auto dt4=sw_drive.Elapsed();
+	Time_used_drive_us=3e-3*dt4;  // in us
+	auto dt5=sw_converter.Elapsed();
+	Time_used_converter_us=3e-3*dt5;  // in us
+	auto dt6=sw_Firmware.Elapsed();
+	Time_used_Firmware_us=3e-3*dt6;  // in us
+
+
+
+}

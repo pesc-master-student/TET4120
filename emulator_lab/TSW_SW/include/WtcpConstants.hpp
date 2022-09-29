@@ -1,0 +1,153 @@
+#pragma once
+#include <cstdint>
+
+constexpr uint32_t WTCP_SUBCMD_INDEX = 1;
+constexpr uint32_t WTCP_CHECKSUM_LENGTH = 2;		   ///< The length of the checksum field.
+constexpr uint32_t WTCP_HEADER_LENGTH = 6;			   ///< The length of the command/request header.
+constexpr uint32_t WTCP_ACK_HEADER_LENGTH = 7;		   ///< The length of the response header.
+constexpr uint32_t WTCP_ACK_HEADER_AND_CHKSUM_LEN = 9; ///< The length of the response header + checksum field.
+
+constexpr uint32_t WTCP_HEADER_ERROR_INDEX = 6; ///< The index of the error field in the response header
+constexpr uint32_t WTCP_HEADER_LENGTH_OFFSET = 4;
+
+constexpr uint8_t WTCP_PING = 0x01;
+constexpr uint8_t WTCP_RESET = 0x02;
+constexpr uint8_t WTCP_PUT_VARIABLES = 0x04;
+constexpr uint8_t WTCP_GET_VERSION = 0x05;
+constexpr uint8_t WTCP_GET_MEMORY_BLOCK = 0x06;
+constexpr uint8_t WTCP_PUT_MEMORY_BLOCK = 0x07;
+constexpr uint8_t WTCP_GET_VARIABLES = 0x08;
+constexpr uint8_t WTCP_SET_VARIABLES = 0x09;
+constexpr uint8_t WTCP_SET_MEMORY = 0x0A;
+constexpr uint8_t WTCP_RUN_FUNCTION = 0x0B;
+constexpr uint8_t WTCP_CHECKSUM = 0x0C;
+constexpr uint8_t WTCP_DATALOGGER = 0x0D;
+constexpr uint8_t WTCP_WRITE_READ_VARIABLES = 0x0E;
+constexpr uint8_t WTCP_EVENTS = 0x0F;
+constexpr uint8_t WTCP_TIME = 0x10;
+constexpr uint8_t WTCP_DIG_SCOPE = 0x11;
+constexpr uint8_t WTCP_FLASH_PROGRAMMER = 0x12;
+constexpr uint8_t WTCP_SLAVE_INTERFACE = 0x13;
+constexpr uint8_t WTCP_FW_FAULT_LOG_IF = 0x14;
+constexpr uint8_t WTCP_LOAD_FPGA_IF = 0x15;
+constexpr uint8_t WTCP_BASIC_FAULT_LOG_IF = 0x16;
+
+constexpr uint8_t WTCP_SUBCMD_CHECKSUM_CRC16 = 0x00;
+constexpr uint8_t WTCP_SUBCMD_CHECKSUM_CRC32 = 0x01;
+
+constexpr uint8_t WTCP_SUBCMD_PING = 0x00;
+constexpr uint8_t WTCP_SUBCMD_RESET_WATCHDOG_TIMER = 0x01;
+
+constexpr uint8_t WTCP_SUBCMD_DATALOGGER_RESET = 0x00;
+constexpr uint8_t WTCP_SUBCMD_DATALOGGER_DISABLE = 0x01;
+constexpr uint8_t WTCP_SUBCMD_DATALOGGER_ENABLE = 0x02;
+constexpr uint8_t WTCP_SUBCMD_DATALOGGER_CONFIGURE_TRIGGER = 0x03;
+constexpr uint8_t WTCP_SUBCMD_DATALOGGER_CONFIGURE_SAMPLING = 0x04;
+constexpr uint8_t WTCP_SUBCMD_DATALOGGER_ADD_VARIABLE = 0x05;
+constexpr uint8_t WTCP_SUBCMD_DATALOGGER_STATUS = 0x06;
+constexpr uint8_t WTCP_SUBCMD_DATALOGGER_GET_PROBES = 0x07;
+constexpr uint8_t WTCP_SUBCMD_DATALOGGER_ADD_VARIABLES = 0x08;
+
+constexpr uint8_t WTCP_SUBCMD_EVENTS_GET_EVENTS = 0x01;
+constexpr uint8_t WTCP_SUBCMD_EVENTS_CLEAR_FAULTS = 0x02;
+constexpr uint8_t WTCP_SUBCMD_EVENTS_CLEAR_ALARMS = 0x03;
+constexpr uint8_t WTCP_SUBCMD_EVENTS_GET_FLAGS = 0x04;
+constexpr uint8_t WTCP_SUBCMD_ENABLE_DISABLE_EVENT_MONITORING = 0x05;
+constexpr uint8_t WTCP_SUBCMD_RUN_INHIBIT = 0x06;
+
+constexpr uint8_t WTCP_SUBCMD_TIME_SET_TIME_OFFSET = 0x00;
+constexpr uint8_t WTCP_SUBCMD_TIME_SYNCHRONIZE = 0x01;
+
+constexpr uint8_t WTCP_SUBCMD_DIGSCOPE_RESET = 0x00;
+constexpr uint8_t WTCP_SUBCMD_DIGSCOPE_DISABLE = 0x01;
+constexpr uint8_t WTCP_SUBCMD_DIGSCOPE_ENABLE = 0x02;
+constexpr uint8_t WTCP_SUBCMD_DIGSCOPE_GET_SOURCES = 0x03;
+constexpr uint8_t WTCP_SUBCMD_DIGSCOPE_GET_SIGNALS = 0x04;
+constexpr uint8_t WTCP_SUBCMD_DIGSCOPE_SELECT_SIGNALS = 0x05;
+constexpr uint8_t WTCP_SUBCMD_DIGSCOPE_GET_STATUS = 0x06;
+constexpr uint8_t WTCP_SUBCMD_DIGSCOPE_SET_SAMPLING_AND_TRIGGER = 0x07;
+constexpr uint8_t WTCP_SUBCMD_DIGSCOPE_GET_DIGSCOPE_COUNT = 0x08;
+
+constexpr uint8_t WTCP_SUBCMD_FLASH_PROGRAMMER_GET_CONFIG = 0x00;
+constexpr uint8_t WTCP_SUBCMD_FLASH_PROGRAMMER_WRITE = 0x01;
+constexpr uint8_t WTCP_SUBCMD_FLASH_PROGRAMMER_READ = 0x02;
+constexpr uint8_t WTCP_SUBCMD_FLASH_PROGRAMMER_CHIP_ERASE = 0x03;
+constexpr uint8_t WTCP_SUBCMD_FLASH_PROGRAMMER_SECTOR_ERASE = 0x04;
+constexpr uint8_t WTCP_SUBCMD_FLASH_PROGRAMMER_GET_STATUS = 0x05;
+constexpr uint8_t WTCP_SUBCMD_FLASH_PROGRAMMER_GET_IMAGE_SETTINGS = 0x06;
+constexpr uint8_t WTCP_SUBCMD_FLASH_PROGRAMMER_DO_CRC32 = 0x07;
+constexpr uint8_t WTCP_SUBCMD_FLASH_PROGRAMMER_RECONFIGURE = 0x08;
+constexpr uint8_t WTCP_SUBCMD_FLASH_PROGRAMMER_INIT = 0x09;
+constexpr uint8_t WTCP_SUBCMD_FLASH_PROGRAMMER_GET_NAME = 0x0A;
+
+constexpr uint8_t WTCP_SUBCMD_SLAVE_INTERFACE_GET_CONFIG = 0x00;
+constexpr uint8_t WTCP_SUBCMD_SLAVE_READ_REGISTER = 0x01;
+constexpr uint8_t WTCP_SUBCMD_SLAVE_WRITE_REGISTER = 0x02;
+constexpr uint8_t WTCP_SUBCMD_SLAVE_GET_INFO = 0x03;
+constexpr uint8_t WTCP_SUBCMD_SLAVE_GET_INFO_ALL = 0x04;
+constexpr uint8_t WTCP_SUBCMD_SLAVE_READ_REGISTERS = 0x05;
+constexpr uint8_t WTCP_SUBCMD_SLAVE_READ_SLAVE_REGISTERS = 0x06;
+constexpr uint8_t WTCP_SUBCMD_SLAVE_WRITE_SLAVE_REGISTER = 0x07;
+
+constexpr uint8_t WTCP_SUBCMD_FW_FAULT_LOG_IF_GET_NUM_LOGS = 0x00;
+constexpr uint8_t WTCP_SUBCMD_FW_FAULT_LOG_IF_GET_STATUS = 0x01;
+constexpr uint8_t WTCP_SUBCMD_FW_FAULT_LOG_IF_COMMAND = 0x02;
+constexpr uint8_t WTCP_SUBCMD_FW_FAULT_LOG_IF_GET_INFO = 0x03;
+constexpr uint8_t WTCP_SUBCMD_FW_FAULT_LOG_IF_GET_DATA = 0x04;
+
+constexpr uint8_t WTCP_SUBCMD_LOAD_FPGA_GET_READY = 0x00;
+constexpr uint8_t WTCP_SUBCMD_LOAD_FPGA_GET_BUFFER_AND_EXPECTED_LENGTH = 0x01;
+constexpr uint8_t WTCP_SUBCMD_LOAD_FPGA_SET_IMAGE_LENGTH = 0x02;
+constexpr uint8_t WTCP_SUBCMD_LOAD_FPGA_START_LOAD_PROCESS = 0x03;
+constexpr uint8_t WTCP_SUBCMD_LOAD_FPGA_CHECK_STATUS = 0x04;
+
+constexpr uint8_t WTCP_SUBCMD_BASIC_FAULT_LOG_IF_SERIALIZE = 0x00;
+constexpr uint8_t WTCP_SUBCMD_BASIC_FAULT_LOG_IF_DATA_AVAILABLE = 0x01;
+constexpr uint8_t WTCP_SUBCMD_BASIC_FAULT_LOG_IF_CLEAR_DATA_AVAILABLE = 0x02;
+constexpr uint8_t WTCP_SUBCMD_BASIC_FAULT_LOG_IF_GET_TRIGGER_TIME = 0x03;
+
+// ********************************************
+//  Error codes
+// ********************************************
+
+// General error codes
+constexpr uint8_t WTCP_ERROR_CODE_NONE = 0x00;
+constexpr uint8_t WTCP_ERROR_CODE_INVALID_COMMAND = 0x01;
+constexpr uint8_t WTCP_ERROR_CODE_INVALID_SUB_COMMAND = 0x02;
+constexpr uint8_t WTCP_ERROR_CODE_INVALID_REQUEST_SIZE = 0x03;
+constexpr uint8_t WTCP_ERROR_CODE_INVALID_VARIABLE_SIZE = 0x04;
+constexpr uint8_t WTCP_ERROR_CODE_CALLBACK_NOT_INITIALIZED = 0x05;
+constexpr uint8_t WTCP_ERROR_CODE_INVALID_PACKET_LENGTH = 0x06;
+constexpr uint8_t WTCP_ERROR_CODE_UNKNOWN = 0x07;
+const uint8_t WTCP_ERROR_CODE_BUFFER_TOO_SMALL = 0x08;
+// Datalogger error codes
+constexpr uint8_t WTCP_ERROR_CODE_DATALOGGER_INVALID_OBJECT = 0x10;
+constexpr uint8_t WTCP_ERROR_CODE_INVALID_TRIGGER_SIZE = 0x11;
+constexpr uint8_t WTCP_ERROR_DATALOGGER_ERRORCODE_BUFFER_TOO_SMALL = 0x12;
+constexpr uint8_t WTCP_ERROR_DATALOGGER_ERRORCODE_INVALID_PROBE = 0x13;
+constexpr uint8_t WTCP_ERROR_DATALOGGER_ERRORCODE_INVALID_TRIGGER_TYPE = 0x14;
+constexpr uint8_t WTCP_ERROR_CODE_ADD_VARIABLE_FAILED = 0x15;
+
+// Digital oscilloscope error codes
+constexpr uint8_t WTCP_ERROR_CODE_DIGSCOPE_NOT_AVAILABLE = 0x20;
+constexpr uint8_t WTCP_ERROR_CODE_DIGSCOPE_INVALID_SOURCE = 0x21;
+constexpr uint8_t WTCP_ERROR_CODE_DIGSCOPE_ERROR_INVALID_SIGNAL_ID = 0x22;
+constexpr uint8_t WTCP_ERROR_CODE_DIGSCOPE_ERROR_ADD_SIGNAL_FAILED = 0x23;
+constexpr uint8_t WTCP_ERROR_CODE_DIGSCOPE_ERROR_INVALID_BUFFER_LEN = 0x24;
+constexpr uint8_t WTCP_ERROR_CODE_DIGSCOPE_ERROR_NO_DATA = 0x25;
+constexpr uint8_t WTCP_ERROR_CODE_DIGSCOPE_CONFIGURE_SAMPLING_NA = 0x26;
+constexpr uint8_t WTCP_ERROR_CODE_DIGSCOPE_CONFIGURE_TRIGGER_NA = 0x27;
+
+constexpr uint8_t WTCP_ERROR_CODE_NO_FLASH_PROGRAMMERS_AVAILABLE = 0x30;
+constexpr uint8_t WTCP_ERROR_CODE_FLASH_OPERATION_FAILED = 0x31;
+constexpr uint8_t WTCP_ERROR_CODE_INVALID_FLASH_PROGRAMMER = 0x32;
+
+constexpr uint8_t WTCP_ERROR_CODE_NO_SLAVE_INTERFACES_AVAILABLE = 0x40;
+constexpr uint8_t WTCP_ERROR_CODE_INVALID_SLAVE_INTERFACES = 0x41;
+constexpr uint8_t WTCP_ERROR_CODE_SLAVE_METHOD_NOT_IMPLEMENTED = 0x42;
+constexpr uint8_t WTCP_ERROR_CODE_SLAVE_NO_LINK = 0x43;
+constexpr uint8_t WTCP_ERROR_CODE_SLAVE_TIMEOUT = 0x44;
+
+constexpr uint8_t WTCP_ERROR_CODE_FW_FAULT_LOG_INVALID_INDEX = 0x4A;
+constexpr uint8_t WTCP_ERROR_CODE_FW_FAULT_LOG_NO_INTERFACES = 0x4B;
+// ********** Error Codes END *****************

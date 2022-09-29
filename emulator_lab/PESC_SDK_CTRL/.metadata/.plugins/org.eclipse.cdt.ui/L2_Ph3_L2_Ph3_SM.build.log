@@ -1,0 +1,24 @@
+15:20:10 **** Auto Build of configuration Debug for project L2_Ph3_L2_Ph3_SM ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+'Building file: ../src/ConfigParameters.cpp'
+'Invoking: ARM v7 g++ compiler'
+arm-none-eabi-g++ -D"C:\Programming\PESC_CPP_LIB\Modulators\include" -DFULL -DARM_A9 -DHAS_BASIC_FAULT_LOG_IF_CAPABILITY -DHAS_RUN_INHIBIT_SUPPORT -DHAS_STRNLEN -DHAS_DIGSCOPE_CAPABILITY -Wall -O3 -gdwarf-2 -g -gdwarf-4 -I../../L2_Ph3_L2_Ph3_SM_bsp/ps7_cortexa9_1/include -I"C:\Programming\PESC_SDK_CTRL\L2_Ph3_L2_Ph3_SM\src" -I"C:\Programming\TSW_SW\src" -I"C:\Programming\TSW_SW\include" -c -fmessage-length=0 -MT"src/ConfigParameters.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -MMD -MP -MF"src/ConfigParameters.d" -MT"src/ConfigParameters.o" -o "src/ConfigParameters.o" "../src/ConfigParameters.cpp"
+<command-line>: warning: ISO C++11 requires whitespace after the macro name
+'Finished building: ../src/ConfigParameters.cpp'
+' '
+'Building target: L2_Ph3_L2_Ph3_SM.elf'
+'Invoking: ARM v7 g++ linker'
+arm-none-eabi-g++ -L"C:\Programming\TSW_SW\lib" -L../../L2_Ph3_L2_Ph3_SM_bsp/ps7_cortexa9_1/lib -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -Wl,-build-id=none -specs=Xilinx.spec -Wl,-T -Wl,../src/lscript.ld -L../../L2_Ph3_L2_Ph3_SM_bsp/ps7_cortexa9_1/lib -o "L2_Ph3_L2_Ph3_SM.elf"  ./src/ADC.o ./src/Application.o ./src/CommInterface.o ./src/ConfigParameters.o ./src/Converter.o ./src/DAC.o ./src/Drive.o ./src/DriveRoutineFast.o ./src/Emulator.o ./src/Encoder.o ./src/Exception.o ./src/FW_Tripping.o ./src/Filter.o ./src/FirmWare_2L_3ph.o ./src/GPIO.o ./src/GateDriver.o ./src/HMI.o ./src/HysteresisAmpRegulator.o ./src/Initialize_SW.o ./src/LPFilter1.o ./src/Measurements.o ./src/Motor.o ./src/Multiplexer.o ./src/PI_controller.o ./src/PLL.o ./src/PWM_2L_3ph.o ./src/RampFilter.o ./src/Relay.o ./src/SetBit.o ./src/Stop_SW.o ./src/SwLoadEmulator.o ./src/TorqueLimiters.o ./src/WaterTurbine.o ./src/main.o   -lwtcp_arm_a9_full  -Wl,--start-group,-lxil,-lgcc,-lc,-lstdc++,--end-group
+'Finished building target: L2_Ph3_L2_Ph3_SM.elf'
+' '
+'Invoking: ARM v7 Print Size'
+arm-none-eabi-size L2_Ph3_L2_Ph3_SM.elf  |tee "L2_Ph3_L2_Ph3_SM.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+ 176920	   3376	16815632	16995928	1035658	L2_Ph3_L2_Ph3_SM.elf
+'Finished building: L2_Ph3_L2_Ph3_SM.elf.size'
+' '
+
+15:20:13 Build Finished (took 2s.850ms)
+

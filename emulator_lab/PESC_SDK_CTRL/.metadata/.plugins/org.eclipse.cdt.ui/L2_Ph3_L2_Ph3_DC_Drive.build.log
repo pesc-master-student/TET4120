@@ -1,0 +1,50 @@
+20:28:55 **** Auto Build of configuration Debug for project L2_Ph3_L2_Ph3_DC_Drive ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+'Building target: libL2_Ph3_L2_Ph3_DC_Drive.elf'
+'Invoking: ARM v7 archiver'
+arm-none-eabi-ar -r  "libL2_Ph3_L2_Ph3_DC_Drive.elf"  ./src/ADC.o ./src/Application.o ./src/CommInterface.o ./src/ConfigParameters.o ./src/Converter.o ./src/DAC.o ./src/Drive.o ./src/DriveRoutineFast.o ./src/Emulator.o ./src/EnDat22.o ./src/Encoder.o ./src/Exception.o ./src/FW_Tripping.o ./src/Filter.o ./src/FirmWare_2L_3ph.o ./src/GPIO.o ./src/GateDriver.o ./src/HMI.o ./src/HysteresisAmpRegulator.o ./src/Initialize_SW.o ./src/LPFilter1.o ./src/Measurements.o ./src/Motor.o ./src/Multiplexer.o ./src/PI_controller.o ./src/PWM_2L_3ph.o ./src/RampFilter.o ./src/Relay.o ./src/SetBit.o ./src/SwLoadEmulator.o ./src/TorqueLimiters.o ./src/main.o   
+arm-none-eabi-ar: creating libL2_Ph3_L2_Ph3_DC_Drive.elf
+'Finished building target: libL2_Ph3_L2_Ph3_DC_Drive.elf'
+' '
+'Invoking: ARM v7 Print Size'
+arm-none-eabi-size libL2_Ph3_L2_Ph3_DC_Drive.elf  |tee "libL2_Ph3_L2_Ph3_DC_Drive.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+   1672	      0	      0	   1672	    688	ADC.o (ex libL2_Ph3_L2_Ph3_DC_Drive.elf)
+   4484	      0	      0	   4484	   1184	Application.o (ex libL2_Ph3_L2_Ph3_DC_Drive.elf)
+    248	      0	      0	    248	     f8	CommInterface.o (ex libL2_Ph3_L2_Ph3_DC_Drive.elf)
+    412	    648	      0	   1060	    424	ConfigParameters.o (ex libL2_Ph3_L2_Ph3_DC_Drive.elf)
+   2468	      0	      4	   2472	    9a8	Converter.o (ex libL2_Ph3_L2_Ph3_DC_Drive.elf)
+   1380	      0	      0	   1380	    564	DAC.o (ex libL2_Ph3_L2_Ph3_DC_Drive.elf)
+   3440	      0	      0	   3440	    d70	Drive.o (ex libL2_Ph3_L2_Ph3_DC_Drive.elf)
+    792	      4	   5448	   6244	   1864	DriveRoutineFast.o (ex libL2_Ph3_L2_Ph3_DC_Drive.elf)
+   1768	      0	      0	   1768	    6e8	Emulator.o (ex libL2_Ph3_L2_Ph3_DC_Drive.elf)
+   9628	      0	      0	   9628	   259c	EnDat22.o (ex libL2_Ph3_L2_Ph3_DC_Drive.elf)
+    532	      0	      0	    532	    214	Encoder.o (ex libL2_Ph3_L2_Ph3_DC_Drive.elf)
+    876	      4	    384	   1264	    4f0	Exception.o (ex libL2_Ph3_L2_Ph3_DC_Drive.elf)
+   1136	      0	      0	   1136	    470	FW_Tripping.o (ex libL2_Ph3_L2_Ph3_DC_Drive.elf)
+   3752	      0	      0	   3752	    ea8	Filter.o (ex libL2_Ph3_L2_Ph3_DC_Drive.elf)
+   1064	      0	      0	   1064	    428	FirmWare_2L_3ph.o (ex libL2_Ph3_L2_Ph3_DC_Drive.elf)
+    144	      0	      0	    144	     90	GPIO.o (ex libL2_Ph3_L2_Ph3_DC_Drive.elf)
+   1136	      0	      0	   1136	    470	GateDriver.o (ex libL2_Ph3_L2_Ph3_DC_Drive.elf)
+      0	      0	      0	      0	      0	HMI.o (ex libL2_Ph3_L2_Ph3_DC_Drive.elf)
+    564	      0	      0	    564	    234	HysteresisAmpRegulator.o (ex libL2_Ph3_L2_Ph3_DC_Drive.elf)
+    168	      0	      0	    168	     a8	Initialize_SW.o (ex libL2_Ph3_L2_Ph3_DC_Drive.elf)
+    252	      0	      0	    252	     fc	LPFilter1.o (ex libL2_Ph3_L2_Ph3_DC_Drive.elf)
+    804	      0	      0	    804	    324	Measurements.o (ex libL2_Ph3_L2_Ph3_DC_Drive.elf)
+     24	      0	      0	     24	     18	Motor.o (ex libL2_Ph3_L2_Ph3_DC_Drive.elf)
+     96	      0	      0	     96	     60	Multiplexer.o (ex libL2_Ph3_L2_Ph3_DC_Drive.elf)
+    480	      0	      0	    480	    1e0	PI_controller.o (ex libL2_Ph3_L2_Ph3_DC_Drive.elf)
+   1876	      0	      0	   1876	    754	PWM_2L_3ph.o (ex libL2_Ph3_L2_Ph3_DC_Drive.elf)
+    696	      0	      0	    696	    2b8	RampFilter.o (ex libL2_Ph3_L2_Ph3_DC_Drive.elf)
+    268	      0	      0	    268	    10c	Relay.o (ex libL2_Ph3_L2_Ph3_DC_Drive.elf)
+    768	      0	      0	    768	    300	SetBit.o (ex libL2_Ph3_L2_Ph3_DC_Drive.elf)
+    244	      0	      0	    244	     f4	SwLoadEmulator.o (ex libL2_Ph3_L2_Ph3_DC_Drive.elf)
+   1352	      0	      0	   1352	    548	TorqueLimiters.o (ex libL2_Ph3_L2_Ph3_DC_Drive.elf)
+   2064	  49244	16786428	16837736	100ec68	main.o (ex libL2_Ph3_L2_Ph3_DC_Drive.elf)
+'Finished building: libL2_Ph3_L2_Ph3_DC_Drive.elf.size'
+' '
+
+20:28:56 Build Finished (took 1s.433ms)
+

@@ -1,0 +1,50 @@
+#include "LPFilter1.hpp"
+#include <cmath>
+
+
+fp32_t& LpFilter1::Run(const fp32_t& input)
+{
+	b_in_limit = false;
+	m_y1 =m_xgain*input +m_ygain*m_y1;
+	return m_y1;
+}
+
+fp32_t& LpFilter1::RunLim(const fp32_t& input,const fp32_t& min,const fp32_t& max)
+{
+	m_min = min;
+	m_max = max;
+
+	m_y1 =m_xgain*input +m_ygain*m_y1;
+
+	if (m_y1 >= m_max ){
+		m_y1 = m_max;
+		b_in_limit = true;
+	}
+	else if (m_y1 <= min) {
+		m_y1 = m_min;
+		b_in_limit = true;
+	}
+	else {
+		b_in_limit = false;
+	}
+
+	return m_y1;
+}
+
+void LpFilter1::SetParameters(const fp32_t& t_filt, const fp32_t& t_samp)
+{
+	if (t_filt <= t_samp){
+		m_xgain = 1.0;
+		m_ygain = 0.0;
+	}
+	else {
+		m_xgain = t_samp/t_filt;
+		m_ygain = ( 1.0 - m_xgain );
+	}
+
+}
+
+void LpFilter1:: InitValue(const fp32_t& output)
+{
+	m_y1	= output;
+}

@@ -1,0 +1,379 @@
+#ifndef WTCP_FULL_HPP
+#define WTCP_FULL_HPP
+// Standard capabilities
+//Extended capabilities
+const unsigned long long CAPABILITIES = (0x01FFF | 0x000000) | 0x010000 | 0x020000 | 0x040000 | 0x000000 | 0x100000 | 0x000000 | 0x000000 | 0x1000000 | 0x2000000;
+// ********************************************************
+//           Get the Endian from the compiler
+// ********************************************************
+/*
+
+#ifndef DEVICE_BYTE_ORDER
+
+
+
+#define BIG_ENDIAN_BYTE_ORDER 1
+
+#define LITTLE_ENDIAN_BYTE_ORDER 2
+
+
+
+#ifndef __BYTE_ORDER__
+
+#ifndef __BIG_ENDIAN__
+
+#error "Big endian not defined"
+
+#elif __BIG_ENDIAN__ == 1
+
+#define DEVICE_BYTE_ORDER BIG_ENDIAN_BYTE_ORDER
+
+#else
+
+#error "Error: Use big endian for PowerPC"
+
+#endif
+
+#else
+
+#if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
+
+#define DEVICE_BYTE_ORDER LITTLE_ENDIAN_BYTE_ORDER
+
+#elif __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
+
+#define DEVICE_BYTE_ORDER BIG_ENDIAN_BYTE_ORDER
+
+#else
+
+#error "Byte order is undefined"
+
+#endif
+
+#endif
+
+
+
+#endif //\#ifndef DEVICE_BYTE_ORDER*/
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// \class FlashProgrammer
+/// \brief  API for flash programming. Contains basic functionality and callbacks to
+///			user code for accessing the flash.
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+class FlashProgrammer
+{
+public:
+ FlashProgrammer() : m_pfWriteData(0),m_pfReadData(0), m_pfChipErase(0),m_pfSectorErase(0),m_pfGetStatusReady(0),m_pfReconfigure(0),m_pfInit(0),m_name(0),m_pContext(0),m_imageStartAddress(0),m_imageBufferLength(0){}
+ inline void SetContext(void* pContext) { m_pContext = pContext;}
+ inline void* GetContext() { return m_pContext;}
+ inline void SetImageBuffer( uint32_t startAddress, uint32_t length) { m_imageStartAddress = startAddress; m_imageBufferLength = length;}
+ inline uint32_t GetImageStartAddress() const { return m_imageStartAddress;}
+ inline uint32_t GetImageBufferLength() const { return m_imageBufferLength;}
+ inline uint32_t GetImageActualLength() const { return m_imageActualLength;}
+ void SetWriteFunction( bool (*pfWriteData)(void* pContext, uint32_t address, const uint8_t* const pData, uint32_t noBytes) ) { m_pfWriteData = pfWriteData; }
+ void SetReadFunction( bool (*pfReadData)(void* pContext, uint32_t address, uint32_t noBytes, uint8_t* pBuf, uint32_t index, uint32_t bufLen, bool useFullAddressRange) ) { m_pfReadData = pfReadData; }
+ void SetChipEraseFunction( bool (*pfChipErase)(void* pContext) ) { m_pfChipErase = pfChipErase; }
+ void SetSectorEraseFunction( bool (*pfSectorErase)(void* pContext,uint32_t address) ) { m_pfSectorErase = pfSectorErase; }
+ void SetStatusReadyFunction( bool (*pfGetStatusReady)(void* pContext) ) {m_pfGetStatusReady = pfGetStatusReady;}
+ void SetReconfigureFunction( bool (*pfReconfigure)(void* pContext) ) {m_pfReconfigure = pfReconfigure;}
+ void SetInitFunction(bool (*pfInit)(void* pContext)) { m_pfInit = pfInit;};
+ void SetGetExtendedErrorCodeFunction( bool (*pfGetExtendedErrorCode)( void* pContext, uint32_t& error ) ) { m_pfGetExtendedErrorCode = pfGetExtendedErrorCode; }
+ uint8_t WriteData(uint32_t address, const uint8_t* const pData, uint32_t noBytes);
+ uint8_t ChipErase();
+ uint8_t SectorErase(uint32_t address);
+ uint8_t GetStatus();
+ uint8_t ReadData(uint32_t address, uint32_t length, uint8_t* pBuf, uint32_t offset, uint32_t bufferLength, bool useFullAddressRange);
+ uint8_t Reconfigure();
+ bool GetExtendedErrorCode( uint32_t& error );
+ void Init();
+ void SetName(const char* pName) { m_name = pName;}
+ const char* GetName() const { return m_name;}
+private:
+ bool (*m_pfWriteData)(void* pContext, uint32_t address, const uint8_t* const pData, uint32_t noBytes); ///< Callback for writing data to flash
+ bool (*m_pfReadData)(void* pContext, uint32_t address, uint32_t noBytes, uint8_t* pBuf, uint32_t index, uint32_t bufLen, bool useFullAddressRange); ///< Callback for reading data from flash
+ bool (*m_pfChipErase)(void* pContext); ///< Callback for erasing the whole flash
+ bool (*m_pfSectorErase)(void* pContext,uint32_t address); ///< Callback for erasing single sectors
+ bool (*m_pfGetStatusReady)(void* pContext); ///< Callback for getting status information from the flash
+ bool (*m_pfReconfigure)(void* pContext);
+ bool (*m_pfInit)(void* pContext);
+ bool (*m_pfGetExtendedErrorCode)(void* pContext, uint32_t& error);
+ const char* m_name;
+ void* m_pContext; ///< A void* pointer that will be included in every callback. Can among other things be used as a this pointer.
+ uint32_t m_imageStartAddress; ///< If we want to download the whole image before programming this buffer will be used
+ uint32_t m_imageBufferLength; ///< The length of the image buffer
+ uint32_t m_imageActualLength; ///< The number of valid data bytes in the buffer (How much we have written to the buffer)
+};
+class WtcpSlaveInterface;
+class WtcpBasicFaultLogIf;
+const uint32_t WTCP_CHECKSUM_LENGTH = 2; ///< The length of the checksum field.
+const uint32_t WTCP_HEADER_LENGTH = 6; ///< The length of the command/request header.
+const uint32_t WTCP_ACK_HEADER_LENGTH = 7; ///< The length of the response header.
+const uint32_t WTCP_ACK_HEADER_AND_CHKSUM_LEN = 9; ///< The length of the response header + checksum field.
+const uint32_t WTCP_HEADER_ERROR_INDEX = 6; ///< The index of the error field in the response header
+const uint8_t WTCP_PING = 0x01;
+const uint8_t WTCP_RESET = 0x02;
+const uint8_t WTCP_PUT_VARIABLES = 0x04;
+const uint8_t WTCP_GET_VERSION = 0x05;
+const uint8_t WTCP_GET_MEMORY_BLOCK = 0x06;
+const uint8_t WTCP_PUT_MEMORY_BLOCK = 0x07;
+const uint8_t WTCP_GET_VARIABLES = 0x08;
+const uint8_t WTCP_SET_VARIABLES = 0x09;
+const uint8_t WTCP_SET_MEMORY = 0x0A;
+const uint8_t WTCP_RUN_FUNCTION = 0x0B;
+const uint8_t WTCP_CHECKSUM = 0x0C;
+const uint8_t WTCP_DATALOGGER = 0x0D;
+const uint8_t WTCP_WRITE_READ_VARIABLES = 0x0E;
+const uint8_t WTCP_EVENTS = 0x0F;
+const uint8_t WTCP_TIME = 0x10;
+const uint8_t WTCP_DIG_SCOPE = 0x11;
+const uint8_t WTCP_FLASH_PROGRAMMER = 0x12;
+const uint8_t WTCP_SLAVE_INTERFACE = 0x13;
+const uint8_t WTCP_FW_FAULT_LOG_IF = 0x14;
+const uint8_t WTCP_LOAD_FPGA_IF = 0x15;
+const uint8_t WTCP_BASIC_FAULT_LOG_IF = 0x16;
+const uint8_t WTCP_SUBCMD_CHECKSUM_CRC16 = 0x00;
+const uint8_t WTCP_SUBCMD_CHECKSUM_CRC32 = 0x01;
+const uint8_t WTCP_SUBCMD_PING = 0x00;
+const uint8_t WTCP_SUBCMD_RESET_WATCHDOG_TIMER = 0x01;
+const uint8_t WTCP_SUBCMD_DATALOGGER_RESET = 0x00;
+const uint8_t WTCP_SUBCMD_DATALOGGER_DISABLE = 0x01;
+const uint8_t WTCP_SUBCMD_DATALOGGER_ENABLE = 0x02;
+const uint8_t WTCP_SUBCMD_DATALOGGER_CONFIGURE_TRIGGER = 0x03;
+const uint8_t WTCP_SUBCMD_DATALOGGER_CONFIGURE_SAMPLING = 0x04;
+const uint8_t WTCP_SUBCMD_DATALOGGER_ADD_VARIABLE = 0x05;
+const uint8_t WTCP_SUBCMD_DATALOGGER_STATUS = 0x06;
+const uint8_t WTCP_SUBCMD_DATALOGGER_GET_PROBES = 0x07;
+const uint8_t WTCP_SUBCMD_DATALOGGER_ADD_VARIABLES = 0x08;
+const uint8_t WTCP_SUBCMD_EVENTS_GET_EVENTS = 0x01;
+const uint8_t WTCP_SUBCMD_EVENTS_CLEAR_FAULTS = 0x02;
+const uint8_t WTCP_SUBCMD_EVENTS_CLEAR_ALARMS = 0x03;
+const uint8_t WTCP_SUBCMD_EVENTS_GET_FLAGS = 0x04;
+const uint8_t WTCP_SUBCMD_ENABLE_DISABLE_EVENT_MONITORING = 0x05;
+const uint8_t WTCP_SUBCMD_RUN_INHIBIT = 0x06;
+const uint8_t WTCP_SUBCMD_TIME_SET_TIME_OFFSET = 0x00;
+const uint8_t WTCP_SUBCMD_TIME_SYNCHRONIZE = 0x01;
+const uint8_t WTCP_SUBCMD_DIGSCOPE_RESET = 0x00;
+const uint8_t WTCP_SUBCMD_DIGSCOPE_DISABLE = 0x01;
+const uint8_t WTCP_SUBCMD_DIGSCOPE_ENABLE = 0x02;
+const uint8_t WTCP_SUBCMD_DIGSCOPE_GET_SOURCES = 0x03;
+const uint8_t WTCP_SUBCMD_DIGSCOPE_GET_SIGNALS = 0x04;
+const uint8_t WTCP_SUBCMD_DIGSCOPE_SELECT_SIGNALS = 0x05;
+const uint8_t WTCP_SUBCMD_DIGSCOPE_GET_STATUS = 0x06;
+const uint8_t WTCP_SUBCMD_DIGSCOPE_SET_SAMPLING_AND_TRIGGER = 0x07;
+const uint8_t WTCP_SUBCMD_DIGSCOPE_GET_DIGSCOPE_COUNT = 0x08;
+const uint8_t WTCP_SUBCMD_FLASH_PROGRAMMER_GET_CONFIG = 0x00;
+const uint8_t WTCP_SUBCMD_FLASH_PROGRAMMER_WRITE = 0x01;
+const uint8_t WTCP_SUBCMD_FLASH_PROGRAMMER_READ = 0x02;
+const uint8_t WTCP_SUBCMD_FLASH_PROGRAMMER_CHIP_ERASE = 0x03;
+const uint8_t WTCP_SUBCMD_FLASH_PROGRAMMER_SECTOR_ERASE = 0x04;
+const uint8_t WTCP_SUBCMD_FLASH_PROGRAMMER_GET_STATUS = 0x05;
+const uint8_t WTCP_SUBCMD_FLASH_PROGRAMMER_GET_IMAGE_SETTINGS = 0x06;
+const uint8_t WTCP_SUBCMD_FLASH_PROGRAMMER_DO_CRC32 = 0x07;
+const uint8_t WTCP_SUBCMD_FLASH_PROGRAMMER_RECONFIGURE = 0x08;
+const uint8_t WTCP_SUBCMD_FLASH_PROGRAMMER_INIT = 0x09;
+const uint8_t WTCP_SUBCMD_FLASH_PROGRAMMER_GET_NAME = 0x0A;
+const uint8_t WTCP_SUBCMD_SLAVE_INTERFACE_GET_CONFIG = 0x00;
+const uint8_t WTCP_SUBCMD_SLAVE_READ_REGISTER = 0x01;
+const uint8_t WTCP_SUBCMD_SLAVE_WRITE_REGISTER = 0x02;
+const uint8_t WTCP_SUBCMD_SLAVE_GET_INFO = 0x03;
+const uint8_t WTCP_SUBCMD_SLAVE_GET_INFO_ALL = 0x04;
+const uint8_t WTCP_SUBCMD_FW_FAULT_LOG_IF_GET_NUM_LOGS = 0x00;
+const uint8_t WTCP_SUBCMD_FW_FAULT_LOG_IF_GET_STATUS = 0x01;
+const uint8_t WTCP_SUBCMD_FW_FAULT_LOG_IF_COMMAND = 0x02;
+const uint8_t WTCP_SUBCMD_FW_FAULT_LOG_IF_GET_INFO = 0x03;
+const uint8_t WTCP_SUBCMD_FW_FAULT_LOG_IF_GET_DATA = 0x04;
+const uint8_t WTCP_SUBCMD_LOAD_FPGA_GET_READY = 0x00;
+const uint8_t WTCP_SUBCMD_LOAD_FPGA_GET_BUFFER_AND_EXPECTED_LENGTH = 0x01;
+const uint8_t WTCP_SUBCMD_LOAD_FPGA_SET_IMAGE_LENGTH = 0x02;
+const uint8_t WTCP_SUBCMD_LOAD_FPGA_START_LOAD_PROCESS = 0x03;
+const uint8_t WTCP_SUBCMD_LOAD_FPGA_CHECK_STATUS = 0x04;
+const uint8_t WTCP_SUBCMD_BASIC_FAULT_LOG_IF_SERIALIZE = 0x00;
+const uint8_t WTCP_SUBCMD_BASIC_FAULT_LOG_IF_DATA_AVAILABLE = 0x01;
+const uint8_t WTCP_SUBCMD_BASIC_FAULT_LOG_IF_CLEAR_DATA_AVAILABLE = 0x02;
+const uint8_t WTCP_SUBCMD_BASIC_FAULT_LOG_IF_GET_TRIGGER_TIME = 0x03;
+// ********************************************
+//  Error codes
+// ********************************************
+// General error codes
+const uint8_t WTCP_ERROR_CODE_INVALID_COMMAND = 0x01;
+const uint8_t WTCP_ERROR_CODE_INVALID_SUB_COMMAND = 0x02;
+const uint8_t WTCP_ERROR_CODE_INVALID_REQUEST_SIZE = 0x03;
+const uint8_t WTCP_ERROR_CODE_INVALID_VARIABLE_SIZE = 0x04;
+const uint8_t WTCP_ERROR_CODE_CALLBACK_NOT_INITIALIZED = 0x05;
+const uint8_t WTCP_ERROR_CODE_INVALID_PACKET_LENGTH = 0x06;
+const uint8_t WTCP_ERROR_CODE_UNKNOWN = 0x07;
+const uint8_t WTCP_ERROR_CODE_BUFFER_TOO_SMALL = 0x08;
+// Datalogger error codes
+const uint8_t WTCP_ERROR_CODE_DATALOGGER_INVALID_OBJECT = 0x10;
+const uint8_t WTCP_ERROR_CODE_INVALID_TRIGGER_SIZE = 0x11;
+const uint8_t WTCP_ERROR_DATALOGGER_ERRORCODE_BUFFER_TOO_SMALL = 0x12;
+const uint8_t WTCP_ERROR_DATALOGGER_ERRORCODE_INVALID_PROBE = 0x13;
+const uint8_t WTCP_ERROR_DATALOGGER_ERRORCODE_INVALID_TRIGGER_TYPE = 0x14;
+const uint8_t WTCP_ERROR_CODE_ADD_VARIABLE_FAILED = 0x15;
+// Digital oscilloscope error codes
+const uint8_t WTCP_ERROR_CODE_DIGSCOPE_NOT_AVAILABLE = 0x20;
+const uint8_t WTCP_ERROR_CODE_DIGSCOPE_INVALID_SOURCE = 0x21;
+const uint8_t WTCP_ERROR_CODE_DIGSCOPE_ERROR_INVALID_SIGNAL_ID = 0x22;
+const uint8_t WTCP_ERROR_CODE_DIGSCOPE_ERROR_ADD_SIGNAL_FAILED = 0x23;
+const uint8_t WTCP_ERROR_CODE_DIGSCOPE_ERROR_INVALID_BUFFER_LEN = 0x24;
+const uint8_t WTCP_ERROR_CODE_DIGSCOPE_ERROR_NO_DATA = 0x25;
+const uint8_t WTCP_ERROR_CODE_DIGSCOPE_CONFIGURE_SAMPLING_NA = 0x26;
+const uint8_t WTCP_ERROR_CODE_DIGSCOPE_CONFIGURE_TRIGGER_NA = 0x27;
+const uint8_t WTCP_ERROR_CODE_NO_FLASH_PROGRAMMERS_AVAILABLE = 0x30;
+const uint8_t WTCP_ERROR_CODE_FLASH_OPERATION_FAILED = 0x31;
+const uint8_t WTCP_ERROR_CODE_INVALID_FLASH_PROGRAMMER = 0x32;
+const uint8_t WTCP_ERROR_CODE_NO_SLAVE_INTERFACES_AVAILABLE = 0x40;
+const uint8_t WTCP_ERROR_CODE_INVALID_SLAVE_INTERFACES = 0x41;
+const uint8_t WTCP_ERROR_CODE_SLAVE_METHOD_NOT_IMPLEMENTED = 0x42;
+const uint8_t WTCP_ERROR_CODE_SLAVE_NO_LINK = 0x43;
+const uint8_t WTCP_ERROR_CODE_SLAVE_TIMEOUT = 0x44;
+const uint8_t WTCP_ERROR_CODE_FW_FAULT_LOG_INVALID_INDEX = 0x4A;
+const uint8_t WTCP_ERROR_CODE_FW_FAULT_LOG_NO_INTERFACES = 0x4B;
+// ********** Error Codes END *****************
+const uint8_t WTCP_APPLICATION_TYPE_SW_BOOTLOADER = 0x01; ///< Application running from internal memory and able to load another application
+const uint8_t WTCP_APPLICATION_TYPE_RAM = 0x02; ///< An application that is downloaded after booting the FPGA
+const uint8_t WTCP_APPLICATION_TYPE_FW_BOOTLOADER = 0x03; ///> Bootloader capable of loading firmware. (Programming the configuration flash of FPGAs)
+const uint8_t WTCP_APPLICATION_TYPE_XFW_BOOTLOADER = 0x04; ///> Bootloader capable of loading firmware with extended functionality (Like access to the golden image in a multi boot configuration).
+/// ************************************************************************************************
+/// \class	Wtcp
+///
+/// \brief	The Wartsila Trondheim Communication Protocol implementation.
+/// \details The WTCP protocol is a master slave protocol. The master initiates all communication and the slave only replies to requests from the master.\n 
+///          Packet structure:\n
+///			 All packets consist of a packet header, payload and a checksum. Little endian byte ordering is used for all packets.\n
+///          <b>Request packets</b>\n
+///          The request packet has a packet header of 6 bytes where the first two bytes are used to specify the operation that should be done on the target.
+///          The next two bytes is the 16 bit packet identifier that is used to identify the response or acknowledge packet from the target.
+///          The last two bytes in the packet header is the length of the data part of the packet.\n
+///          <TABLE border="1" cellspacing="0">
+///			 <TR> <TD> Byte Index </TD> <TD> Content </TD> </TR>
+///          <TR> <TD> 0 </TD> <TD> Command  Group </TD> </TR>
+///			 <TR> <TD> 1 </TD> <TD> Command </TD> </TR>
+///			 <TR> <TD> 2->3 </TD> <TD> Packet ID </TD></TR>
+///          <TR> <TD> 4->5 </TD> <TD> Payload Length </TD></TR>
+///			 <TR> <TD> 6 -> (6 + Payload Length - 1) </TD> <TD> Payload </TD> </TR>
+///			 <TR> <TD> 6 + Payload Length -> 7 + Payload Length </TD><TD> CRC16</TD> </TR>
+///			 </TABLE>
+///
+///          <b>Response packets</b>\n
+///          The response packet is sent from the target to the host on completion of the requested operation. The response packets header is equal to the request packet with two exceptions:
+///          - The packet data length field is equal to the length of the data part of the response packet
+///          - The response packet header is 7 bytes where the last byte is an error code\n
+///          <TABLE border="1" cellspacing="0">
+///			 <TR> <TD> Byte Index </TD> <TD> Content </TD> </TR>
+///          <TR> <TD> 0 </TD> <TD> Command  Group </TD> </TR>
+///			 <TR> <TD> 1 </TD> <TD> Command </TD> </TR>
+///			 <TR> <TD> 2->3 </TD> <TD> Packet ID </TD></TR>
+///          <TR> <TD> 4->5 </TD> <TD> Payload Length </TD></TR>
+///			 <TR> <TD> 6 </TD> <TD> Error Code </TD></TR>
+///			 <TR> <TD> 7 -> (7 + Payload Length - 1) </TD> <TD> Payload </TD> </TR>
+///			 <TR> <TD> 7 + Payload Length -> 8 + Payload Length </TD><TD> CRC16</TD> </TR>
+///			 </TABLE>
+///
+/// \author	William Gullvik
+/// \date	27.3.2015
+/// *************************************************************************************************
+class Wtcp
+{
+public: //Functions
+ Wtcp();
+ ~Wtcp(){};
+ void Init();
+ void Service();
+ inline void SetReceiveCallback(uint16_t (*receivePacket)(uint8_t** ppPacket,uint32_t* identifier)) { m_pfnReceivePacket = receivePacket; } ///< \brief Used to set the receive callback. The receive callback is used by WTCP to check for new packets.
+ inline void SetTransmitCallback(void (*transmitPacket)(uint8_t* ppPacket,uint16_t size,uint32_t identifier)) { m_pfnTransmitPacket = transmitPacket; } ///< \brief Used to set the transmit callback. The transmit callback is used by WTCP to send responses to received requests.
+ inline void SetReleasePacketCallback(void (*releasePacket)(uint32_t identifier)) { m_pfnReleasePacket = releasePacket;} ///< \brief Used to set the release packet callback. The release packet callback is used by WTCP to send remove packets from the input buffer after they have been processed.
+ inline void SetResetProcessorCallback(void (*resetProcessor)()) { m_pfnResetProcessor = resetProcessor;} ///< \brief Used to set the reset processor callback. The reset processor callback is used by WTCP to reset the processor (usually as part of loading new software)
+ inline void SetHardResetCallback(void (*hardreset)()) { m_pfnHardReset = hardreset;} ///< \brief Sets the hard reset callback. This performs a full hardware reset of the device. This may not always be possible for all devices.
+ inline void SetResetWatchdogTimerCallback( void( *pfnResetWatchdogTimer )( uint32_t) ) { m_pfnResetWatchdogTimer = pfnResetWatchdogTimer; } ///< \brief Sets the reset watchdog callback function.
+ inline void AddDataloggers(Datalogger* pDataloggerArray,uint32_t noDataloggers) { m_pDataloggers = pDataloggerArray; m_nDataloggers = noDataloggers; } ///< \brief Add an array of data loggers to WTCP. \param pDataloggerArray Array of data loggers. \param noDataloggers The number of data loggers in the array.
+ inline void SetGetEventsCallback(uint16_t (*pfnGetEvents)(uint8_t* pTxBuffer,uint32_t MaxBufferLength)) { m_pfnGetEvents = pfnGetEvents;} ///< \brief Used to initialize the callback function used to retrieve events from the user application.
+ inline void SetClearFaultsCallback(uint8_t (*pfnClearFaults)(void)) { m_pfnClearFaults = pfnClearFaults;} ///< \brief Initializes the callback function used to clear fault events in the user application
+ inline void SetClearAlarmsCallback(uint8_t (*pfnClearAlarms)(void)) { m_pfnClearAlarms = pfnClearAlarms;} ///< \brief Initializes the callback function used to clear alarm events in the user application
+ inline void SetGetEventFlagsCallback(uint16_t (*pfnGetEventFlags)(void)) { m_pfnGetEventFlags = pfnGetEventFlags;} ///< \brief Used to initialize the callback function used to retrieve active event flags from the user application. These flags are the active limit, active alarm and active fault flags.
+ inline void SetEnableEventMonitoringCallback( void( *pfnEnableEventMonitoring )( bool ) ) { m_pfnEnableEventMonitoring = pfnEnableEventMonitoring; } ///< \brief Initialize callback function used to request the user application to enable event monitoring.
+ inline void SetGetEventsActiveFaultWordsMask( uint16_t( *pfnGetActiveFaultsWord )( void ) ) { m_pfnGetEventsActiveFaultWordsMask = pfnGetActiveFaultsWord; }
+ inline void SetSetTimeOffsetCallback(void (*pfnSetTimeOffset)(const uint64_t& offset)) { m_pfnSetTimeOffset = pfnSetTimeOffset; } ///< \brief Initializes callback function used to set the initial time offset in the user application.
+ inline void SetSynchronizeTimeCallback(void (*pfnSynchronizeTime)(const uint64_t& currentTime)) { m_pfnSynchronizeTime = pfnSynchronizeTime; } ///< \brief Initializes clock synchronization callback.
+ inline void SetApplicationIdentifier(uint32_t appId) { m_applicationIdentifier = appId;} ///< Set the application identifier property.
+ inline void SetApplicationVersionNumber(uint32_t appVer) { m_applicationVersionNumber = appVer;} ///< Set the application version number property	
+ inline void SetApplicationBuildNumber(uint32_t buildNum) { m_applicationBuildNumber = buildNum;} ///< Set the application build number property	
+ inline void SetFirmwareIdentifierStr(const char* pStr) { m_pFirmwareIdentifierStr = pStr;}
+ inline void SetFirmwareVersion(uint32_t version) { m_firmwareVersionNumber = version;}
+ inline void SetFirmwareBuildnumber(uint32_t buildNum) { m_firmwareBuildNumber = buildNum;}
+ inline void SetHardwareIdentifierStr(const char* pStr) { m_pHardwareIdentifierStr = pStr;}
+ inline void SetHardwareVersionStr(const char* pStr) { m_pHardwareVersionNumberStr = pStr;}
+ inline void SetHardwareSerialNumberStr(const char* pStr) { m_pHardwareSerialNumberStr = pStr;}
+ inline void SetBuffers(uint8_t* pTxBuf,uint32_t nTxBufSize,uint32_t nMaxRxSize) { m_pTxBuf = pTxBuf;m_nTransmitBufferSize = nTxBufSize; m_nMaxReceiveBufferSize = nMaxRxSize;} ///< Initialize pointer to the transmit buffer and specify the receive and transmit buffer size. \param pTxBuf A pointer to the transmit buffer. \param nTxBufSize The size of the transmit buffer. \param nMaxRxSize The maximum size of the receive buffer.
+ inline void AddFlashProgrammers(FlashProgrammer* pArrayOfFlashProgrammers, uint8_t noProgrammersInArray) { m_pFlashProgrammers = pArrayOfFlashProgrammers; m_nFlashProgrammers = noProgrammersInArray;}
+ inline void SetSlaveInterface( WtcpSlaveInterface** ppSlaves, uint8_t numSlaves) { m_ppSlaveInterfaces = ppSlaves; m_nSlaveInterfaces = numSlaves;}
+ inline void SetBasicFaultLogIf(WtcpBasicFaultLogIf* pFaultLogIf) { m_pBasicFaultLogIf = pFaultLogIf; }
+ void SetRunInhibitCommandHandler(void(*handler)(bool inhibit_enable))
+ {
+  m_pfnHandleRunInhibit = handler;
+ }
+private: //Functions
+ void Decode(const uint8_t* const pPacket,const uint16_t packetSize,uint32_t identifier);
+ bool SanityCheck(const uint8_t* const pPacket,const uint16_t packetSize);
+ uint16_t GetPacketDataLength(const uint8_t* const pPacket) const;
+ uint16_t GetPacketChecksum(const uint8_t* const pPacket,const uint16_t packetSize) const;
+ void SetPacketLength(uint8_t* pPacket,const uint16_t length);
+ uint8_t PutVariables(const uint8_t* const pRx) const; //Write to variables
+ uint8_t GetVersion(const uint8_t* const pRx,uint8_t* const pTxData,uint16_t* const pnBytesWritten) const; //returns an error code
+ uint8_t GetMemoryBlock(const uint8_t* const pRx,uint8_t* const pTxData,uint16_t* const pnBytesWritten) const; //Reads a block of memory into the transmit buffer. The read is done in 8,16,32 bit chunks depending on the sub command
+ uint8_t PutMemoryBlock(const uint8_t* const pRx) const; //Write a block of memory
+ uint8_t SetMemory(const uint8_t* const pRx) const;
+ uint8_t RunFunction(const uint8_t* const pRx) const;
+ uint8_t DoChecksum(const uint8_t* const pRx,uint8_t* const pTxData,uint16_t* const pnBytesWritten) const;
+ uint8_t GetVariables(const uint8_t* const pRx,uint8_t* const pTxData,uint16_t* const pnBytesWritten) const;
+ uint8_t WriteReadVariables(const uint8_t* const pRx,uint8_t* const pTxData,uint16_t* const pnBytesWritten) const;
+ uint8_t Reset(const uint8_t* const pRx) const;
+ uint8_t Ping( const uint8_t* const pRx ) const;
+ uint8_t GetEvents(const uint8_t* const pRx,uint8_t* const pTxData,uint16_t* const pnBytesWritten) const;
+ uint8_t DecodeDatalogger(const uint8_t* const pRx,uint8_t* const pTxData,uint16_t* const pnBytesWritten) const;
+ uint8_t DecodeTimeCommands(const uint8_t* const pRx,uint8_t* const pTxData,uint16_t* const pnBytesWritten) const;
+ uint8_t DecodeSlaveInterfaceCommands(const uint8_t* const pRx,uint8_t* const pTxData,uint16_t* const pnBytesWritten) const;
+ uint8_t DecodeFlashProgrammerCommands(const uint8_t* const pRx,uint8_t* const pTxData,uint16_t* const pnBytesWritten) const;
+ uint8_t DecodeBasicFaultLogIf(const uint8_t* const pRx, uint8_t* const pTxData, uint16_t* const pnBytesWritten) const;
+private: //Variables
+ uint16_t (*m_pfnReceivePacket)(uint8_t** ppPacket, uint32_t* identifier); ///< A pointer to a function that receives packets.
+ void (*m_pfnTransmitPacket)(uint8_t* ppPacket,uint16_t size, uint32_t identifier); ///< A pointer to a function that transmits packets.
+ void (*m_pfnReleasePacket)(uint32_t identifier); ///< A pointer to a function that releases received packets from the buffer
+ void (*m_pfnResetProcessor)(); ///< A pointer to a function that is able to reset the processor.
+ void (*m_pfnHardReset)(); ///< A pointer to a function able to perform a hard reset (reset CPU and peripherals and reload firmware)
+ void (*m_pfnResetWatchdogTimer )( uint32_t timeout_ms ); ///< A pointer to a function that resets a watchdog timer to the specified timeout. The usage of this function is user specific but can be used for display timeouts etc.
+ uint16_t (*m_pfnGetEvents)(uint8_t* pTxBuffer,uint32_t MaxBufferLength); ///< A pointer to a function that serializes events into the transmit buffer
+ uint8_t (*m_pfnClearFaults)(void); ///< A pointer to a function that clears active faults.
+ uint8_t (*m_pfnClearAlarms)(void); ///< A pointer to a function that clears active alarms.
+ uint16_t (*m_pfnGetEventFlags)(void); ///< A pointer to a function that reads event flags from the application.
+ void ( *m_pfnEnableEventMonitoring )( bool bEnable ); ///< A pointer to a function that enables or disables event monitoring in the application software.
+ uint16_t( *m_pfnGetEventsActiveFaultWordsMask ) ( void );
+ Datalogger* m_pDataloggers; ///< A pointer to an array of dataloggers.
+ uint32_t m_nDataloggers; ///< The number of dataloggers that are available.
+ void (*m_pfnSetTimeOffset)(const uint64_t& offset); ///< A pointer to a function that sets the current time offset
+ void (*m_pfnSynchronizeTime)(const uint64_t& currentTime); ///< A pointer to a function in the application that is used to synchronize clocks.
+ WtcpSlaveInterface** m_ppSlaveInterfaces; ///< Array of pointers to slaves
+ uint8_t m_nSlaveInterfaces; ///< Number of slaves in m_ppSlaveInterfaces
+ WtcpBasicFaultLogIf* m_pBasicFaultLogIf; ///< A pointer to the Basic Fault Log interface
+ void(*m_pfnHandleRunInhibit)(bool inhibit_enable);
+ FlashProgrammer* m_pFlashProgrammers; ///< A pointer to an array of flash programmers. The m_nFlashProgrammers variable is used to indicate the number of flash programmers in the array
+ uint32_t m_applicationIdentifier; ///< The application id number
+ uint32_t m_applicationVersionNumber; ///< The application version number
+ uint32_t m_applicationBuildNumber; ///< The application build number
+ const char* m_pFirmwareIdentifierStr; ///< A pointer to Null terminated string containing the firmware identifier string ( if applicable, else 0 )
+ uint32_t m_firmwareVersionNumber; ///< Firmware build number ( if applicable, else 0 )
+ uint32_t m_firmwareBuildNumber; ///< Firmware build number ( if applicable, else 0 )
+ const char* m_pHardwareIdentifierStr; ///< A pointer to Null terminated string containing the hardware identifier.
+ const char* m_pHardwareVersionNumberStr; ///< A pointer to Null terminated string containing the hardware version number.
+ const char* m_pHardwareSerialNumberStr; ///< A pointer to Null terminated string containing the hardware serial number.
+ uint32_t rx_cnt; ///< The number of received packets.
+ uint32_t tx_cnt; ///< The number of transmitted packets.
+ uint32_t rx_failed; ///< The number of invalid packets that have been received.
+ uint32_t rx_packet_len_error; ///< Number of packet length errors in received packets.
+ uint32_t rx_packet_chksum_error; ///< Number of checksum errors in received packets.
+ uint8_t* m_pTxBuf; ///< A pointer to the transmit buffer.
+ uint16_t m_nTransmitBufferSize; ///< The size in bytes of the transmit buffer
+ uint16_t m_nMaxReceiveBufferSize; ///< The size of the receive buffer
+ uint8_t m_nFlashProgrammers; ///< Number of flash programmers in the m_pFlashProgrammers array.
+};
+#endif
