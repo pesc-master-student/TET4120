@@ -2,12 +2,15 @@
 <?scdStore version="2"?><scannerInfo id="org.eclipse.cdt.make.core.discoveredScannerInfo">
 <instance id="xilinx.gnu.armv7.exe.debug.945921969;xilinx.gnu.armv7.exe.debug.945921969.">
 <collector id="org.eclipse.cdt.make.core.PerProjectSICollector">
+<includePath path="c:\xilinx\sdk\2019.1\gnu\aarch32\nt\gcc-arm-none-eabi\bin\../lib/gcc/arm-none-eabi/8.2.0/../../../../arm-none-eabi/include/c++/8.2.0"/>
+<includePath path="c:\xilinx\sdk\2019.1\gnu\aarch32\nt\gcc-arm-none-eabi\bin\../lib/gcc/arm-none-eabi/8.2.0/../../../../arm-none-eabi/include/c++/8.2.0/arm-none-eabi"/>
+<includePath path="c:\xilinx\sdk\2019.1\gnu\aarch32\nt\gcc-arm-none-eabi\bin\../lib/gcc/arm-none-eabi/8.2.0/../../../../arm-none-eabi/include/c++/8.2.0/backward"/>
 <includePath path="c:\xilinx\sdk\2019.1\gnu\aarch32\nt\gcc-arm-none-eabi\bin\../lib/gcc/arm-none-eabi/8.2.0/include"/>
 <includePath path="c:\xilinx\sdk\2019.1\gnu\aarch32\nt\gcc-arm-none-eabi\bin\../lib/gcc/arm-none-eabi/8.2.0/include-fixed"/>
 <includePath path="c:\xilinx\sdk\2019.1\gnu\aarch32\nt\gcc-arm-none-eabi\bin\../lib/gcc/arm-none-eabi/8.2.0/../../../../arm-none-eabi/include"/>
 <includePath path="c:\xilinx\sdk\2019.1\gnu\aarch32\nt\gcc-arm-none-eabi\bin\../arm-none-eabi/libc/usr/include"/>
 <definedSymbol symbol="__STDC__=1"/>
-<definedSymbol symbol="__STDC_VERSION__=201710L"/>
+<definedSymbol symbol="__cplusplus=201402L"/>
 <definedSymbol symbol="__STDC_UTF_16__=1"/>
 <definedSymbol symbol="__STDC_UTF_32__=1"/>
 <definedSymbol symbol="__STDC_HOSTED__=1"/>
@@ -38,6 +41,7 @@
 <definedSymbol symbol="__BYTE_ORDER__=__ORDER_LITTLE_ENDIAN__"/>
 <definedSymbol symbol="__FLOAT_WORD_ORDER__=__ORDER_LITTLE_ENDIAN__"/>
 <definedSymbol symbol="__SIZEOF_POINTER__=4"/>
+<definedSymbol symbol="__GNUG__=8"/>
 <definedSymbol symbol="__SIZE_TYPE__=unsigned int"/>
 <definedSymbol symbol="__PTRDIFF_TYPE__=int"/>
 <definedSymbol symbol="__WCHAR_TYPE__=unsigned int"/>
@@ -75,6 +79,44 @@
 <definedSymbol symbol="__UINTPTR_TYPE__=unsigned int"/>
 <definedSymbol symbol="__has_include(STR)=__has_include__(STR)"/>
 <definedSymbol symbol="__has_include_next(STR)=__has_include_next__(STR)"/>
+<definedSymbol symbol="__GXX_WEAK__=1"/>
+<definedSymbol symbol="__DEPRECATED=1"/>
+<definedSymbol symbol="__GXX_RTTI=1"/>
+<definedSymbol symbol="__cpp_rtti=199711"/>
+<definedSymbol symbol="__GXX_EXPERIMENTAL_CXX0X__=1"/>
+<definedSymbol symbol="__cpp_binary_literals=201304"/>
+<definedSymbol symbol="__cpp_hex_float=201603"/>
+<definedSymbol symbol="__cpp_runtime_arrays=198712"/>
+<definedSymbol symbol="__cpp_unicode_characters=200704"/>
+<definedSymbol symbol="__cpp_raw_strings=200710"/>
+<definedSymbol symbol="__cpp_unicode_literals=200710"/>
+<definedSymbol symbol="__cpp_user_defined_literals=200809"/>
+<definedSymbol symbol="__cpp_lambdas=200907"/>
+<definedSymbol symbol="__cpp_range_based_for=200907"/>
+<definedSymbol symbol="__cpp_static_assert=200410"/>
+<definedSymbol symbol="__cpp_decltype=200707"/>
+<definedSymbol symbol="__cpp_attributes=200809"/>
+<definedSymbol symbol="__cpp_rvalue_reference=200610"/>
+<definedSymbol symbol="__cpp_rvalue_references=200610"/>
+<definedSymbol symbol="__cpp_variadic_templates=200704"/>
+<definedSymbol symbol="__cpp_initializer_lists=200806"/>
+<definedSymbol symbol="__cpp_delegating_constructors=200604"/>
+<definedSymbol symbol="__cpp_nsdmi=200809"/>
+<definedSymbol symbol="__cpp_inheriting_constructors=201511"/>
+<definedSymbol symbol="__cpp_ref_qualifiers=200710"/>
+<definedSymbol symbol="__cpp_alias_templates=200704"/>
+<definedSymbol symbol="__cpp_return_type_deduction=201304"/>
+<definedSymbol symbol="__cpp_init_captures=201304"/>
+<definedSymbol symbol="__cpp_generic_lambdas=201304"/>
+<definedSymbol symbol="__cpp_constexpr=201304"/>
+<definedSymbol symbol="__cpp_decltype_auto=201304"/>
+<definedSymbol symbol="__cpp_aggregate_nsdmi=201304"/>
+<definedSymbol symbol="__cpp_variable_templates=201304"/>
+<definedSymbol symbol="__cpp_digit_separators=201309"/>
+<definedSymbol symbol="__cpp_sized_deallocation=201309"/>
+<definedSymbol symbol="__cpp_threadsafe_static_init=200806"/>
+<definedSymbol symbol="__EXCEPTIONS=1"/>
+<definedSymbol symbol="__cpp_exceptions=199711"/>
 <definedSymbol symbol="__GXX_ABI_VERSION=1013"/>
 <definedSymbol symbol="__SCHAR_MAX__=0x7f"/>
 <definedSymbol symbol="__SHRT_MAX__=0x7fff"/>
@@ -174,10 +216,10 @@
 <definedSymbol symbol="__DBL_MAX_EXP__=1024"/>
 <definedSymbol symbol="__DBL_MAX_10_EXP__=308"/>
 <definedSymbol symbol="__DBL_DECIMAL_DIG__=17"/>
-<definedSymbol symbol="__DBL_MAX__=((double)1.7976931348623157e+308L)"/>
-<definedSymbol symbol="__DBL_MIN__=((double)2.2250738585072014e-308L)"/>
-<definedSymbol symbol="__DBL_EPSILON__=((double)2.2204460492503131e-16L)"/>
-<definedSymbol symbol="__DBL_DENORM_MIN__=((double)4.9406564584124654e-324L)"/>
+<definedSymbol symbol="__DBL_MAX__=double(1.7976931348623157e+308L)"/>
+<definedSymbol symbol="__DBL_MIN__=double(2.2250738585072014e-308L)"/>
+<definedSymbol symbol="__DBL_EPSILON__=double(2.2204460492503131e-16L)"/>
+<definedSymbol symbol="__DBL_DENORM_MIN__=double(4.9406564584124654e-324L)"/>
 <definedSymbol symbol="__DBL_HAS_DENORM__=1"/>
 <definedSymbol symbol="__DBL_HAS_INFINITY__=1"/>
 <definedSymbol symbol="__DBL_HAS_QUIET_NAN__=1"/>
@@ -380,6 +422,7 @@
 <definedSymbol symbol="__GNUC_STDC_INLINE__=1"/>
 <definedSymbol symbol="__NO_INLINE__=1"/>
 <definedSymbol symbol="__CHAR_UNSIGNED__=1"/>
+<definedSymbol symbol="__WCHAR_UNSIGNED__=1"/>
 <definedSymbol symbol="__GCC_ATOMIC_BOOL_LOCK_FREE=1"/>
 <definedSymbol symbol="__GCC_ATOMIC_CHAR_LOCK_FREE=1"/>
 <definedSymbol symbol="__GCC_ATOMIC_CHAR16_T_LOCK_FREE=1"/>
@@ -418,16 +461,15 @@
 </instance>
 <instance id="xilinx.gnu.armv7.exe.release.1036980622;xilinx.gnu.armv7.exe.release.1036980622.">
 <collector id="org.eclipse.cdt.make.core.PerProjectSICollector">
+<includePath path="c:\xilinx\sdk\2019.1\gnu\aarch32\nt\gcc-arm-none-eabi\bin\../lib/gcc/arm-none-eabi/8.2.0/../../../../arm-none-eabi/include/c++/8.2.0"/>
+<includePath path="c:\xilinx\sdk\2019.1\gnu\aarch32\nt\gcc-arm-none-eabi\bin\../lib/gcc/arm-none-eabi/8.2.0/../../../../arm-none-eabi/include/c++/8.2.0/arm-none-eabi"/>
+<includePath path="c:\xilinx\sdk\2019.1\gnu\aarch32\nt\gcc-arm-none-eabi\bin\../lib/gcc/arm-none-eabi/8.2.0/../../../../arm-none-eabi/include/c++/8.2.0/backward"/>
 <includePath path="c:\xilinx\sdk\2019.1\gnu\aarch32\nt\gcc-arm-none-eabi\bin\../lib/gcc/arm-none-eabi/8.2.0/include"/>
-<includePath path="#undef __ARM_FEATURE_DSP" removed="true"/>
 <includePath path="c:\xilinx\sdk\2019.1\gnu\aarch32\nt\gcc-arm-none-eabi\bin\../lib/gcc/arm-none-eabi/8.2.0/include-fixed"/>
-<includePath path="#undef __ARM_FEATURE_QBIT" removed="true"/>
 <includePath path="c:\xilinx\sdk\2019.1\gnu\aarch32\nt\gcc-arm-none-eabi\bin\../lib/gcc/arm-none-eabi/8.2.0/../../../../arm-none-eabi/include"/>
-<includePath path="#undef __ARM_FEATURE_SAT" removed="true"/>
 <includePath path="c:\xilinx\sdk\2019.1\gnu\aarch32\nt\gcc-arm-none-eabi\bin\../arm-none-eabi/libc/usr/include"/>
-<includePath path="#undef __ARM_FEATURE_CRYPTO" removed="true"/>
 <definedSymbol symbol="__STDC__=1"/>
-<definedSymbol symbol="__STDC_VERSION__=201710L"/>
+<definedSymbol symbol="__cplusplus=201402L"/>
 <definedSymbol symbol="__STDC_UTF_16__=1"/>
 <definedSymbol symbol="__STDC_UTF_32__=1"/>
 <definedSymbol symbol="__STDC_HOSTED__=1"/>
@@ -458,6 +500,7 @@
 <definedSymbol symbol="__BYTE_ORDER__=__ORDER_LITTLE_ENDIAN__"/>
 <definedSymbol symbol="__FLOAT_WORD_ORDER__=__ORDER_LITTLE_ENDIAN__"/>
 <definedSymbol symbol="__SIZEOF_POINTER__=4"/>
+<definedSymbol symbol="__GNUG__=8"/>
 <definedSymbol symbol="__SIZE_TYPE__=unsigned int"/>
 <definedSymbol symbol="__PTRDIFF_TYPE__=int"/>
 <definedSymbol symbol="__WCHAR_TYPE__=unsigned int"/>
@@ -495,6 +538,44 @@
 <definedSymbol symbol="__UINTPTR_TYPE__=unsigned int"/>
 <definedSymbol symbol="__has_include(STR)=__has_include__(STR)"/>
 <definedSymbol symbol="__has_include_next(STR)=__has_include_next__(STR)"/>
+<definedSymbol symbol="__GXX_WEAK__=1"/>
+<definedSymbol symbol="__DEPRECATED=1"/>
+<definedSymbol symbol="__GXX_RTTI=1"/>
+<definedSymbol symbol="__cpp_rtti=199711"/>
+<definedSymbol symbol="__GXX_EXPERIMENTAL_CXX0X__=1"/>
+<definedSymbol symbol="__cpp_binary_literals=201304"/>
+<definedSymbol symbol="__cpp_hex_float=201603"/>
+<definedSymbol symbol="__cpp_runtime_arrays=198712"/>
+<definedSymbol symbol="__cpp_unicode_characters=200704"/>
+<definedSymbol symbol="__cpp_raw_strings=200710"/>
+<definedSymbol symbol="__cpp_unicode_literals=200710"/>
+<definedSymbol symbol="__cpp_user_defined_literals=200809"/>
+<definedSymbol symbol="__cpp_lambdas=200907"/>
+<definedSymbol symbol="__cpp_range_based_for=200907"/>
+<definedSymbol symbol="__cpp_static_assert=200410"/>
+<definedSymbol symbol="__cpp_decltype=200707"/>
+<definedSymbol symbol="__cpp_attributes=200809"/>
+<definedSymbol symbol="__cpp_rvalue_reference=200610"/>
+<definedSymbol symbol="__cpp_rvalue_references=200610"/>
+<definedSymbol symbol="__cpp_variadic_templates=200704"/>
+<definedSymbol symbol="__cpp_initializer_lists=200806"/>
+<definedSymbol symbol="__cpp_delegating_constructors=200604"/>
+<definedSymbol symbol="__cpp_nsdmi=200809"/>
+<definedSymbol symbol="__cpp_inheriting_constructors=201511"/>
+<definedSymbol symbol="__cpp_ref_qualifiers=200710"/>
+<definedSymbol symbol="__cpp_alias_templates=200704"/>
+<definedSymbol symbol="__cpp_return_type_deduction=201304"/>
+<definedSymbol symbol="__cpp_init_captures=201304"/>
+<definedSymbol symbol="__cpp_generic_lambdas=201304"/>
+<definedSymbol symbol="__cpp_constexpr=201304"/>
+<definedSymbol symbol="__cpp_decltype_auto=201304"/>
+<definedSymbol symbol="__cpp_aggregate_nsdmi=201304"/>
+<definedSymbol symbol="__cpp_variable_templates=201304"/>
+<definedSymbol symbol="__cpp_digit_separators=201309"/>
+<definedSymbol symbol="__cpp_sized_deallocation=201309"/>
+<definedSymbol symbol="__cpp_threadsafe_static_init=200806"/>
+<definedSymbol symbol="__EXCEPTIONS=1"/>
+<definedSymbol symbol="__cpp_exceptions=199711"/>
 <definedSymbol symbol="__GXX_ABI_VERSION=1013"/>
 <definedSymbol symbol="__SCHAR_MAX__=0x7f"/>
 <definedSymbol symbol="__SHRT_MAX__=0x7fff"/>
@@ -594,10 +675,10 @@
 <definedSymbol symbol="__DBL_MAX_EXP__=1024"/>
 <definedSymbol symbol="__DBL_MAX_10_EXP__=308"/>
 <definedSymbol symbol="__DBL_DECIMAL_DIG__=17"/>
-<definedSymbol symbol="__DBL_MAX__=((double)1.7976931348623157e+308L)"/>
-<definedSymbol symbol="__DBL_MIN__=((double)2.2250738585072014e-308L)"/>
-<definedSymbol symbol="__DBL_EPSILON__=((double)2.2204460492503131e-16L)"/>
-<definedSymbol symbol="__DBL_DENORM_MIN__=((double)4.9406564584124654e-324L)"/>
+<definedSymbol symbol="__DBL_MAX__=double(1.7976931348623157e+308L)"/>
+<definedSymbol symbol="__DBL_MIN__=double(2.2250738585072014e-308L)"/>
+<definedSymbol symbol="__DBL_EPSILON__=double(2.2204460492503131e-16L)"/>
+<definedSymbol symbol="__DBL_DENORM_MIN__=double(4.9406564584124654e-324L)"/>
 <definedSymbol symbol="__DBL_HAS_DENORM__=1"/>
 <definedSymbol symbol="__DBL_HAS_INFINITY__=1"/>
 <definedSymbol symbol="__DBL_HAS_QUIET_NAN__=1"/>
@@ -800,6 +881,7 @@
 <definedSymbol symbol="__GNUC_STDC_INLINE__=1"/>
 <definedSymbol symbol="__NO_INLINE__=1"/>
 <definedSymbol symbol="__CHAR_UNSIGNED__=1"/>
+<definedSymbol symbol="__WCHAR_UNSIGNED__=1"/>
 <definedSymbol symbol="__GCC_ATOMIC_BOOL_LOCK_FREE=1"/>
 <definedSymbol symbol="__GCC_ATOMIC_CHAR_LOCK_FREE=1"/>
 <definedSymbol symbol="__GCC_ATOMIC_CHAR16_T_LOCK_FREE=1"/>

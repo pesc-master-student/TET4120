@@ -1,4 +1,4 @@
-11:51:35 **** Auto Build of project L2_Ph3_L2_Ph3_DC_bsp ****
+09:32:10 **** Build of project L2_Ph3_L2_Ph3_DC_bsp ****
 make -k all 
 "Running Make include in ps7_cortexa9_1/libsrc/ad_converter_serial_receiver_v1_00_a/src"
 make -C ps7_cortexa9_1/libsrc/ad_converter_serial_receiver_v1_00_a/src -s include  "SHELL=CMD" "COMPILER=arm-none-eabi-gcc" "ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DUSE_AMP=1 -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"
@@ -662,5 +662,5 @@ make -C ps7_cortexa9_1/libsrc/xadcps_v2_3/src -s libs  "SHELL=CMD" "COMPILER=arm
 "Compiling xadcps"
 'Finished building libraries'
 
-11:52:14 Build Finished (took 38s.515ms)
+09:32:49 Build Finished (took 38s.780ms)
 

@@ -1,4 +1,3 @@
-activeuserprofiles=NTNU13875;Team
+activeuserprofiles=NTNU25373;Team
 eclipse.preferences.version=1
-org.eclipse.rse.systemtype.local.systemType.defaultUserId=lokaladm_thohau
-useridperkey=NTNU13875.Local\=lokaladm_thohau;
+org.eclipse.rse.systemtype.local.systemType.defaultUserId=lokaladm_lab
